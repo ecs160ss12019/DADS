@@ -11,4 +11,4 @@ You are the Davis Aerial Defense System (DADS),  your job is to protect Davis an
 5) As a game developer, I want to make my game aesthetically pleasing.
 
 Epic Stories and Sprints in a Chart:
-https://imgur.com/a/Y5hMgPt
+![picture](https://imgur.com/a/Y5hMgPt)
