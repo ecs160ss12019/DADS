@@ -9,3 +9,6 @@ You are the Davis Aerial Defense System (DADS),  your job is to protect Davis an
 3) As the DADS, I want to get help from some of the powerups that are dropping from the sky to help me protect Davis and the cows. 
 4) As the DADS, I want to conserve my limited supply of missiles
 5) As a game developer, I want to make my game aesthetically pleasing.
+
+Epic Stories and Sprints in a Chart:
+https://imgur.com/a/Y5hMgPt
