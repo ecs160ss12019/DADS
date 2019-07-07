@@ -1,6 +1,8 @@
-# DADS
-Team DADS - Missile Command
+# DADS - Missle Command
 
-We are building a custom dope version of Missile Command. With many KOOOOOOL features.
+Team DADs (Davis Artillery Defense System) will create their own version of the classic game “Missile Command” which was originally released for the Atari 2600 in 1981. Our team consists of four members: Jack Abukhovski, a fourth-year CS major. He enjoys playing Counter-Strike and soccer. Shayan Mandegarian, a fourth-year CS major. He enjoys drinking boba and driving. John Park, a fifth-year CS major. He enjoys summer school at Davis because the town is empty. Jack Retterer, a fourth-year CSE major. He enjoys throwing rocks at the moon.
 
-Jack AbuKOVSKI or whatever is a bot. He never sprints.
+In the game Hornets from the Cal State Sacramento fly over to Davis to kill and destroy the cows and important landmarks of Davis. The soldiers manning DADs shoot missiles from ground-level before the Hornets can destroy the town. 
+The Hornets shoot their stingers (which explode upon impact) in a straight-line trajectory. DADs missiles also fire in a straight line and explode at the coordinates given. The point is to engulf the Hornets’ stinger in the radius of the explosion.
+There are six major cows/landmarks and if the Hornets successfully destroy all of them Davis is finished. If DADs successfully wards off a wave of Hornets, the structures are rebuilt and the missiles are replenished.
+With each wave there are more Hornets and more their stingers travel with higher velocity.
