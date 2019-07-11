@@ -14,5 +14,8 @@ With each wave there are more Hornets and their stingers travel with higher velo
 ### StoryMapping.md
 https://github.com/ecs160ss12019/DADS/blob/master/StoryMapping.md
 
-### CRC_Cards.md
-https://github.com/ecs160ss12019/DADS/blob/master/CRC_Cards.md
+### CRC Cards.pdf
+https://github.com/ecs160ss12019/DADS/blob/master/CRC%20Cards.pdf
+
+### AcceptanceCriteria.md
+https://github.com/ecs160ss12019/DADS/blob/master/AcceptanceCriteria.md
