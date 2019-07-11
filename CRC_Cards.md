@@ -89,4 +89,97 @@ Explanation:
 
 Base.java is the class that handles the player’s DADS base. The main job of Base is to create instances of Missiles that head towards the spot where the player presses the screen, and keep track of how many Missiles they have left. It also draws itself and stores its own coordinates.
 
+# Cow.java
+
+Variables:
+
+* xPosition
+* yPosition
+* isAlive
+* Cow Image
+
+Methods:
+
+* getPosition()
+* kill()
+* revive()
+* draw()
+* moo()
+
+Interacts with:
+
+None (other classes interact with Hornet, but not visa versa)
+
+Explanation:
+
+Hornet.java is the class that tracks the cows that the DADS must defend! The class is very simple, as the cows only have to keep track of their position, whether they have been destroyed or not, the ability to destroy them and the ability to revive them after reaching a score threshold. Also, if the player taps on them, we plan on making them moo, time allowing.
+
+# Building.java
+
+Variables:
+
+* xPosition
+* yPosition
+* isAlive
+* Building Image
+
+Methods:
+
+* getPosition()
+* kill()
+* revive()
+* draw()
+
+Interacts with:
+
+None (other classes interact with Hornet, but not visa versa)
+
+Explanation:
+
+Hornet.java is the class that tracks the Davis buildings that the DADS must defend! It is essentially the same as Cow.java, but with a different image and it cannot moo().
+
+# Powerup.java
+
+Variables:
+
+* Image img
+* xPosition
+* yPosition
+* yVelocity
+* String powerUpType
+
+Methods:
+
+* getPosition()
+* kill()
+* draw()
+* addMissiles
+
+Interacts with:
+
+Base.java to call its addAmmo() function.
+
+Explanation:
+
+Base.java is the class that handles the player’s DADS base. The main job of Base is to create instances of Missiles that head towards the spot where the player presses the screen, and keep track of how many Missiles they have left. It also draws itself and stores its own coordinates.
+
+# MainActivity.java
+
+Variables:
+
+* MissileCommand
+
+Methods:
+
+* createGame()
+* pauseGame()
+* resumeGame()
+
+Interacts with:
+
+MissileCommand.java to start the game.
+
+Explanation:
+
+MainActivity.java is responsible for creating a new instance of the game, then possibly pausing and resuming it, time allowing.
 
