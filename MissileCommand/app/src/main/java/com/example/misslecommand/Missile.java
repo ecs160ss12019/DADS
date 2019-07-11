@@ -9,6 +9,8 @@ public class Missile {
     private float yVelocity;
     private float missileWidth;
     private float missileHeight;
+    public int xPosition;
+    public int yPosition;
 
     void update(long fps){
         // Move the missile based upon the
@@ -44,5 +46,12 @@ public class Missile {
 
     public void draw(){
 
+    }
+
+    public void getPosition(){
+        int[] myPosition = new int[2];
+        myPosition[0] = xPosition;
+        myPosition[1] = yPosition;
+        return myPosition;
     }
 }

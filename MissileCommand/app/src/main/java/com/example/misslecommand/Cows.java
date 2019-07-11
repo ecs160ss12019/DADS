@@ -8,6 +8,8 @@ public class Cows {
     private RectF mRect;
     private float hornWidth;
     private float hornHeight;
+    public int xPosition;
+    public int yPosition;
 
     // Return a reference to mRect to PongGame
     RectF getRect(){
@@ -21,5 +23,12 @@ public class Cows {
 
     public void draw(){
 
+    }
+
+    static int[] getPosition(){
+        int[] myPosition = new int[2];
+        myPosition[0] = xPosition;
+        myPosition[1] = yPosition;
+        return myPosition;
     }
 }

@@ -9,6 +9,8 @@ public class Hornets {
     private float yVelocity;
     private float hornWidth;
     private float hornHeight;
+    public int xPosition;
+    public int yPosition;
 
     void update(long fps){
         // Move the ball based upon the
@@ -42,8 +44,11 @@ public class Hornets {
 
     }
 
-    public void getPos(){
-
+    public void getPosition(){
+        int[] myPosition = new int[2];
+        myPosition[0] = xPosition;
+        myPosition[1] = yPosition;
+        return myPosition;
     }
 
     public void draw(){

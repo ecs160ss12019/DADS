@@ -10,7 +10,8 @@ public class Base {
     private RectF mRect;
     private float hornWidth;
     private float hornHeight;
-
+    public int xPosition;
+    public int yPosition;
 
 
     // Return a reference to mRect to PongGame
@@ -28,6 +29,13 @@ public class Base {
 
     public void draw(){
 
+    }
+
+    static int[] getPosition(){
+        int[] myPosition = new int[2];
+        myPosition[0] = xPosition;
+        myPosition[1] = yPosition;
+        return myPosition;
     }
 
 }
