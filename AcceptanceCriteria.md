@@ -1,4 +1,4 @@
-# Acceptance Criteria:
+# Acceptance Criteria
 
 ## Game:
 As a user, when I press the start button everything should be drawn on the screen.
