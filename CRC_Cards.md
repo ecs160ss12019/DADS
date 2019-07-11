@@ -14,7 +14,7 @@
 | Spawn enemy hornets and powerups |
 | Respawn cows after certain point thresholds reached
 
-*NOTE: Since MissileCommand.java is largely the only class that calls other classes, the CRC cards for other classes will follow a different pattern of having columns for variables and methods, and a description underneathe the table. Plus, an additional column for collaborations if present. This is to enhance readability by not having one long column for responsibility and one empty column for collaboration. Instead, to have a format of 3 equally spaced columns serving for responsibility, and not having collaboration when it is not needed.*
+*NOTE: Since MissileCommand.java is largely the only class that calls other classes, the CRC cards for other classes will follow a different pattern of having columns for variables and methods, and a description underneathe the table. Plus, an additional column for collaborations if present. This is to enhance readability by not having one long column for responsibility and one empty column for collaboration. Instead, to have a format of 2 equally spaced columns serving for responsibility, and not having collaboration when it is not needed.*
 
 ## Hornet.java
 | Variables | Methods |
