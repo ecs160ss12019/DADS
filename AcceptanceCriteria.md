@@ -82,7 +82,11 @@ Acceptance Criteria:
 
 - Fire Stinger
 
-- etc etc.
+- Missile Explosion
+
+- Background music
+
+- Press to Start sound effects
 
 ### User Story 3.2:
 
@@ -109,11 +113,17 @@ Acceptance Criteria:
 
 - Nuke
 
-- etc etc.
+
 
 ## User Story 3.4:
 
 As a user I want to see a home screen to check high scores and an option to start a new game
+
+Acceptance Criteria:
+
+- Show top 5 scores
+
+- Option to exit back to home screen
 
 
 
