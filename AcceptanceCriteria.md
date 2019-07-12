@@ -1,44 +1,43 @@
 # Acceptance Criteria
 
-## Game:
-As a user, when I press the start button everything should be drawn on the screen.
+## Sprint 1:
 
-As a user, when I lose all of my cities, the game should end and show a “GAME OVER” screen.
+### User Story 1: 
 
-As a user, I should be able to see my score on the screen.
+As DADS I want to fire Missiles
 
-At the end of each stage, add to the total score numBuildingsRemaining * Scalar.
+Acceptance Criteria: 
 
-## Missiles:
-As a user when I tap the screen the missile will fire in a straight line and explode once it reaches the x,y coordinate tapped on the screen.
+- The user should be able to see a rudimentary missile linearly travel from the base to where the screen was tapped.
 
-The radius of the explosion is a circle and it grows bigger and then smaller.
+- Once the missile reaches the tapped location, the user should see a circle for the explosion for a short period of time.
 
-If the explosion radius of the missile comes in contact with a Stinger the stinger is destroyed.
+- The user should be able to see the number of missiles remaining
 
-At the start of each level the number of missiles is increased by X.
 
-## Stinger:
-Hornet stingers travel in a straight line based on where cows are
+### User Story 2: 
 
-When stinger hits cow, cow is removed
+As DADS I want ot be able to see the Hornets' stingers
 
-When stinger is shot, draw on the screen each tick
+Acceptance Criteria:
 
-With each new stage the velocity of the stingers are increased.
+- The user should see the stingers spawning at the top of the screen.
 
-## Cow:
-As a user, if the cow is hit by a stinger, I lose a cow (sad)
+- The user should see the stinger travel linearly towards the Cows.
 
-As a user, the cow should not move and be drawn every tick (sad)
+- The number of hornet stingers should be minimal, as it is only the first level. 
 
-## Base: 
-As a user, I should be able to see the amount of ammo I have.
+- The spawn rate and velocity of the stingers should be low as well.
 
-As a user, after I click on a spot, the missile should fire from the base to the clicked spot.
 
-## PowerUps:
-As a user, when I shoot power ups, I should be granted their ability for a set number of time
+### User Story 3: 
 
-As a user, when I shoot the Max Ammo powerup, I should be granted more missiles
+As DADS, I want to be able to see the Cows I need to protect.
+
+Acceptance Criteria:
+
+- The player should see rudimentary Cows along the bottom of the screen.
+
+
+## Sprint 2:
 
