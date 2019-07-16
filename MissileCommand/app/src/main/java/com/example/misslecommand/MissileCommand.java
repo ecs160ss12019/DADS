@@ -173,8 +173,8 @@ class MissileCommand extends SurfaceView implements Runnable{
                     (255, 255, 255, 255));
 
             // Draw the cows, base, hornets, missiles
-            mCanvas.drawRect(cow.mRect, mPaint);
-            mCanvas.drawRect(base.mRect, mPaint);
+            //mCanvas.drawRect(cow.mRect, mPaint);
+            //mCanvas.drawRect(base.mRect, mPaint);
             //mCanvas.drawRect(missile.getRect(), mPaint);
             //mCanvas.drawRect(hornets.getRect(), mPaint);
 
