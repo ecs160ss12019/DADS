@@ -36,6 +36,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     private Cows cow; //number of cows would be dictated here
     private Hornets hornet; //number of hornets would be set here
 
+    private Cows[] cows;
+
     // The current score and lives remaining
     private int mScore = 0;
     private int numMissiles = 10;
@@ -74,7 +76,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         mOurHolder = getHolder();
         mPaint = new Paint();
 
-        // Initialize the bat and ball
+        // Initialize the cows and base
         cow = new Cows();
         base = new Base();
 
@@ -89,7 +91,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         // Put the cows, base back to the starting position
 
 
-        // Rest the score and the player's chances
+        // Rest the score and the player's missiles
         mScore = 0;
         numMissiles = 10;
 

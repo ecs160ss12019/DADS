@@ -31,7 +31,7 @@ public class Base {
 
     }
 
-    static int[] getPosition(){
+    public int[] getPosition(){
         int[] myPosition = new int[2];
         myPosition[0] = xPosition;
         myPosition[1] = yPosition;

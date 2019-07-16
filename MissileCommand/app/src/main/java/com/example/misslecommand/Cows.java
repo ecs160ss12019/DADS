@@ -5,7 +5,7 @@ import android.graphics.RectF;
 public class Cows {
 
     private boolean status;
-    private RectF mRect;
+    public RectF mRect;
     private float hornWidth;
     private float hornHeight;
     public int xPosition;
@@ -17,7 +17,7 @@ public class Cows {
     }
 
     // This function will kill (remove the cow entity)
-    public boolean kill(){
+    public void kill(){
 
     }
 
@@ -25,7 +25,7 @@ public class Cows {
 
     }
 
-    static int[] getPosition(){
+    public int[] getPosition(){
         int[] myPosition = new int[2];
         myPosition[0] = xPosition;
         myPosition[1] = yPosition;

@@ -41,10 +41,10 @@ public class Hornets {
     }
 
     public boolean status(){
-
+        return true;
     }
 
-    public void getPosition(){
+    public int[] getPosition(){
         int[] myPosition = new int[2];
         myPosition[0] = xPosition;
         myPosition[1] = yPosition;
