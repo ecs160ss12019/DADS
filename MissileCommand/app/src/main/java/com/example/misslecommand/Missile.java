@@ -4,9 +4,9 @@ import android.graphics.RectF;
 
 public class Missile {
 
-    private RectF mRect;
-    private float xVelocity;
-    private float yVelocity;
+    public RectF mRect;
+    public float xVelocity;
+    public float yVelocity;
     private float missileWidth;
     private float missileHeight;
     public int xPosition;
@@ -27,11 +27,6 @@ public class Missile {
         mRect.bottom = mRect.top + missileHeight;
     }
 
-    // Return a reference to mRect to PongGame
-    RectF getRect(){
-        return mRect;
-    }
-
     public void kill(){
 
     }
@@ -40,18 +35,7 @@ public class Missile {
 
     }
 
-    public boolean status(){
-        return true;
-    }
-
     public void draw(){
 
-    }
-
-    public int[] getPosition(){
-        int[] myPosition = new int[2];
-        myPosition[0] = xPosition;
-        myPosition[1] = yPosition;
-        return myPosition;
     }
 }

@@ -6,18 +6,13 @@ import android.graphics.RectF;
 
 public class Base {
 
-    private boolean status;
-    private RectF mRect;
+    public boolean status;
+    public RectF mRect;
     private float hornWidth;
     private float hornHeight;
     public int xPosition;
     public int yPosition;
 
-
-    // Return a reference to mRect to PongGame
-    RectF getRect(){
-        return mRect;
-    }
 
     //will create an instance of missile and then from TouchEvent fire it to a certain location
     public void fire(){
@@ -29,13 +24,6 @@ public class Base {
 
     public void draw(){
 
-    }
-
-    public int[] getPosition(){
-        int[] myPosition = new int[2];
-        myPosition[0] = xPosition;
-        myPosition[1] = yPosition;
-        return myPosition;
     }
 
 }

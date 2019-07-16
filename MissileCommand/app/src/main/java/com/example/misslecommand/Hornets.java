@@ -4,9 +4,9 @@ import android.graphics.RectF;
 
 public class Hornets {
 
-    private RectF mRect;
-    private float xVelocity;
-    private float yVelocity;
+    public RectF mRect;
+    public float xVelocity;
+    public float yVelocity;
     private float hornWidth;
     private float hornHeight;
     public int xPosition;
@@ -27,28 +27,12 @@ public class Hornets {
         mRect.bottom = mRect.top + hornHeight;
     }
 
-    // Return a reference to mRect to PongGame
-    RectF getRect(){
-        return mRect;
-    }
-
     public void kill(){
 
     }
 
     public void increaseSpeed(){
 
-    }
-
-    public boolean status(){
-        return true;
-    }
-
-    public int[] getPosition(){
-        int[] myPosition = new int[2];
-        myPosition[0] = xPosition;
-        myPosition[1] = yPosition;
-        return myPosition;
     }
 
     public void draw(){
