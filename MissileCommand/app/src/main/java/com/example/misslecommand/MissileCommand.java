@@ -153,7 +153,6 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void update() {
         spawnHornets(1);
         for (int i = 0; i < hornets.size(); i++) {
-            hornetNum++;
             hornets.get(i).update(mFPS);
         }
         //cow.update(mFPS);
