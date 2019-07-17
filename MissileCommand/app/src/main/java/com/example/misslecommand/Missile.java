@@ -7,17 +7,16 @@ public class Missile {
     public RectF mRect;
     public float xVelocity;
     public float yVelocity;
-    private float missileWidth;
-    private float missileHeight;
     public int xPosition;
     public int yPosition;
-    
-
     public int width;
     public int height;
+
     public Missile(int x, int y, int screenX, int screenY) {
         width = screenX / 100;
         height = screenY / 100;
+        xPosition = x;
+        yPosition = y;
         
         xVelocity = screenX / 3;
         yVelocity = screenX / 3;
@@ -37,8 +36,8 @@ public class Missile {
 
         // Match up the bottom right corner
         // based on the size of the missile
-        mRect.right = mRect.left + missileWidth;
-        mRect.bottom = mRect.top + missileHeight;
+        mRect.right = mRect.left + width;
+        mRect.bottom = mRect.top + height;
     }
 
     public void kill(){
