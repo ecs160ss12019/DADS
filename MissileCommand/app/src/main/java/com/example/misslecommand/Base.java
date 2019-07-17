@@ -8,8 +8,8 @@ public class Base {
 
     public boolean status;
     public RectF mRect;
-    private float hornWidth = 100;
-    private float hornHeight = 100;
+    private float width = 100;
+    private float height = 100;
     public int xPosition;
     public int yPosition;
 
@@ -18,8 +18,8 @@ public class Base {
         status = true;
         xPosition = x;
         yPosition = y;
-        mRect = new RectF((float)x - hornWidth/2, (float)y + hornHeight/2, (float)x + hornWidth/2,
-                (float)y - hornHeight/2);
+        mRect = new RectF((float)x - width/2, (float)y + height/2, (float)x + width/2,
+                (float)y - height/2);
     }
 
     //will create an instance of missile and then from TouchEvent fire it to a certain location

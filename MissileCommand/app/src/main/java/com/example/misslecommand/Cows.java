@@ -6,8 +6,8 @@ public class Cows {
 
     public boolean status;
     public RectF mRect;
-    private float hornWidth;
-    private float hornHeight;
+    private float width = 40;
+    private float height = 40;
     public int xPosition;
     public int yPosition;
 
@@ -15,7 +15,7 @@ public class Cows {
         status = true;
     }
 
-    public void setCow(int x, int y, int width, int height) {
+    public void setCow(int x, int y) {
         xPosition = x;
         yPosition = y;
 
