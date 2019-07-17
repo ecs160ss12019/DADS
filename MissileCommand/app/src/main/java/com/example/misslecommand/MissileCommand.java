@@ -78,7 +78,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
         // Initialize the cows and base
         cow = new Cows();
-        base = new Base();
+        base = new Base(mScreenX/2, mScreenY-100,100, 100);
 
         // Everything is ready so start the game
         startNewGame();
@@ -174,7 +174,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             // Draw the cows, base, hornets, missiles
             //mCanvas.drawRect(cow.mRect, mPaint);
-            //mCanvas.drawRect(base.mRect, mPaint);
+            mCanvas.drawRect(base.mRect, mPaint);
             //mCanvas.drawRect(missile.getRect(), mPaint);
             //mCanvas.drawRect(hornets.getRect(), mPaint);
 
