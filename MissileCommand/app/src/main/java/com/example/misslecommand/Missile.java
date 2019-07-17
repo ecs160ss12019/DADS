@@ -5,25 +5,24 @@ import android.graphics.RectF;
 public class Missile {
 
     public RectF mRect;
-    public float xVelocity;
-    public float yVelocity;
+//    public float xVelocity;
+//    public float yVelocity;
     public int xPosition;
     public int yPosition;
-    public int width;
-    public int height;
+    
+    public int width = 10;
+    public int height = 10;
     public boolean spawned = false;
-
-    public Missile(int x, int y, int screenX, int screenY) {
-        width = screenX / 100;
-        height = screenY / 100;
-        xPosition = x;
-        yPosition = y;
+    public boolean exploding = false;
+    
+    public Missile(int baseX, int baseY) {
+        xPosition = baseX
+        yPosition = baseY + 50;
         
-        xVelocity = screenX / 3;
-        yVelocity = screenX / 3;
+        xVelocity = 500;
+        yVelocity = 500;
         
-        mRect = new RectF((float)x - width/2, (float)y + height/2, (float)x + width/2,
-                (float)y - height/2);
+        mRect = new RectF(xPosition - width/2, yPosition + height, xPosition + width/2, yPosition);
     
     }
     void update(long fps){

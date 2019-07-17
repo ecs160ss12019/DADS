@@ -12,10 +12,11 @@ public class Base {
     private float height = 100;
     public int xPosition;
     public int yPosition;
-
+    
     public int ammo;
 
     public Missile[] missiles;
+    public int missile_itr = 0;
 
     public Base(int x, int y) {
         status = true;
@@ -28,6 +29,12 @@ public class Base {
 
     //will create an instance of missile and then from TouchEvent fire it to a certain location
     public void fire(){
+        if (ammo < 0) {
+            //out of ammo
+            return;
+        }
+        missiles[missile_itr] = new Missile(xPosition, yPosition);
+        missile_itr++;
     }
 
     public void collision(){
