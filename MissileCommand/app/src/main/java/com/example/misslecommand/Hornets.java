@@ -11,6 +11,18 @@ public class Hornets {
     private float hornHeight;
     public int xPosition;
     public int yPosition;
+    public int finalX;  // The x coordinate of the cow that the hornets are going to fly to
+    public int finalY;  // The y coordinate of the cow that the hornets are going to fly to
+
+    public Hornets(int x, int y, int width, int height, int fX, int fY){
+        xPosition = x;
+        yPosition = y;
+        hornWidth = width;
+        hornHeight = height;
+        finalX = fX;
+        finalY = fY;
+        mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
+    }
 
     void update(long fps){
         // Move the ball based upon the
