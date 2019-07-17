@@ -33,7 +33,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     // The game objects
     private Base base; //number of bases would be dictated here
-    private Cows cow; //number of cows would be dictated here
+    private int cowNum = 6; //number of cows would be dictated here
     private Hornets hornet; //number of hornets would be set here
 
     private Cows[] cows;
@@ -77,7 +77,16 @@ class MissileCommand extends SurfaceView implements Runnable{
         mPaint = new Paint();
 
         // Initialize the cows and base
-        cow = new Cows();
+        cows = new Cows[cowNum];
+        int cowWidth = 40;
+        int cowHeight = 40;
+        int cowX = 40;
+        int cowY = mScreenY - cowHeight - 40;
+        for (int i = 0; i < cowNum; i++) {
+            cows[i] = new Cows();
+            cows[i].setCow(cowX, cowY, cowWidth, cowHeight);
+            cowX = cowX + 80;
+        }
         base = new Base(mScreenX/2, mScreenY-100,100, 100);
 
         // Everything is ready so start the game
@@ -173,7 +182,10 @@ class MissileCommand extends SurfaceView implements Runnable{
                     (255, 255, 255, 255));
 
             // Draw the cows, base, hornets, missiles
-            //mCanvas.drawRect(cow.mRect, mPaint);
+            for (int i = 0; i < cowNum; i++) {
+                mCanvas.drawRect(cows[i].mRect, mPaint);
+            }
+
             mCanvas.drawRect(base.mRect, mPaint);
             //mCanvas.drawRect(missile.getRect(), mPaint);
             //mCanvas.drawRect(hornets.getRect(), mPaint);
