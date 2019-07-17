@@ -19,8 +19,8 @@ public class Missile {
         xPosition = baseX
         yPosition = baseY + 50;
         
-//        xVelocity = screenX / 3;
-//        yVelocity = screenX / 3;
+        xVelocity = 500;
+        yVelocity = 500;
         
         mRect = new RectF(xPosition - width/2, yPosition + height, xPosition + width/2, yPosition);
     
