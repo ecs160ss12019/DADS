@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import java.util.*;
 
 class MissileCommand extends SurfaceView implements Runnable{
 
@@ -34,9 +35,11 @@ class MissileCommand extends SurfaceView implements Runnable{
     // The game objects
     private Base base; //number of bases would be dictated here
     private int cowNum = 6; //number of cows would be dictated here
-    private Hornets hornet; //number of hornets would be set here
+    private int hornetNum = 10; //number of hornets would be set here
 
     private Cows[] cows;
+
+    private List<Hornets> hornets;
 
     // The current score and lives remaining
     private int mScore = 0;
@@ -99,14 +102,10 @@ class MissileCommand extends SurfaceView implements Runnable{
     // The player has just lost, beat the round
     // or is starting their first game
     private void startNewGame(){
-
-        // Put the cows, base back to the starting position
-
-
         // Rest the score and the player's missiles
         mScore = 0;
         base.ammo = 10;
-
+        hornets = new ArrayList<>();
     }
 
     // When we start the thread with:
@@ -127,16 +126,11 @@ class MissileCommand extends SurfaceView implements Runnable{
             long frameStartTime = System.currentTimeMillis();
 
             // Provided the game isn't paused call the update method
-            if(!mPaused){
-                update();
-                // Now the bat and ball are in their new positions
-                // we can see if there have been any collisions
-                detectCollisions();
-
-            }
 
             // The movement has been handled and collisions
             // detected now we can draw the scene.
+            update();
+            detectCollisions();
             draw();
 
             // How long did this frame/loop take?
@@ -157,7 +151,11 @@ class MissileCommand extends SurfaceView implements Runnable{
     }
 
     private void update() {
-        // Update the bat and the ball
+        spawnHornets(1);
+        for (int i = 0; i < hornets.size(); i++) {
+            hornetNum++;
+            hornets.get(i).update(mFPS);
+        }
         //cow.update(mFPS);
         //base.update(mFPS);
         //missile.update(mFPS);
@@ -189,6 +187,10 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mCanvas.drawRect(cows[i].mRect, mPaint);
             }
 
+            for (int i = 0; i < hornets.size(); i++) {
+               mCanvas.drawRect(hornets.get(i).mRect, mPaint);
+            }
+
             mCanvas.drawRect(base.mRect, mPaint);
             //mCanvas.drawRect(missile.getRect(), mPaint);
             //mCanvas.drawRect(hornets.getRect(), mPaint);
@@ -200,6 +202,8 @@ class MissileCommand extends SurfaceView implements Runnable{
             mCanvas.drawText("Score: " + mScore +
                             "   Number of Missiles: " + base.ammo,
                     mFontMargin , mFontSize, mPaint);
+
+            mCanvas.drawText("Hornets: " + hornets.size(), mFontMargin + 1300, mFontSize, mPaint);
 
             if(DEBUGGING){
                 printDebuggingText();
@@ -242,6 +246,16 @@ class MissileCommand extends SurfaceView implements Runnable{
             // Maybe use the first finger touch....
         }
         return true;
+    }
+
+    private void spawnHornets(int level) {
+        Random random = new Random();
+        int randCow = random.nextInt(cowNum);
+        int didFire = random.nextInt(100);
+        if (didFire <= level) {
+            Cows target = cows[randCow];
+            hornets.add(new Hornets(target.xPosition, 0, target.xPosition, target.yPosition, 20, 20));
+        }
     }
 
     private void printDebuggingText(){
