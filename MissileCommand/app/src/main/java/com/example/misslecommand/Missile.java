@@ -13,7 +13,7 @@ public class Missile {
     public int width = 10;
     public int height = 10;
     public boolean spawned = false;
-    pbulic boolean exploding = false;
+    public boolean exploding = false;
     
     public Missile(int baseX, int baseY) {
         xPosition = baseX
