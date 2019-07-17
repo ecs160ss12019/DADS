@@ -11,6 +11,7 @@ public class Missile {
     public int yPosition;
     public int width;
     public int height;
+    public boolean spawned = false;
 
     public Missile(int x, int y, int screenX, int screenY) {
         width = screenX / 100;
