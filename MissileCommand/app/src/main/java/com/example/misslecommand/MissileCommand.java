@@ -40,7 +40,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     // The current score and lives remaining
     private int mScore = 0;
-    private int numMissiles = 10;
+    //private int numMissiles = 10;
 
     // Here is the Thread and two control variables
     private Thread mGameThread = null;
@@ -105,7 +105,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
         // Rest the score and the player's missiles
         mScore = 0;
-        numMissiles = 10;
+        base.ammo = 10;
 
     }
 
@@ -198,7 +198,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             // Draw the HUD
             mCanvas.drawText("Score: " + mScore +
-                            "   Number of Missiles: " + numMissiles,
+                            "   Number of Missiles: " + base.ammo,
                     mFontMargin , mFontSize, mPaint);
 
             if(DEBUGGING){

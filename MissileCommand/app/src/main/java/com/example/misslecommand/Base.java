@@ -13,9 +13,13 @@ public class Base {
     public int xPosition;
     public int yPosition;
 
+    public int ammo;
+
+    public Missile[] missiles;
 
     public Base(int x, int y) {
         status = true;
+        missiles = new Missile[50];
         xPosition = x;
         yPosition = y;
         mRect = new RectF((float)x - width/2, (float)y + height/2, (float)x + width/2,
