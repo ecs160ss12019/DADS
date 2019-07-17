@@ -25,7 +25,7 @@ public class Cows {
 
     // This function will kill (remove the cow entity)
     public void kill(){
-
+        status = false;
     }
 
     public void draw(){

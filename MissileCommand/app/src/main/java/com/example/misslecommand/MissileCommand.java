@@ -152,9 +152,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     private void update() {
         spawnHornets(1);
-        for (int i = 0; i < hornets.size(); i++) {
-            hornets.get(i).update(mFPS);
-        }
+        updateHornets();
+        updateCows();
         //cow.update(mFPS);
         //base.update(mFPS);
         //missile.update(mFPS);
@@ -183,7 +182,9 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             // Draw the cows, base, hornets, missiles
             for (int i = 0; i < cowNum; i++) {
-                mCanvas.drawRect(cows[i].mRect, mPaint);
+                if (cows[i].status) {
+                    mCanvas.drawRect(cows[i].mRect, mPaint);
+                }
             }
 
             for (int i = 0; i < hornets.size(); i++) {
@@ -253,7 +254,25 @@ class MissileCommand extends SurfaceView implements Runnable{
         int didFire = random.nextInt(100);
         if (didFire <= level) {
             Cows target = cows[randCow];
-            hornets.add(new Hornets(target.xPosition, 0, target.xPosition, target.yPosition, 20, 20));
+            hornets.add(new Hornets(target.xPosition, 0, target));
+        }
+    }
+
+    private void updateHornets() {
+        for (int i = 0; i < hornets.size(); i++) {
+            hornets.get(i).update(mFPS);
+            hornets.get(i).kill();
+            if (hornets.get(i).status == false) {
+                hornets.remove(i);
+            }
+        }
+    }
+
+    private void updateCows() {
+        for (int i = 0; i < cowNum; i++) {
+            if (cows[i].status == false) {
+
+            }
         }
     }
 

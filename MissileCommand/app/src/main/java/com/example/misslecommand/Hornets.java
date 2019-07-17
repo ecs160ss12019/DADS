@@ -4,6 +4,10 @@ import android.graphics.RectF;
 
 public class Hornets {
 
+    public boolean status;
+
+    public Cows target;
+
     public RectF mRect;
     public float xVelocity;
     public float yVelocity = 400;
@@ -14,18 +18,20 @@ public class Hornets {
     public int finalX;  // The x coordinate of the cow that the hornets are going to fly to
     public int finalY;  // The y coordinate of the cow that the hornets are going to fly to
 
-    public Hornets(int x, int y, int fX, int fY, int sizeX, int sizeY){
+    public Hornets(int x, int y, Cows cow){
         xPosition = x;
         yPosition = y;
-        finalX = fX;
-        finalY = fY;
+        target = cow;
+        finalX = target.xPosition;
+        finalY = target.yPosition;
+        status = true;
         mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
     }
 
     void update(long fps){
-        // Move the ball based upon the
-        // horizontal and vertical speed
-        // and the current frame rate(fps)
+
+        xPosition = xPosition + (int)(xVelocity/fps);
+        yPosition = yPosition + (int)(yVelocity/fps);
 
         // Move the top left corner
         mRect.left = mRect.left + (xVelocity / fps);
@@ -38,6 +44,10 @@ public class Hornets {
     }
 
     public void kill(){
+        if (yPosition >= finalY) {
+            status = false;
+            target.kill();
+        }
 
     }
 
