@@ -92,7 +92,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 cowX = cowX + 450;
             }
         }
-        base = new Base(mScreenX/2, mScreenY-100,100, 100);
+        base = new Base(mScreenX/2, mScreenY-100);
 
         // Everything is ready so start the game
         startNewGame();
