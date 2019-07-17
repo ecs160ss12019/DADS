@@ -85,7 +85,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         for (int i = 0; i < cowNum; i++) {
             cows[i] = new Cows();
             cows[i].setCow(cowX, cowY, cowWidth, cowHeight);
-            cowX = cowX + 80;
+            cowX = cowX + 200;
         }
         base = new Base(mScreenX/2, mScreenY-100,100, 100);
 
