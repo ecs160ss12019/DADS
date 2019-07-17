@@ -5,8 +5,8 @@ import android.graphics.RectF;
 public class Missile {
 
     public RectF mRect;
-//    public float xVelocity;
-//    public float yVelocity;
+    public float xVelocity;
+    public float yVelocity;
     public int xPosition;
     public int yPosition;
     
@@ -16,7 +16,7 @@ public class Missile {
     public boolean exploding = false;
     
     public Missile(int baseX, int baseY) {
-        xPosition = baseX
+        xPosition = baseX;
         yPosition = baseY + 50;
         
         xVelocity = 500;
