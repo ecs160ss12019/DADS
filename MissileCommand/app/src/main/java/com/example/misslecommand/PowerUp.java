@@ -9,7 +9,7 @@ public class PowerUp {
 
     public RectF mRect;
     public float xVelocity;
-    public float yVelocity = 400;
+    public float yVelocity = 75;
     private float width = 69;
     private float height = 69;
     public int xPosition;
