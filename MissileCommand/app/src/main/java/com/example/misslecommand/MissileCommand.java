@@ -302,7 +302,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void spawnPowerUps(int level) {
         Random random = new Random();
         //random.nextInt(mScreenX)
-        int didFire = random.nextInt(10000);
+        int didFire = random.nextInt(1000);
         if (didFire <= level) {
             powerUps.add(new PowerUp(random.nextInt(mScreenX-69), 0, mScreenY));
         }
