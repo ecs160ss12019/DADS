@@ -10,8 +10,8 @@ public class PowerUp {
     public RectF mRect;
     public float xVelocity;
     public float yVelocity = 400;
-    private float width = 20;
-    private float height = 20;
+    private float width = 69;
+    private float height = 69;
     public int xPosition;
     public int yPosition;
     public int finalX;  // The x coordinate of where the power up will fly to
