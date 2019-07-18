@@ -17,11 +17,11 @@ public class PowerUp {
     public int finalX;  // The x coordinate of where the power up will fly to
     public int finalY;  // The y coordinate of where the power up will fly to
 
-    public PowerUp(int x, int y){
+    public PowerUp(int x, int y, int destY){
         xPosition = x;
         yPosition = 0;
         finalX = x;
-        finalY = 500;
+        finalY = destY;
         status = true;
         mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
     }

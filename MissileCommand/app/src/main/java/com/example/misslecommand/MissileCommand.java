@@ -200,9 +200,17 @@ class MissileCommand extends SurfaceView implements Runnable{
                mCanvas.drawRect(hornets.get(i).mRect, mPaint);
             }
 
+            // Choose a color to paint with
+            mPaint.setColor(Color.argb
+                    (255, 255, 0, 0));
+
             for (int i = 0; i < powerUps.size(); i++) {
                 mCanvas.drawRect(powerUps.get(i).mRect, mPaint);
             }
+
+            // Choose a color to paint with
+            mPaint.setColor(Color.argb
+                    (255, 255, 255, 255));
 
 
             mCanvas.drawRect(base.mRect, mPaint);
@@ -296,7 +304,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         //random.nextInt(mScreenX)
         int didFire = random.nextInt(100);
         if (didFire <= level) {
-            powerUps.add(new PowerUp(random.nextInt(mScreenX), mScreenY));
+            powerUps.add(new PowerUp(random.nextInt(mScreenX), 0, mScreenY));
         }
     }
 
