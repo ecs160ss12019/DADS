@@ -29,11 +29,20 @@ public class Base{
 
     //will create an instance of missile and then from TouchEvent fire it to a certain location
     public void fire(int xTouch, int yTouch){
-        if (ammo < 0) {
+        if (ammo <= 0) {
             //out of ammo
             return;
         }
         missiles.add(new Missile(xPosition, yPosition, xTouch, yTouch));
+        ammo--;
+    }
+
+    public void update() {
+        for (int i = 0; i < missiles.size(); i++) {
+            if (missiles.get(i).done) {
+                missiles.remove(i);
+            }
+        }
     }
 
     public void collision(){

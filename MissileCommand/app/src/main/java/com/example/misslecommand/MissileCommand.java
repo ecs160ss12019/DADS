@@ -156,6 +156,8 @@ class MissileCommand extends SurfaceView implements Runnable{
         for (int i = 0; i < base.missiles.size(); i++) {
             base.missiles.get(i).update(mFPS);
         }
+
+        base.update();
         //cow.update(mFPS);
         //base.update(mFPS);
         //missile.update(mFPS);
@@ -196,7 +198,12 @@ class MissileCommand extends SurfaceView implements Runnable{
             mCanvas.drawRect(base.mRect, mPaint);
 
             for (int i = 0; i < base.missiles.size(); i++) {
-                mCanvas.drawRect(base.missiles.get(i).mRect, mPaint);
+                if (base.missiles.get(i).exploding) {
+                    mCanvas.drawRect(base.missiles.get(i).explodeRect, mPaint);
+                }
+                else {
+                    mCanvas.drawRect(base.missiles.get(i).mRect, mPaint);
+                }
             }
             //mCanvas.drawRect(missile.getRect(), mPaint);
             //mCanvas.drawRect(hornets.getRect(), mPaint);

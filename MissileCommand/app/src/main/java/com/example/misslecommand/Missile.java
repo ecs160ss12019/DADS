@@ -5,6 +5,7 @@ import android.graphics.RectF;
 public class Missile {
 
     public RectF mRect;
+    public RectF explodeRect;
     public float xVelocity;
     public float yVelocity;
     public int xPosition;
@@ -12,19 +13,22 @@ public class Missile {
     public int xFinal;
     public int yFinal;
 
-    public int radius = 300;
+    public int radius = 80;
+
+    public int explosionCounter;
     
     public int width = 10;
     public int height = 10;
     public boolean spawned = false;
     public boolean exploding = false;
+    public boolean done = false;
     
     public Missile(int baseX, int baseY, int xF, int yF) {
         xPosition = baseX;
         yPosition = baseY + 50;
         xFinal = xF;
         yFinal = yF;
-        
+        explosionCounter = 0;
         xVelocity = 500;
         yVelocity = 500;
         
@@ -37,6 +41,9 @@ public class Missile {
         // and the current frame rate(fps)
 
         //TEMPORARY
+        if (exploding) {
+            this.explode();
+        }
         xPosition = xFinal;
         yPosition = yFinal;
         this.explode();
@@ -64,7 +71,13 @@ public class Missile {
 
     public void explode() {
         exploding = true;
-        mRect = new RectF(xFinal - radius, yFinal + radius, xFinal + radius,
-                yFinal - radius);
+        if (explodeRect == null) {
+            explodeRect = new RectF(xFinal - radius, yFinal + radius, xFinal + radius,
+                    yFinal - radius);
+        }
+        explosionCounter++;
+        if (explosionCounter >= 100) {
+            done = true;
+        }
     }
 }
