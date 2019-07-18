@@ -9,15 +9,21 @@ public class Missile {
     public float yVelocity;
     public int xPosition;
     public int yPosition;
+    public int xFinal;
+    public int yFinal;
+
+    public int radius = 300;
     
     public int width = 10;
     public int height = 10;
     public boolean spawned = false;
     public boolean exploding = false;
     
-    public Missile(int baseX, int baseY) {
+    public Missile(int baseX, int baseY, int xF, int yF) {
         xPosition = baseX;
         yPosition = baseY + 50;
+        xFinal = xF;
+        yFinal = yF;
         
         xVelocity = 500;
         yVelocity = 500;
@@ -30,6 +36,10 @@ public class Missile {
         // horizontal and vertical speed
         // and the current frame rate(fps)
 
+        //TEMPORARY
+        xPosition = xFinal;
+        yPosition = yFinal;
+        this.explode();
         // Move the top left corner
         mRect.left = mRect.left + (xVelocity / fps);
         mRect.top = mRect.top + (yVelocity / fps);
@@ -50,5 +60,11 @@ public class Missile {
 
     public void draw(){
 
+    }
+
+    public void explode() {
+        exploding = true;
+        mRect = new RectF(xFinal - radius, yFinal + radius, xFinal + radius,
+                yFinal - radius);
     }
 }

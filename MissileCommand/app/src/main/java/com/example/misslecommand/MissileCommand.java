@@ -154,6 +154,9 @@ class MissileCommand extends SurfaceView implements Runnable{
         spawnHornets(1);
         updateHornets();
         updateCows();
+        for (int i = 0; i < base.missiles.size(); i++) {
+            base.missiles.get(i).update(mFPS);
+        }
         //cow.update(mFPS);
         //base.update(mFPS);
         //missile.update(mFPS);
@@ -192,6 +195,10 @@ class MissileCommand extends SurfaceView implements Runnable{
             }
 
             mCanvas.drawRect(base.mRect, mPaint);
+
+            for (int i = 0; i < base.missiles.size(); i++) {
+                mCanvas.drawRect(base.missiles.get(i).mRect, mPaint);
+            }
             //mCanvas.drawRect(missile.getRect(), mPaint);
             //mCanvas.drawRect(hornets.getRect(), mPaint);
 
@@ -226,9 +233,9 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             // The player has put their finger on the screen
             case MotionEvent.ACTION_DOWN:
-
+                base.fire((int)motionEvent.getX(), (int)motionEvent.getY());
                 // If the game was paused unpause
-                mPaused = false;
+                //mPaused = false;
 
                 //Where did the touch happen? Where it happens is where the missile will explode
                 // use motionEvent.getX() + motionEvent.getX() to set where you want the missiles
