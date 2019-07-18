@@ -6,7 +6,6 @@ public class PowerUp {
 
     public boolean status;
 
-    public Cows target;
 
     public RectF mRect;
     public float xVelocity;
@@ -20,9 +19,9 @@ public class PowerUp {
 
     public PowerUp(int x, int y){
         xPosition = x;
-        yPosition = y;
-        finalX = target.xPosition;
-        finalY = target.yPosition;
+        yPosition = 0;
+        finalX = x;
+        finalY = 500;
         status = true;
         mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
     }

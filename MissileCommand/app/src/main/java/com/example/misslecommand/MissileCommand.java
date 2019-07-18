@@ -41,6 +41,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     private List<Hornets> hornets;
 
+    private List<PowerUp> powerUps;
+
     // The current score and lives remaining
     private int mScore = 0;
     //private int numMissiles = 10;
@@ -105,6 +107,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         mScore = 0;
         base.ammo = 10;
         hornets = new ArrayList<>();
+        powerUps = new ArrayList<>();
     }
 
     // When we start the thread with:
@@ -152,6 +155,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void update() {
         spawnHornets(1);
         updateHornets();
+        spawnPowerUps(1);
+        updatePowerUps();
         updateCows();
         for (int i = 0; i < base.missiles.size(); i++) {
             base.missiles.get(i).update(mFPS);
@@ -194,6 +199,11 @@ class MissileCommand extends SurfaceView implements Runnable{
             for (int i = 0; i < hornets.size(); i++) {
                mCanvas.drawRect(hornets.get(i).mRect, mPaint);
             }
+
+            for (int i = 0; i < powerUps.size(); i++) {
+                mCanvas.drawRect(powerUps.get(i).mRect, mPaint);
+            }
+
 
             mCanvas.drawRect(base.mRect, mPaint);
 
@@ -280,6 +290,26 @@ class MissileCommand extends SurfaceView implements Runnable{
             }
         }
     }
+
+    private void spawnPowerUps(int level) {
+        Random random = new Random();
+        //random.nextInt(mScreenX)
+        int didFire = random.nextInt(100);
+        if (didFire <= level) {
+            powerUps.add(new PowerUp(random.nextInt(mScreenX), mScreenY));
+        }
+    }
+
+    private void updatePowerUps() {
+        for (int i = 0; i < powerUps.size(); i++) {
+            powerUps.get(i).update(mFPS);
+            powerUps.get(i).kill();
+            if (powerUps.get(i).status == false) {
+                powerUps.remove(i);
+            }
+        }
+    }
+
 
     private void updateCows() {
         for (int i = 0; i < cowNum; i++) {
