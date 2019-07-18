@@ -28,14 +28,14 @@ public class Hornets {
         mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
 
         // VELOCITY CODE
-        yVelocity = finalY - yPosition;
-        xVelocity = finalX - xPosition;
+        yVelocity = (finalY - yPosition)/3;
+        xVelocity = (finalX - xPosition)/3;
     }
 
     void update(long fps){
 
-        xPosition = xPosition + (int)(xVelocity/fps);
-        yPosition = yPosition + (int)(yVelocity/fps);
+        xPosition = xPosition + (int)(xVelocity/(fps));
+        yPosition = yPosition + (int)(yVelocity/(fps));
 
         // Move the top left corner
         mRect.left = mRect.left + (xVelocity / fps);
