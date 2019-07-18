@@ -18,7 +18,7 @@ public class Hornets {
     public int finalX;  // The x coordinate of the cow that the hornets are going to fly to
     public int finalY;  // The y coordinate of the cow that the hornets are going to fly to
 
-    public Hornets(int x, int y, Cows cow){
+    public Hornets(int x, int y, Cows cow, int roundLevel){
         xPosition = x;
         yPosition = y;
         target = cow;
@@ -28,8 +28,8 @@ public class Hornets {
         mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
 
         // VELOCITY CODE
-        yVelocity = (finalY - yPosition)/3;
-        xVelocity = (finalX - xPosition)/3;
+        yVelocity = (finalY - yPosition)/(4 - (roundLevel/3));
+        xVelocity = (finalX - xPosition)/(4 - (roundLevel/3));
     }
 
     void update(long fps){

@@ -277,7 +277,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         int didFire = random.nextInt(100);
         if (didFire <= level) {
             Cows target = cows[randCow];
-            hornets.add(new Hornets(random.nextInt(mScreenX), 0, target));
+            hornets.add(new Hornets(random.nextInt(mScreenX), 0, target, level));
         }
     }
 
