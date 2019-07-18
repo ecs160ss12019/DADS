@@ -10,7 +10,7 @@ public class Hornets {
 
     public RectF mRect;
     public float xVelocity;
-    public float yVelocity = 400;
+    public float yVelocity;
     private float width = 20;
     private float height = 20;
     public int xPosition;
@@ -26,6 +26,10 @@ public class Hornets {
         finalY = target.yPosition;
         status = true;
         mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
+
+        // VELOCITY CODE
+        yVelocity = finalY - yPosition;
+        xVelocity = finalX - xPosition;
     }
 
     void update(long fps){
