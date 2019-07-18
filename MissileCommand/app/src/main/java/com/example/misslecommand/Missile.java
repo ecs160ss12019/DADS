@@ -75,8 +75,24 @@ public class Missile {
             explodeRect = new RectF(xFinal - radius, yFinal + radius, xFinal + radius,
                     yFinal - radius);
         }
+
         explosionCounter++;
-        if (explosionCounter >= 100) {
+
+        if((explosionCounter == 30 || explosionCounter == 60)  && explosionCounter < 75){
+            explodeRect.left = xFinal - radius - 25;
+            explodeRect.top = yFinal + radius + 25;
+            explodeRect.right = xFinal + radius + 25;
+            explodeRect.bottom = yFinal - radius - 25;
+        }
+
+        if((explosionCounter == 100 || explosionCounter == 130) && explosionCounter >= 75){
+            explodeRect.left = xFinal - radius + 25;
+            explodeRect.top = yFinal + radius - 25;
+            explodeRect.right = xFinal + radius - 25;
+            explodeRect.bottom = yFinal - radius + 25;
+        }
+
+        if (explosionCounter >= 150) {
             done = true;
         }
     }
