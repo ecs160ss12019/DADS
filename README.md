@@ -24,7 +24,7 @@ https://github.com/ecs160ss12019/DADS/blob/master/AcceptanceCriteria.md
 ## Sprint 1
 
 ### CRC Cards.pdf
-https://github.com/ecs160ss12019/DADS/tree/master/Sprint1/CRCCards
+https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/CRCCards/CRC%20Cards.pdf
 
 ### Screen Shots
 https://github.com/ecs160ss12019/DADS/tree/master/Sprint1/Screenshots
