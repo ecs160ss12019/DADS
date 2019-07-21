@@ -38,8 +38,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     private BaseCtrl baseCtrl;
     private CowsCtrl cowsCtrl;
     private HornetCtrl hornetCtrl;
-
-    private List<PowerUp> powerUps;
+    private PowerUpCtrl powerUpCtrl;
+    //private List<PowerUp> powerUps;
 
     // The current score and lives remaining
     private int mScore = 0;
@@ -94,7 +94,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         mScore = 0;
         baseCtrl.base.ammo = 10;
         hornetCtrl = new HornetCtrl();
-        powerUps = new ArrayList<>();
+        powerUpCtrl = new PowerUpCtrl();
     }
 
     // When we start the thread with:
@@ -141,16 +141,10 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     private void update() {
         hornetCtrl.spawnHornets(1, cowsCtrl, mScreenX);
-        hornetCtrl.updateHornets(mFPS);
+        hornetCtrl.update(mFPS);
         baseCtrl.update(mFPS);
-        spawnPowerUps(1);
-        updatePowerUps();
-        //updateCows();
-
-        //cow.update(mFPS);
-        //base.update(mFPS);
-        //missile.update(mFPS);
-        //hornet.update(FPS);
+        powerUpCtrl.update(mFPS);
+        powerUpCtrl.spawnPowerUps(1, mScreenX, mScreenY);
     }
 
     private void detectCollisions(){
@@ -177,14 +171,8 @@ class MissileCommand extends SurfaceView implements Runnable{
             cowsCtrl.draw(mCanvas, mPaint);
             baseCtrl.draw(mCanvas, mPaint);
             hornetCtrl.draw(mCanvas, mPaint);
+            powerUpCtrl.draw(mCanvas, mPaint);
 
-            // Choose a color to paint with
-            mPaint.setColor(Color.argb
-                    (255, 255, 0, 0));
-
-            for (int i = 0; i < powerUps.size(); i++) {
-                mCanvas.drawRect(powerUps.get(i).mRect, mPaint);
-            }
 
             // Choose a color to paint with
             mPaint.setColor(Color.argb
@@ -252,24 +240,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
 
 
-    private void spawnPowerUps(int level) {
-        Random random = new Random();
-        //random.nextInt(mScreenX)
-        int didFire = random.nextInt(1000);
-        if (didFire <= level) {
-            powerUps.add(new PowerUp(random.nextInt(mScreenX-69), 0, mScreenY));
-        }
-    }
 
-    private void updatePowerUps() {
-        for (int i = 0; i < powerUps.size(); i++) {
-            powerUps.get(i).update(mFPS);
-            powerUps.get(i).kill();
-            if (powerUps.get(i).status == false) {
-                powerUps.remove(i);
-            }
-        }
-    }
 
     private void printDebuggingText(){
         int debugSize = mFontSize / 2;

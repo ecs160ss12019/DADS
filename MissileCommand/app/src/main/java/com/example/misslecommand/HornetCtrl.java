@@ -28,7 +28,7 @@ public class HornetCtrl {
         }
     }
 
-    public void updateHornets(long fps) {
+    public void update(long fps) {
         for (int i = 0; i < hornets.size(); i++) {
             hornets.get(i).update(fps);
             hornets.get(i).kill();
