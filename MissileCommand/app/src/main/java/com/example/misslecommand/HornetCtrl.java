@@ -28,7 +28,7 @@ public class HornetCtrl {
         }
     }
 
-    public void update(long fps) {
+    public void update(long fps, int level, CowsCtrl cowsCtrl, int screenX) {
         for (int i = 0; i < hornets.size(); i++) {
             hornets.get(i).update(fps);
             hornets.get(i).kill();
@@ -36,6 +36,8 @@ public class HornetCtrl {
                 hornets.remove(i);
             }
         }
+
+        spawnHornets(level, cowsCtrl, screenX);
     }
 
 }

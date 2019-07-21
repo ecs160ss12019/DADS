@@ -30,7 +30,7 @@ public class PowerUpCtrl {
         }
     }
 
-    public void update(long fps) {
+    public void update(long fps, int level, int screenX, int screenY) {
         for (int i = 0; i < powerUps.size(); i++) {
             powerUps.get(i).update(fps);
             powerUps.get(i).kill();
@@ -38,6 +38,8 @@ public class PowerUpCtrl {
                 powerUps.remove(i);
             }
         }
+
+        spawnPowerUps(level, screenX, screenY);
     }
 
 }

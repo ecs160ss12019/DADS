@@ -32,14 +32,11 @@ class MissileCommand extends SurfaceView implements Runnable{
     private int mFontSize;
     private int mFontMargin;
 
-    // The game objects
-
-
+    // The game objects controllers
     private BaseCtrl baseCtrl;
     private CowsCtrl cowsCtrl;
     private HornetCtrl hornetCtrl;
     private PowerUpCtrl powerUpCtrl;
-    //private List<PowerUp> powerUps;
 
     // The current score and lives remaining
     private int mScore = 0;
@@ -140,11 +137,10 @@ class MissileCommand extends SurfaceView implements Runnable{
     }
 
     private void update() {
-        hornetCtrl.spawnHornets(1, cowsCtrl, mScreenX);
-        hornetCtrl.update(mFPS);
+        // Call all controller update functions
+        hornetCtrl.update(mFPS, 1, cowsCtrl, mScreenX);
         baseCtrl.update(mFPS);
-        powerUpCtrl.update(mFPS);
-        powerUpCtrl.spawnPowerUps(1, mScreenX, mScreenY);
+        powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
     }
 
     private void detectCollisions(){
@@ -167,21 +163,15 @@ class MissileCommand extends SurfaceView implements Runnable{
             mPaint.setColor(Color.argb
                     (255, 255, 255, 255));
 
-            // Draw the cows, base, hornets, missiles
+            // Call all controllers draw functions
             cowsCtrl.draw(mCanvas, mPaint);
             baseCtrl.draw(mCanvas, mPaint);
             hornetCtrl.draw(mCanvas, mPaint);
             powerUpCtrl.draw(mCanvas, mPaint);
 
-
-            // Choose a color to paint with
+            // Reset Color to White
             mPaint.setColor(Color.argb
                     (255, 255, 255, 255));
-
-
-
-            //mCanvas.drawRect(missile.getRect(), mPaint);
-            //mCanvas.drawRect(hornets.getRect(), mPaint);
 
             // Choose the font size
             mPaint.setTextSize(mFontSize);
@@ -235,12 +225,6 @@ class MissileCommand extends SurfaceView implements Runnable{
         }
         return true;
     }
-
-
-
-
-
-
 
     private void printDebuggingText(){
         int debugSize = mFontSize / 2;
