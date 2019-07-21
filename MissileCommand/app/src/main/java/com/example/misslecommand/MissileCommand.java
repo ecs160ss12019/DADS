@@ -34,10 +34,11 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     // The game objects
     private Base base; //number of bases would be dictated here
-    private int cowNum = 6; //number of cows would be dictated here
+    //private int cowNum = 6; //number of cows would be dictated here
     private int hornetNum = 10; //number of hornets would be set here
 
-    private Cows[] cows;
+    //private Cows[] cows;
+    private CowsCtrl cowsCtrl;
 
     private List<Hornets> hornets;
 
@@ -82,18 +83,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         mPaint = new Paint();
 
         // Initialize the cows and base
-        cows = new Cows[cowNum];
-        int cowX = 70;
-        int cowY = mScreenY - 80;
-        for (int i = 0; i < cowNum; i++) {
-            cows[i] = new Cows(cowX, cowY);
-            if (i != 2) {
-                cowX = cowX + 300;
-            }
-            else {
-                cowX = cowX + 450;
-            }
-        }
+        cowsCtrl = new CowsCtrl(mScreenY);
         base = new Base(mScreenX/2, mScreenY-100);
 
         // Everything is ready so start the game
@@ -157,7 +147,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         updateHornets();
         spawnPowerUps(1);
         updatePowerUps();
-        updateCows();
+        //updateCows();
         for (int i = 0; i < base.missiles.size(); i++) {
             base.missiles.get(i).update(mFPS);
         }
@@ -190,11 +180,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     (255, 255, 255, 255));
 
             // Draw the cows, base, hornets, missiles
-            for (int i = 0; i < cowNum; i++) {
-                if (cows[i].status) {
-                    mCanvas.drawRect(cows[i].mRect, mPaint);
-                }
-            }
+            cowsCtrl.draw(mCanvas, mPaint);
 
             for (int i = 0; i < hornets.size(); i++) {
                mCanvas.drawRect(hornets.get(i).mRect, mPaint);
@@ -281,10 +267,10 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     private void spawnHornets(int level) {
         Random random = new Random();
-        int randCow = random.nextInt(cowNum);
+        int randCow = random.nextInt(cowsCtrl.cowNum);
         int didFire = random.nextInt(100);
         if (didFire <= level) {
-            Cows target = cows[randCow];
+            Cows target = cowsCtrl.cows[randCow];
             hornets.add(new Hornets(random.nextInt(mScreenX), 0, target, level));
         }
     }
@@ -314,15 +300,6 @@ class MissileCommand extends SurfaceView implements Runnable{
             powerUps.get(i).kill();
             if (powerUps.get(i).status == false) {
                 powerUps.remove(i);
-            }
-        }
-    }
-
-
-    private void updateCows() {
-        for (int i = 0; i < cowNum; i++) {
-            if (cows[i].status == false) {
-
             }
         }
     }
