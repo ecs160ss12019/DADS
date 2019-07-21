@@ -33,14 +33,11 @@ class MissileCommand extends SurfaceView implements Runnable{
     private int mFontMargin;
 
     // The game objects
-    private Base base; //number of bases would be dictated here
-    //private int cowNum = 6; //number of cows would be dictated here
-    private int hornetNum = 10; //number of hornets would be set here
 
-    //private Cows[] cows;
+
+    private BaseCtrl baseCtrl;
     private CowsCtrl cowsCtrl;
     private HornetCtrl hornetCtrl;
-    //private List<Hornets> hornets;
 
     private List<PowerUp> powerUps;
 
@@ -84,7 +81,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
         // Initialize the cows and base
         cowsCtrl = new CowsCtrl(mScreenY);
-        base = new Base(mScreenX/2, mScreenY-100);
+        baseCtrl = new BaseCtrl(mScreenX/2, mScreenY-100);
 
         // Everything is ready so start the game
         startNewGame();
@@ -95,7 +92,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void startNewGame(){
         // Rest the score and the player's missiles
         mScore = 0;
-        base.ammo = 10;
+        baseCtrl.base.ammo = 10;
         hornetCtrl = new HornetCtrl();
         powerUps = new ArrayList<>();
     }
@@ -145,14 +142,11 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void update() {
         hornetCtrl.spawnHornets(1, cowsCtrl, mScreenX);
         hornetCtrl.updateHornets(mFPS);
+        baseCtrl.update(mFPS);
         spawnPowerUps(1);
         updatePowerUps();
         //updateCows();
-        for (int i = 0; i < base.missiles.size(); i++) {
-            base.missiles.get(i).update(mFPS);
-        }
 
-        base.update();
         //cow.update(mFPS);
         //base.update(mFPS);
         //missile.update(mFPS);
@@ -181,7 +175,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             // Draw the cows, base, hornets, missiles
             cowsCtrl.draw(mCanvas, mPaint);
-
+            baseCtrl.draw(mCanvas, mPaint);
             hornetCtrl.draw(mCanvas, mPaint);
 
             // Choose a color to paint with
@@ -197,16 +191,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     (255, 255, 255, 255));
 
 
-            mCanvas.drawRect(base.mRect, mPaint);
 
-            for (int i = 0; i < base.missiles.size(); i++) {
-                if (base.missiles.get(i).exploding) {
-                    mCanvas.drawRect(base.missiles.get(i).explodeRect, mPaint);
-                }
-                else {
-                    mCanvas.drawRect(base.missiles.get(i).mRect, mPaint);
-                }
-            }
             //mCanvas.drawRect(missile.getRect(), mPaint);
             //mCanvas.drawRect(hornets.getRect(), mPaint);
 
@@ -215,7 +200,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             // Draw the HUD
             mCanvas.drawText("Score: " + mScore +
-                            "   Number of Missiles: " + base.ammo,
+                            "   Number of Missiles: " + baseCtrl.base.ammo,
                     mFontMargin , mFontSize, mPaint);
 
             mCanvas.drawText("Hornets: " + hornetCtrl.hornets.size(), mFontMargin + 1300, mFontSize, mPaint);
@@ -241,7 +226,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             // The player has put their finger on the screen
             case MotionEvent.ACTION_DOWN:
-                base.fire((int)motionEvent.getX(), (int)motionEvent.getY());
+                baseCtrl.base.fire((int)motionEvent.getX(), (int)motionEvent.getY());
                 // If the game was paused unpause
                 //mPaused = false;
 
