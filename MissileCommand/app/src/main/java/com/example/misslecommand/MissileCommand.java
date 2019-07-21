@@ -39,8 +39,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     //private Cows[] cows;
     private CowsCtrl cowsCtrl;
-
-    private List<Hornets> hornets;
+    private HornetCtrl hornetCtrl;
+    //private List<Hornets> hornets;
 
     private List<PowerUp> powerUps;
 
@@ -96,7 +96,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         // Rest the score and the player's missiles
         mScore = 0;
         base.ammo = 10;
-        hornets = new ArrayList<>();
+        hornetCtrl = new HornetCtrl();
         powerUps = new ArrayList<>();
     }
 
@@ -143,8 +143,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     }
 
     private void update() {
-        spawnHornets(1);
-        updateHornets();
+        hornetCtrl.spawnHornets(1, cowsCtrl, mScreenX);
+        hornetCtrl.updateHornets(mFPS);
         spawnPowerUps(1);
         updatePowerUps();
         //updateCows();
@@ -182,9 +182,7 @@ class MissileCommand extends SurfaceView implements Runnable{
             // Draw the cows, base, hornets, missiles
             cowsCtrl.draw(mCanvas, mPaint);
 
-            for (int i = 0; i < hornets.size(); i++) {
-               mCanvas.drawRect(hornets.get(i).mRect, mPaint);
-            }
+            hornetCtrl.draw(mCanvas, mPaint);
 
             // Choose a color to paint with
             mPaint.setColor(Color.argb
@@ -220,7 +218,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                             "   Number of Missiles: " + base.ammo,
                     mFontMargin , mFontSize, mPaint);
 
-            mCanvas.drawText("Hornets: " + hornets.size(), mFontMargin + 1300, mFontSize, mPaint);
+            mCanvas.drawText("Hornets: " + hornetCtrl.hornets.size(), mFontMargin + 1300, mFontSize, mPaint);
 
             if(DEBUGGING){
                 printDebuggingText();
@@ -265,25 +263,9 @@ class MissileCommand extends SurfaceView implements Runnable{
         return true;
     }
 
-    private void spawnHornets(int level) {
-        Random random = new Random();
-        int randCow = random.nextInt(cowsCtrl.cowNum);
-        int didFire = random.nextInt(100);
-        if (didFire <= level) {
-            Cows target = cowsCtrl.cows[randCow];
-            hornets.add(new Hornets(random.nextInt(mScreenX), 0, target, level));
-        }
-    }
 
-    private void updateHornets() {
-        for (int i = 0; i < hornets.size(); i++) {
-            hornets.get(i).update(mFPS);
-            hornets.get(i).kill();
-            if (hornets.get(i).status == false) {
-                hornets.remove(i);
-            }
-        }
-    }
+
+
 
     private void spawnPowerUps(int level) {
         Random random = new Random();
