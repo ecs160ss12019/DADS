@@ -55,6 +55,12 @@ public class Hornets {
 
     }
 
+
+    // Return a reference to mRect to Missile
+    RectF getRect(){
+        return mRect;
+    }
+
     public void increaseSpeed(){
 
     }

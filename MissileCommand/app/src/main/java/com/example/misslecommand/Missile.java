@@ -71,10 +71,15 @@ public class Missile {
 
     }
 
-    public void explode() {
-        //Collision detection
+    public void detectCollisions(){
+        // Has the missile hit the hornets?
 
-        
+        //if(RectF.intersects(hornet.mRect, mRect)) {
+
+        //}
+    }
+
+    public void explode() {
         exploding = true;
         if (explodeRect == null) {
             explodeRect = new RectF(xFinal - radius, yFinal + radius, xFinal + radius,
@@ -96,5 +101,9 @@ public class Missile {
         } else if (explosionCounter >= 100) {
             done = true;
         }
+    }
+
+    RectF getRect(){
+        return mRect;
     }
 }
