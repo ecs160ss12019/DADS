@@ -34,8 +34,8 @@ public class Missile {
         
         mRect = new RectF(xPosition - width/2, yPosition + height, xPosition + width/2, yPosition);
 
-        yVelocity = (yFinal - yPosition)/2;
-        xVelocity = (xFinal - xPosition)/2;
+        yVelocity = (yFinal - yPosition);
+        xVelocity = (xFinal - xPosition);
     }
     void update(long fps){
         // Move the missile based upon the

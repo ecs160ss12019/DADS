@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.graphics.RectF;
 import android.view.SurfaceView;
 import java.util.*;
 
@@ -145,13 +146,22 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     private void detectCollisions(){
         // Has the missile hit the hornets?
+        //baseCtrl;
+        //hornetCtrl;
+        //Cows target = cowsCtrl.cows[randCow];
 
-        //if(RectF.intersects(mBat.getRect(), mBall.getRect())) {
-
-        //}
-
-        // Has the hornet stinger hit the cows
-
+        Base baseOne = baseCtrl.base;
+        List<Missile> missiles = baseOne.missiles;
+        List<Hornets> hornetsList = hornetCtrl.hornets;
+        for (int i = 0; i < missiles.size(); i++) {
+            for (int j = 0; j < hornetsList.size(); j++) {
+                if (missiles.get(i).exploding == true) {
+                    if(RectF.intersects(missiles.get(i).getRect(), hornetsList.get(j).getRect())) {
+                        hornetsList.remove(j);
+                    }
+                }
+            }
+        }
     }
 
     // Draw the game objects and the HUD
