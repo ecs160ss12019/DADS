@@ -72,6 +72,9 @@ public class Missile {
     }
 
     public void explode() {
+        //Collision detection
+
+        
         exploding = true;
         if (explodeRect == null) {
             explodeRect = new RectF(xFinal - radius, yFinal + radius, xFinal + radius,

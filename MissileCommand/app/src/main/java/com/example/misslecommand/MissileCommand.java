@@ -145,6 +145,11 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     private void detectCollisions(){
         // Has the missile hit the hornets?
+
+        //if(RectF.intersects(mBat.getRect(), mBall.getRect())) {
+
+        //}
+
         // Has the hornet stinger hit the cows
 
     }
