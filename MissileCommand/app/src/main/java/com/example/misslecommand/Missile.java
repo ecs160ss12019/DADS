@@ -80,21 +80,17 @@ public class Missile {
 
         explosionCounter++;
 
-        if((explosionCounter == 30 || explosionCounter == 60)  && explosionCounter < 75){
+        if(explosionCounter == 20 || explosionCounter == 40){
             explodeRect.left = xFinal - radius - 25;
             explodeRect.top = yFinal + radius + 25;
             explodeRect.right = xFinal + radius + 25;
             explodeRect.bottom = yFinal - radius - 25;
-        }
-
-        if((explosionCounter == 100 || explosionCounter == 130) && explosionCounter >= 75){
+        } else if(explosionCounter == 60 || explosionCounter == 80){
             explodeRect.left = xFinal - radius + 25;
             explodeRect.top = yFinal + radius - 25;
             explodeRect.right = xFinal + radius - 25;
             explodeRect.bottom = yFinal - radius + 25;
-        }
-
-        if (explosionCounter >= 150) {
+        } else if (explosionCounter >= 100) {
             done = true;
         }
     }
