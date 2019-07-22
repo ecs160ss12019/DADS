@@ -54,7 +54,7 @@ public class Missile {
         mRect.right = mRect.left + width;
         mRect.bottom = mRect.top + height;
 
-        if(xPosition >= xFinal || yPosition == yFinal){
+        if(yPosition <= yFinal){
             this.explode();
         }
     }
