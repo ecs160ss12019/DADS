@@ -93,7 +93,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void startNewGame(){
         // Rest the score and the player's missiles
         score = 0;
-        baseCtrl.base.ammo = 10;
+        baseCtrl.base.ammo = 99;
         hornetCtrl = new HornetCtrl();
         powerUpCtrl = new PowerUpCtrl();
     }
@@ -166,8 +166,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     }
 
     private void checkCollision(Hornets hornet, Missile missile) {
-        int hX = hornet.xPosition;
-        int hY = hornet.yPosition;
+        float hX = hornet.xPosition;
+        float hY = hornet.yPosition;
         if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
             && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {
             hornetCtrl.hornets.remove(hornet);

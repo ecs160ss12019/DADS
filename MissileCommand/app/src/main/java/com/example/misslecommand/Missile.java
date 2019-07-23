@@ -6,12 +6,13 @@ public class Missile {
 
     public RectF mRect;
     public RectF explodeRect;
+    public float speed = 1000;
     public float xVelocity;
     public float yVelocity;
-    public int xPosition;
-    public int yPosition;
-    public int xFinal;
-    public int yFinal;
+    public float xCenter;
+    public float yCenter;
+    public float xDest;
+    public float yDest;
 
     public int radius = 80;
 
@@ -23,41 +24,45 @@ public class Missile {
     public boolean exploding;
     public boolean done;
     
-    public Missile(int baseX, int baseY, int xF, int yF) {
-        xPosition = baseX;
-        yPosition = baseY + 50;
-        xFinal = xF;
-        yFinal = yF;
+    public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch) {
+        xCenter = baseXCenter;
+        yCenter = baseYTop - width/2;
+        xDest = xTouch ;
+        yDest = yTouch;
         explosionCounter = 0;
-        xVelocity = 500;
-        yVelocity = 500;
+        mRect = new RectF( xCenter- width/2, yCenter - height/2,  xCenter + width/2, yCenter + height/2);
 
         exploding = false;
         done = false;
 
-        mRect = new RectF(xPosition - width/2, yPosition + height/2, xPosition + width/2, yPosition - height/2);
+        float py = yDest - yCenter;
+        float px = xDest - xCenter;
 
-        yVelocity = (yFinal - yPosition);
-        xVelocity = (xFinal - xPosition);
+        float distance = (float)Math.sqrt(px*px + py*py);
+        float scalar = speed/distance;
+
+        yVelocity = scalar*(yDest - yCenter);
+        xVelocity = scalar*(xDest - xCenter);
     }
     void update(long fps){
         // Move the missile based upon the
         // horizontal and vertical speed
         // and the current frame rate(fps)
 
-        xPosition = xPosition + (int)(xVelocity/(fps));
-        yPosition = yPosition + (int)(yVelocity/(fps));
+        xCenter = xCenter + xVelocity/(float)fps;
+        yCenter = yCenter + yVelocity/(float)fps;
 
         // Move the top left corner
-        mRect.left = mRect.left + (xVelocity / fps);
-        mRect.top = mRect.top + (yVelocity / fps);
+        mRect.left = mRect.left + xVelocity / (float)fps;
+        mRect.top = mRect.top + yVelocity / (float)fps;
 
         // Match up the bottom right corner
         // based on the size of the missile
         mRect.right = mRect.left + width;
         mRect.bottom = mRect.top + height;
 
-        if(yPosition <= yFinal){
+
+        if(yCenter <= yDest){
             this.explode();
         }
     }
@@ -78,22 +83,22 @@ public class Missile {
     public void explode() {
         exploding = true;
         if (explodeRect == null) {
-            explodeRect = new RectF(xFinal - radius, yFinal + radius, xFinal + radius,
-                    yFinal - radius);
+            explodeRect = new RectF(xDest - radius, yDest + radius, xDest + radius,
+                    yDest - radius);
         }
 
         explosionCounter++;
 
         if(explosionCounter == 20 || explosionCounter == 40){
-            explodeRect.left = xFinal - radius - 25;
-            explodeRect.top = yFinal + radius + 25;
-            explodeRect.right = xFinal + radius + 25;
-            explodeRect.bottom = yFinal - radius - 25;
+            explodeRect.left = xDest - radius - 25;
+            explodeRect.top = yDest + radius + 25;
+            explodeRect.right = xDest + radius + 25;
+            explodeRect.bottom = yDest - radius - 25;
         } else if(explosionCounter == 60 || explosionCounter == 80){
-            explodeRect.left = xFinal - radius + 25;
-            explodeRect.top = yFinal + radius - 25;
-            explodeRect.right = xFinal + radius - 25;
-            explodeRect.bottom = yFinal - radius + 25;
+            explodeRect.left = xDest - radius + 25;
+            explodeRect.top = yDest + radius - 25;
+            explodeRect.right = xDest + radius - 25;
+            explodeRect.bottom = yDest - radius + 25;
         } else if (explosionCounter >= 100) {
             done = true;
         }

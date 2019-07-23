@@ -17,6 +17,11 @@ public class HornetCtrl {
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < hornets.size(); i++) {
             canvas.drawRect(hornets.get(i).mRect, paint);
+            canvas.drawLine(hornets.get(i).initX,
+                    hornets.get(i).initY,
+                    hornets.get(i).xPosition,
+                    hornets.get(i).yPosition,
+                    paint);
         }
     }
 

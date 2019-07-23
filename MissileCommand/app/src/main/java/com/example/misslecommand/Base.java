@@ -11,20 +11,21 @@ public class Base{
     public RectF mRect;
     private float width = 100;
     private float height = 100;
-    public int xPosition;
-    public int yPosition;
+    public float xCenter;
+    public float yBottom;
+    public float yTop;
     
     public int ammo;
 
     public List<Missile> missiles;
 
-    public Base(int x, int y) {
+    public Base(float centerScreenX, float screenY) {
         status = true;
         missiles = new ArrayList<>();
-        xPosition = x;
-        yPosition = y;
-        mRect = new RectF((float)x - width/2, (float)y + height/2, (float)x + width/2,
-                (float)y - height/2);
+        xCenter = centerScreenX;
+        yBottom = screenY;
+        yTop = yBottom - height;
+        mRect = new RectF( xCenter - width/2, yTop, xCenter + width/2, yBottom);
     }
 
     //will create an instance of missile and then from TouchEvent fire it to a certain location
@@ -33,7 +34,7 @@ public class Base{
             //out of ammo
             return;
         }
-        missiles.add(new Missile(xPosition, yPosition, xTouch, yTouch));
+        missiles.add(new Missile(xCenter, yBottom, xTouch, yTouch));
         ammo--;
     }
 
