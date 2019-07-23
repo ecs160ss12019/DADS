@@ -40,7 +40,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private PowerUpCtrl powerUpCtrl;
 
     // The current score and lives remaining
-    private int mScore = 0;
+    private int score = 0;
     //private int numMissiles = 10;
 
     // Here is the Thread and two control variables
@@ -89,7 +89,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     // or is starting their first game
     private void startNewGame(){
         // Rest the score and the player's missiles
-        mScore = 0;
+        score = 0;
         baseCtrl.base.ammo = 10;
         hornetCtrl = new HornetCtrl();
         powerUpCtrl = new PowerUpCtrl();
@@ -164,6 +164,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
             && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {
             hornetCtrl.hornets.remove(hornet);
+            score = score + 10;
         }
     }
 
@@ -208,11 +209,9 @@ class MissileCommand extends SurfaceView implements Runnable{
             mPaint.setTextSize(mFontSize);
 
             // Draw the HUD
-            mCanvas.drawText("Score: " + mScore +
-                            "   Number of Missiles: " + baseCtrl.base.ammo,
-                    mFontMargin , mFontSize, mPaint);
-
-            mCanvas.drawText("Hornets: " + hornetCtrl.hornets.size(), mFontMargin + 1300, mFontSize, mPaint);
+            mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
+            mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 500, mFontSize, mPaint);
+            mCanvas.drawText("Hornets: " + hornetCtrl.hornets.size(), mFontMargin + 1000, mFontSize, mPaint);
 
             if(DEBUGGING){
                 printDebuggingText();
