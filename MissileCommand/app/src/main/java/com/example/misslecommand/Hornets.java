@@ -25,7 +25,7 @@ public class Hornets {
         finalX = target.xPosition;
         finalY = target.yPosition;
         status = true;
-        mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
+        mRect = new RectF((float)x - width/2, (float)y - height/2, (float)x+width/2, (float)y+height/2);
 
         // VELOCITY CODE
         yVelocity = (finalY - yPosition)/(4 - (roundLevel/3));
@@ -52,14 +52,12 @@ public class Hornets {
             status = false;
             target.kill();
         }
-
     }
 
-
-    // Return a reference to mRect to Missile
-    RectF getRect(){
-        return mRect;
+    public void exploded() {
+        status = false;
     }
+
 
     public void increaseSpeed(){
 

@@ -20,8 +20,8 @@ public class Missile {
     public int width = 30;
     public int height = 30;
     public boolean spawned = false;
-    public boolean exploding = false;
-    public boolean done = false;
+    public boolean exploding;
+    public boolean done;
     
     public Missile(int baseX, int baseY, int xF, int yF) {
         xPosition = baseX;
@@ -31,8 +31,11 @@ public class Missile {
         explosionCounter = 0;
         xVelocity = 500;
         yVelocity = 500;
-        
-        mRect = new RectF(xPosition - width/2, yPosition + height, xPosition + width/2, yPosition);
+
+        exploding = false;
+        done = false;
+
+        mRect = new RectF(xPosition - width/2, yPosition + height/2, xPosition + width/2, yPosition - height/2);
 
         yVelocity = (yFinal - yPosition);
         xVelocity = (xFinal - xPosition);
@@ -71,13 +74,6 @@ public class Missile {
 
     }
 
-    public void detectCollisions(){
-        // Has the missile hit the hornets?
-
-        //if(RectF.intersects(hornet.mRect, mRect)) {
-
-        //}
-    }
 
     public void explode() {
         exploding = true;
@@ -103,7 +99,4 @@ public class Missile {
         }
     }
 
-    RectF getRect(){
-        return mRect;
-    }
 }
