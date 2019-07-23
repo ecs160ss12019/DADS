@@ -39,6 +39,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     private HornetCtrl hornetCtrl;
     private PowerUpCtrl powerUpCtrl;
 
+    private int state; // 0 = main menu, 1 = in game
+
     // The current score and lives remaining
     private int score = 0;
     //private int numMissiles = 10;
@@ -80,9 +82,10 @@ class MissileCommand extends SurfaceView implements Runnable{
         // Initialize the cows and base
         cowsCtrl = new CowsCtrl(mScreenY);
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY-100);
+        state = 0;
 
         // Everything is ready so start the game
-        startNewGame();
+        draw();
     }
 
     // The player has just lost, beat the round
@@ -116,8 +119,10 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             // The movement has been handled and collisions
             // detected now we can draw the scene.
-            update();
-            detectCollisions();
+            if (state == 1) {
+                update();
+                detectCollisions();
+            }
             draw();
 
             // How long did this frame/loop take?
@@ -139,9 +144,11 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     private void update() {
         // Call all controller update functions
-        hornetCtrl.update(mFPS, 1, cowsCtrl, mScreenX);
-        baseCtrl.update(mFPS);
-        powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
+        if (hornetCtrl != null && baseCtrl != null && powerUpCtrl != null) {
+            hornetCtrl.update(mFPS, 1, cowsCtrl, mScreenX);
+            baseCtrl.update(mFPS);
+            powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
+        }
     }
 
     private void detectCollisions() {
@@ -178,47 +185,63 @@ class MissileCommand extends SurfaceView implements Runnable{
         }
     }
 
-    //if(baseCtrl.base.missiles.get(i).explodeRect.intersect(hornetCtrl.hornets.get(j).mRect)) {
-    //        hornetCtrl.hornets.remove(j);
-
     // Draw the game objects and the HUD
     void draw() {
         if (mOurHolder.getSurface().isValid()) {
             // Lock the canvas (graphics memory) ready to draw
             mCanvas = mOurHolder.lockCanvas();
 
-            // Fill the screen with a solid color
-            mCanvas.drawColor(Color.argb
-                    (255, 26, 128, 182));
+            if (state == 0) {
+                // Fill the screen with a solid color
+                mCanvas.drawColor(Color.argb
+                        (255, 26, 128, 182));
 
-            // Choose a color to paint with
-            mPaint.setColor(Color.argb
-                    (255, 255, 255, 255));
+                mPaint.setColor(Color.argb
+                        (255, 255, 255, 255));
 
-            // Call all controllers draw functions
-            cowsCtrl.draw(mCanvas, mPaint);
-            baseCtrl.draw(mCanvas, mPaint);
-            hornetCtrl.draw(mCanvas, mPaint);
-            powerUpCtrl.draw(mCanvas, mPaint);
+                // Choose the font size
+                mPaint.setTextSize(mFontSize);
 
-            // Reset Color to White
-            mPaint.setColor(Color.argb
-                    (255, 255, 255, 255));
+                mCanvas.drawText("DADS", 500, 500, mPaint);
+                mCanvas.drawText("Davis Aerial Defense System!", 500, 800, mPaint);
+                mOurHolder.unlockCanvasAndPost(mCanvas);
+            } else {
 
-            // Choose the font size
-            mPaint.setTextSize(mFontSize);
+                // Fill the screen with a solid color
+                mCanvas.drawColor(Color.argb
+                        (255, 26, 128, 182));
 
-            // Draw the HUD
-            mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
-            mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 500, mFontSize, mPaint);
-            mCanvas.drawText("Hornets: " + hornetCtrl.hornets.size(), mFontMargin + 1000, mFontSize, mPaint);
+                // Choose a color to paint with
+                mPaint.setColor(Color.argb
+                        (255, 255, 255, 255));
 
-            if(DEBUGGING){
-                printDebuggingText();
+                // Call all controllers draw functions
+                if (cowsCtrl != null && baseCtrl != null && hornetCtrl != null && powerUpCtrl != null) {
+                    cowsCtrl.draw(mCanvas, mPaint);
+                    baseCtrl.draw(mCanvas, mPaint);
+                    hornetCtrl.draw(mCanvas, mPaint);
+                    powerUpCtrl.draw(mCanvas, mPaint);
+                }
+
+                // Reset Color to White
+                mPaint.setColor(Color.argb
+                        (255, 255, 255, 255));
+
+                // Choose the font size
+                mPaint.setTextSize(mFontSize);
+
+                // Draw the HUD
+                mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
+                mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 500, mFontSize, mPaint);
+                mCanvas.drawText("Hornets: " + hornetCtrl.hornets.size(), mFontMargin + 1000, mFontSize, mPaint);
+
+                if (DEBUGGING) {
+                    printDebuggingText();
+                }
+                // Display the drawing on screen
+                // unlockCanvasAndPost is a method of SurfaceView
+                mOurHolder.unlockCanvasAndPost(mCanvas);
             }
-            // Display the drawing on screen
-            // unlockCanvasAndPost is a method of SurfaceView
-            mOurHolder.unlockCanvasAndPost(mCanvas);
         }
 
     }
@@ -234,7 +257,14 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             // The player has put their finger on the screen
             case MotionEvent.ACTION_DOWN:
-                baseCtrl.base.fire((int)motionEvent.getX(), (int)motionEvent.getY());
+                if (state == 1) {
+                    baseCtrl.base.fire((int)motionEvent.getX(), (int)motionEvent.getY());
+                }
+                if (state == 0) {
+                    state = 1;
+                    startNewGame();
+                }
+
                 // If the game was paused unpause
                 //mPaused = false;
 

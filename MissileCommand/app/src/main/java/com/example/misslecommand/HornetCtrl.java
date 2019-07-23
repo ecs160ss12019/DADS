@@ -39,7 +39,6 @@ public class HornetCtrl {
     public void update(long fps, int level, CowsCtrl cowsCtrl, int screenX) {
         for (int i = 0; i < hornets.size(); i++) {
             hornets.get(i).update(fps);
-            //hornets.get(i).detectCollisions();
             hornets.get(i).kill();
             if (hornets.get(i).status == false) {
                 hornets.remove(i);
