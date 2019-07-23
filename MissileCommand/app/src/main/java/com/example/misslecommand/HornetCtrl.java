@@ -7,9 +7,11 @@ import java.util.*;
 
 public class HornetCtrl {
     public List<Hornets> hornets;
+    Random random;
 
     public HornetCtrl() {
         hornets = new ArrayList<>();
+        random = new Random();
     }
 
     public void draw(Canvas canvas, Paint paint) {
@@ -19,13 +21,18 @@ public class HornetCtrl {
     }
 
     public void spawnHornets(int level, CowsCtrl cowsCtrl, int screenX) {
-        Random random = new Random();
         int randCow = random.nextInt(cowsCtrl.cowNum);
         int didFire = random.nextInt(100);
         if (didFire <= level) {
             Cows target = cowsCtrl.cows[randCow];
             hornets.add(new Hornets(random.nextInt(screenX), 0, target, level));
         }
+    }
+
+    public void spawnSingle(int level, CowsCtrl cowsCtrl, int screenX) {
+        int randCow = random.nextInt(cowsCtrl.cowNum);
+        Cows target = cowsCtrl.cows[randCow];
+        hornets.add(new Hornets(random.nextInt(screenX), 0, target, level));
     }
 
 

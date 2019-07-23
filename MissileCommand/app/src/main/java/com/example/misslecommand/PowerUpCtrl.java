@@ -7,9 +7,11 @@ import java.util.*;
 
 public class PowerUpCtrl {
     public List<PowerUp> powerUps;
+    Random random;
 
     public PowerUpCtrl() {
         powerUps = new ArrayList<>();
+        random = new Random();
     }
 
     public void draw(Canvas canvas, Paint paint) {
@@ -22,12 +24,14 @@ public class PowerUpCtrl {
     }
 
     public void spawnPowerUps(int level, int screenX, int screenY) {
-        Random random = new Random();
-        //random.nextInt(mScreenX)
         int didFire = random.nextInt(1000);
         if (didFire <= level) {
             powerUps.add(new PowerUp(random.nextInt(screenX-69), 0, screenY));
         }
+    }
+
+    public void spawnSingle(int screenX, int screenY) {
+        powerUps.add(new PowerUp(random.nextInt(screenX-69), 0, screenY));
     }
 
     public void update(long fps, int level, int screenX, int screenY) {
