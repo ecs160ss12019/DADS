@@ -80,7 +80,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         mPaint = new Paint();
 
         // Initialize the cows and base
-        cowsCtrl = new CowsCtrl(mScreenY);
+        cowsCtrl = new CowsCtrl(mScreenY, context);
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY-100);
         state = 0;
 
