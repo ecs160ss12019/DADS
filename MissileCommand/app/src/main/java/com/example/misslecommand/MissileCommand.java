@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -15,6 +16,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     // Are we debugging?
     private final boolean DEBUGGING = true;
+
+    MediaPlayer mediaPlayer;
 
     // These objects are needed to do the drawing
     private SurfaceHolder mOurHolder;
@@ -63,6 +66,9 @@ class MissileCommand extends SurfaceView implements Runnable{
         // provided by Android
         super(context);
 
+
+        mediaPlayer = MediaPlayer.create(context, R.raw.start);
+        mediaPlayer.setVolume(50,50);
         // Initialize these two members/fields
         // With the values passesd in as parameters
         mScreenX = x;
@@ -263,6 +269,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 if (state == 0) {
                     state = 1;
                     startNewGame();
+                    mediaPlayer.start();
                 }
 
                 // If the game was paused unpause
