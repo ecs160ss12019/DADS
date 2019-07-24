@@ -1,12 +1,11 @@
 package com.example.misslecommand;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Point;
 import android.view.Display;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private MissileCommand missileGame;
 
     @Override
@@ -17,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
 
-        missileGame = new MissileCommand(this, 1794, size.y);
+        missileGame = new MissileCommand(this, size.x, size.y);
         setContentView(missileGame);
     }
 
