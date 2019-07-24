@@ -23,8 +23,8 @@ public class Base{
         status = true;
         missiles = new ArrayList<>();
         xCenter = centerScreenX;
-        yBottom = screenY;
-        yTop = yBottom - height;
+        yBottom = screenY + 50;
+        yTop = yBottom - height + 50;
         mRect = new RectF( xCenter - width/2, yTop, xCenter + width/2, yBottom);
     }
 

@@ -26,11 +26,11 @@ public class Missile {
     
     public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch) {
         xCenter = baseXCenter;
-        yCenter = baseYTop - width/2;
+        yCenter = baseYTop -45;
         xDest = xTouch ;
         yDest = yTouch;
         explosionCounter = 0;
-        mRect = new RectF( xCenter- width/2, yCenter - height/2,  xCenter + width/2, yCenter + height/2);
+        mRect = new RectF( xCenter- width/2, yCenter - 15,  xCenter + width/2, yCenter+ 30);
 
         exploding = false;
         done = false;
