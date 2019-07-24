@@ -27,8 +27,8 @@ public class Cows {
 
         mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cow);
 
-        mRect = new RectF((float)x - width/2, (float)y + height/2, (float)x + width/2,
-                (float)y - height/2);
+        mRect = new RectF((float)x - width/2, (float)y + height/2 - 85, (float)x + width/2,
+                (float)y - height/2 - 85);
     }
 
     // This function will kill (remove the cow entity)
