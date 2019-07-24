@@ -16,7 +16,8 @@ public class HornetCtrl {
 
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < hornets.size(); i++) {
-            canvas.drawRect(hornets.get(i).mRect, paint);
+            //canvas.drawRect(hornets.get(i).mRect, paint);
+            canvas.drawBitmap(hornets[i].getBitmap(), hornets[i].getRect().left, hornets[i].getRect().top, paint);
             canvas.drawLine(hornets.get(i).initX,
                     hornets.get(i).initY,
                     hornets.get(i).xPosition,
