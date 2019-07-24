@@ -17,7 +17,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     // Are we debugging?
     private final boolean DEBUGGING = true;
 
-    MediaPlayer mediaPlayer;
+    MediaPlayer menuPlayer;
+    MediaPlayer startPlayer;
 
     // These objects are needed to do the drawing
     private SurfaceHolder mOurHolder;
@@ -67,8 +68,12 @@ class MissileCommand extends SurfaceView implements Runnable{
         super(context);
 
 
-        mediaPlayer = MediaPlayer.create(context, R.raw.start);
-        mediaPlayer.setVolume(50,50);
+        menuPlayer = MediaPlayer.create(context, R.raw.menu);
+        startPlayer = MediaPlayer.create(context, R.raw.start);
+        menuPlayer.setVolume(80,80);
+        startPlayer.setVolume(80,80);
+
+        menuPlayer.start();
         // Initialize these two members/fields
         // With the values passesd in as parameters
         mScreenX = x;
@@ -269,7 +274,9 @@ class MissileCommand extends SurfaceView implements Runnable{
                 if (state == 0) {
                     state = 1;
                     startNewGame();
-                    mediaPlayer.start();
+                    menuPlayer.stop();
+                    menuPlayer.release();
+                    startPlayer.start();
                 }
 
                 // If the game was paused unpause
