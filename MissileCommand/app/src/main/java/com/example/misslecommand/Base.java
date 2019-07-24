@@ -2,11 +2,13 @@ package com.example.misslecommand;
 
 // This is the base class. It is responsible for firing missiles at the hornets.
 
+import android.content.Context;
 import android.graphics.RectF;
 import java.util.*;
 
 public class Base{
 
+    public Context context;
     public boolean status;
     public RectF mRect;
     private float width = 100;
@@ -19,8 +21,9 @@ public class Base{
 
     public List<Missile> missiles;
 
-    public Base(float centerScreenX, float screenY) {
+    public Base(float centerScreenX, float screenY, Context con) {
         status = true;
+        context = con;
         missiles = new ArrayList<>();
         xCenter = centerScreenX;
         yBottom = screenY + 50;
@@ -34,7 +37,7 @@ public class Base{
             //out of ammo
             return;
         }
-        missiles.add(new Missile(xCenter, yBottom, xTouch, yTouch));
+        missiles.add(new Missile(xCenter, yBottom, xTouch, yTouch, context));
         ammo--;
     }
 

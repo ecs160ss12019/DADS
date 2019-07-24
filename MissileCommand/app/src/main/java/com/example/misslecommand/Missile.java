@@ -1,8 +1,12 @@
 package com.example.misslecommand;
 
+import android.content.Context;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 
 public class Missile {
+    MediaPlayer fireSound;
+    MediaPlayer explodeSound;
 
     public RectF mRect;
     public RectF explodeRect;
@@ -24,7 +28,10 @@ public class Missile {
     public boolean exploding;
     public boolean done;
     
-    public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch) {
+    public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch, Context context) {
+        fireSound = MediaPlayer.create(context, R.raw.fire);
+        fireSound.start();
+        explodeSound = MediaPlayer.create(context, R.raw.explode);
         xCenter = baseXCenter;
         yCenter = baseYTop -45;
         xDest = xTouch ;
@@ -82,7 +89,9 @@ public class Missile {
 
     public void explode() {
         exploding = true;
+        //fireSound.stop();
         if (explodeRect == null) {
+            explodeSound.start();
             explodeRect = new RectF(xDest - radius, yDest + radius, xDest + radius,
                     yDest - radius);
         }
@@ -101,6 +110,15 @@ public class Missile {
             explodeRect.bottom = yDest - radius + 25;
         } else if (explosionCounter >= 100) {
             done = true;
+            //explodeSound.stop();
+            if (explodeSound != null & fireSound != null) {
+                explodeSound.reset();
+                explodeSound.release();
+                explodeSound = null;
+                fireSound.reset();
+                fireSound.release();
+                fireSound = null;
+            }
         }
     }
 

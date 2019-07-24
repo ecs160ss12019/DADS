@@ -72,7 +72,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         startPlayer = MediaPlayer.create(context, R.raw.start);
         menuPlayer.setVolume(80,80);
         startPlayer.setVolume(80,80);
-
+        menuPlayer.setLooping(true);
         menuPlayer.start();
         // Initialize these two members/fields
         // With the values passesd in as parameters
@@ -92,7 +92,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
         // Initialize the cows and base
         cowsCtrl = new CowsCtrl(mScreenY, context);
-        baseCtrl = new BaseCtrl(mScreenX/2, mScreenY-100);
+        baseCtrl = new BaseCtrl(mScreenX/2, mScreenY-100, context);
         state = 0;
 
         // Everything is ready so start the game
@@ -275,6 +275,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     state = 1;
                     startNewGame();
                     menuPlayer.stop();
+                    menuPlayer.reset();
                     menuPlayer.release();
                     startPlayer.start();
                 }

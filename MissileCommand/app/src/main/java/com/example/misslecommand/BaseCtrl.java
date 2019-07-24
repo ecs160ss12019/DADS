@@ -1,5 +1,6 @@
 package com.example.misslecommand;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,8 +9,8 @@ import java.util.*;
 public class BaseCtrl {
     public Base base;
 
-    public BaseCtrl(int centerScreenX, int screenY) {
-        base = new Base(centerScreenX, screenY);
+    public BaseCtrl(int centerScreenX, int screenY, Context con) {
+        base = new Base(centerScreenX, screenY, con);
     }
 
     public void draw(Canvas canvas, Paint paint) {
