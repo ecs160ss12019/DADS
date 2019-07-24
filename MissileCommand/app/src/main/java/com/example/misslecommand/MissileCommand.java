@@ -45,6 +45,9 @@ class MissileCommand extends SurfaceView implements Runnable{
     private PowerUpCtrl powerUpCtrl;
     private LevelCtrl levelCtrl;
 
+    private int numPowerup;
+    private int numHornets;
+
     private int state; // 0 = main menu, 1 = in game
 
     // The current score and lives remaining
@@ -111,6 +114,8 @@ class MissileCommand extends SurfaceView implements Runnable{
         // Rest the score and the player's missiles
         score = 0;
         baseCtrl.base.ammo = levelCtrl.numMissiles;
+        numPowerup = levelCtrl.numPowerups;
+        numHornets = levelCtrl.numHornets;
         hornetCtrl = new HornetCtrl(contxt);
         powerUpCtrl = new PowerUpCtrl();
     }
@@ -162,12 +167,13 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void update() {
         // Call all controller update functions
         if (hornetCtrl != null && baseCtrl != null && powerUpCtrl != null) {
-            if(levelCtrl.numHornets >= 0 && levelCtrl.numMissiles >= 0){
+            if(numHornets >= 0 && levelCtrl.numMissiles >= 0){
                 hornetCtrl.update(mFPS, 1, cowsCtrl, mScreenX);
                 baseCtrl.update(mFPS);
                 powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
             }
             else{
+                levelCtrl.nextLevel();
                 state = 0;
             }
         }
