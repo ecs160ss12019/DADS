@@ -10,6 +10,7 @@ public class HornetCtrl {
     public List<Hornets> hornets;
     Random random;
     Context contxt;
+    public boolean removeHornet = false;
 
     public HornetCtrl(Context context) {
         contxt = context;
@@ -51,6 +52,7 @@ public class HornetCtrl {
             hornets.get(i).kill();
             if (hornets.get(i).status == false) {
                 hornets.remove(i);
+                removeHornet = true;
             }
         }
 

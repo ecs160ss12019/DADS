@@ -47,6 +47,9 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     private int numPowerup;
     private int numHornets;
+    private boolean killedHornet = false;
+    private boolean killedPowerup = false;
+    private int hornetsSpawned = 0;
 
     private int state; // 0 = main menu, 1 = in game
 
@@ -167,12 +170,18 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void update() {
         // Call all controller update functions
         if (hornetCtrl != null && baseCtrl != null && powerUpCtrl != null) {
-            if(numHornets >= 0 && levelCtrl.numMissiles >= 0){
+            if(numHornets > 0){
                 hornetCtrl.update(mFPS, 1, cowsCtrl, mScreenX);
                 baseCtrl.update(mFPS);
                 powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
+                if(hornetCtrl.removeHornet == true || killedHornet == true){
+                    numHornets--;
+                    hornetCtrl.removeHornet = false;
+                    killedHornet = false;
+                }
             }
             else{
+                hornetsSpawned = 0;
                 levelCtrl.nextLevel();
                 state = 0;
             }
@@ -199,6 +208,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
                 && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {
             hornetCtrl.hornets.remove(hornet);
+            killedHornet = true;
             score = score + 10;
         }
     }
@@ -210,6 +220,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 && pX > missile.explodeRect.left && pX < missile.explodeRect.right) {
             powerUpCtrl.powerUps.remove(powerUp);
             baseCtrl.base.ammo = baseCtrl.base.ammo + 4;
+            killedPowerup = true;
         }
     }
 
@@ -261,7 +272,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 // Draw the HUD
                 mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
                 mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 500, mFontSize, mPaint);
-                mCanvas.drawText("Hornets: " + hornetCtrl.hornets.size(), mFontMargin + 1000, mFontSize, mPaint);
+                mCanvas.drawText("Hornets Left: " + numHornets, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
 
                 if (DEBUGGING) {
                     printDebuggingText();
