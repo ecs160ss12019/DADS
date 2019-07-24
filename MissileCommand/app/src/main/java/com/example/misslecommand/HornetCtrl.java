@@ -24,7 +24,7 @@ public class HornetCtrl {
             canvas.drawBitmap(hornets.get(i).getBitmap(), hornets.get(i).getRect().left, hornets.get(i).getRect().top, paint);
             canvas.drawLine(hornets.get(i).initX,
                     hornets.get(i).initY,
-                    hornets.get(i).xPosition,
+                    hornets.get(i).xPosition+45,
                     hornets.get(i).yPosition,
                     paint);
         }
