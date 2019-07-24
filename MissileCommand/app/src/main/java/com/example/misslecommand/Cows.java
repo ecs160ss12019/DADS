@@ -40,4 +40,12 @@ public class Cows {
 
     }
 
+    RectF getRect(){
+        return mRect;
+    }
+
+    Bitmap getBitmap(){
+        return mBitmap;
+    }
+
 }

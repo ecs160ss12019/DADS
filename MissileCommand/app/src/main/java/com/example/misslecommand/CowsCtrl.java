@@ -28,7 +28,8 @@ public class CowsCtrl {
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < cowNum; i++) {
             if (cows[i].status) {
-                canvas.drawRect(cows[i].mRect, paint);
+                canvas.drawBitmap(cows[i].getBitmap(), cows[i].getRect().left, cows[i].getRect().top, paint);
+                //canvas.drawRect(cows[i].mRect, paint);
             }
         }
     }
