@@ -1,6 +1,5 @@
 package com.example.misslecommand;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Point;
