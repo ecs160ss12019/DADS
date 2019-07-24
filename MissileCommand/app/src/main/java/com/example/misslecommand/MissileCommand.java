@@ -38,6 +38,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private int mFontMargin;
 
     // The game objects controllers
+    private Background backgrnd;
     private BaseCtrl baseCtrl;
     private CowsCtrl cowsCtrl;
     private HornetCtrl hornetCtrl;
@@ -72,7 +73,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         startPlayer = MediaPlayer.create(context, R.raw.start);
         menuPlayer.setVolume(80,80);
         startPlayer.setVolume(80,80);
-        menuPlayer.setLooping(true);
+
         menuPlayer.start();
         // Initialize these two members/fields
         // With the values passesd in as parameters
@@ -91,6 +92,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         mPaint = new Paint();
 
         // Initialize the cows and base
+        backgrnd = new Background(mScreenX, mScreenY, context);
         cowsCtrl = new CowsCtrl(mScreenY, context);
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY-100, context);
         state = 0;
@@ -180,7 +182,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         float hX = hornet.xPosition;
         float hY = hornet.yPosition;
         if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
-            && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {
+                && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {
             hornetCtrl.hornets.remove(hornet);
             score = score + 10;
         }
@@ -204,8 +206,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             if (state == 0) {
                 // Fill the screen with a solid color
-                mCanvas.drawColor(Color.argb
-                        (255, 26, 128, 182));
+                //mCanvas.drawColor(Color.argb(255, 26, 128, 182));
+                backgrnd.draw(mCanvas, mPaint);
 
                 mPaint.setColor(Color.argb
                         (255, 255, 255, 255));
@@ -219,8 +221,8 @@ class MissileCommand extends SurfaceView implements Runnable{
             } else {
 
                 // Fill the screen with a solid color
-                mCanvas.drawColor(Color.argb
-                        (255, 26, 128, 182));
+                //mCanvas.drawColor(Color.argb(255, 26, 128, 182));
+                backgrnd.draw(mCanvas, mPaint);
 
                 // Choose a color to paint with
                 mPaint.setColor(Color.argb
@@ -275,7 +277,6 @@ class MissileCommand extends SurfaceView implements Runnable{
                     state = 1;
                     startNewGame();
                     menuPlayer.stop();
-                    menuPlayer.reset();
                     menuPlayer.release();
                     startPlayer.start();
                 }
