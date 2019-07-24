@@ -29,9 +29,12 @@ public class Missile {
     public boolean done;
     
     public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch, Context context) {
+        // Create MediaPlayers for launch sound and explode sound, start fire sound on creation.
         fireSound = MediaPlayer.create(context, R.raw.fire);
         fireSound.start();
         explodeSound = MediaPlayer.create(context, R.raw.explode);
+
+        // set coordinate variables
         xCenter = baseXCenter;
         yCenter = baseYTop -45;
         xDest = xTouch ;
@@ -110,7 +113,6 @@ public class Missile {
             explodeRect.bottom = yDest - radius + 25;
         } else if (explosionCounter >= 100) {
             done = true;
-            //explodeSound.stop();
             if (explodeSound != null & fireSound != null) {
                 explodeSound.reset();
                 explodeSound.release();
