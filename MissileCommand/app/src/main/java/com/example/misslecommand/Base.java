@@ -30,7 +30,7 @@ public class Base{
 
     //will create an instance of missile and then from TouchEvent fire it to a certain location
     public void fire(int xTouch, int yTouch){
-        if (ammo <= 0) {
+        if (ammo <= 0 || yTouch >= yBottom - 30) {
             //out of ammo
             return;
         }
