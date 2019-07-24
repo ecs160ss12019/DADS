@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
 
-        missileGame = new MissileCommand(this, size.x, size.y);
+        missileGame = new MissileCommand(this, 1794, size.y);
         setContentView(missileGame);
     }
 
