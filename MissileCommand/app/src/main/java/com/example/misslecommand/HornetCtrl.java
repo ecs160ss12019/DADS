@@ -1,5 +1,6 @@
 package com.example.misslecommand;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,8 +9,10 @@ import java.util.*;
 public class HornetCtrl {
     public List<Hornets> hornets;
     Random random;
+    Context contxt;
 
-    public HornetCtrl() {
+    public HornetCtrl(Context context) {
+        contxt = context;
         hornets = new ArrayList<>();
         random = new Random();
     }
@@ -17,7 +20,7 @@ public class HornetCtrl {
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < hornets.size(); i++) {
             //canvas.drawRect(hornets.get(i).mRect, paint);
-            canvas.drawBitmap(hornets[i].getBitmap(), hornets[i].getRect().left, hornets[i].getRect().top, paint);
+            canvas.drawBitmap(hornets.get(i).getBitmap(), hornets.get(i).getRect().left, hornets.get(i).getRect().top, paint);
             canvas.drawLine(hornets.get(i).initX,
                     hornets.get(i).initY,
                     hornets.get(i).xPosition,
@@ -26,19 +29,19 @@ public class HornetCtrl {
         }
     }
 
-    public void spawnHornets(int level, CowsCtrl cowsCtrl, int screenX) {
+    public void spawnHornets(int level, CowsCtrl cowsCtrl, int screenX, Context context) {
         int randCow = random.nextInt(cowsCtrl.cowNum);
         int didFire = random.nextInt(100);
         if (didFire <= level) {
             Cows target = cowsCtrl.cows[randCow];
-            hornets.add(new Hornets(random.nextInt(screenX), 0, target, level));
+            hornets.add(new Hornets(random.nextInt(screenX), 0, target, level, context));
         }
     }
 
-    public void spawnSingle(int level, CowsCtrl cowsCtrl, int screenX) {
+    public void spawnSingle(int level, CowsCtrl cowsCtrl, int screenX, Context context) {
         int randCow = random.nextInt(cowsCtrl.cowNum);
         Cows target = cowsCtrl.cows[randCow];
-        hornets.add(new Hornets(random.nextInt(screenX), 0, target, level));
+        hornets.add(new Hornets(random.nextInt(screenX), 0, target, level, context));
     }
 
 
@@ -51,7 +54,7 @@ public class HornetCtrl {
             }
         }
 
-        spawnHornets(level, cowsCtrl, screenX);
+        spawnHornets(level, cowsCtrl, screenX, contxt);
     }
 
 }

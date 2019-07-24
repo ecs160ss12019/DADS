@@ -58,6 +58,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     // from inside and outside the thread
     private volatile boolean mPlaying;
     private boolean mPaused = true;
+    Context contxt;
 
     // The PongGame constructor
     // Called when this line:
@@ -91,6 +92,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         // getHolder is a method of SurfaceView
         mOurHolder = getHolder();
         mPaint = new Paint();
+        contxt = context;
 
         // Initialize the cows and base
         backgrnd = new Background(mScreenX, mScreenY, context);
@@ -109,7 +111,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         // Rest the score and the player's missiles
         score = 0;
         baseCtrl.base.ammo = levelCtrl.numMissiles;
-        hornetCtrl = new HornetCtrl();
+        hornetCtrl = new HornetCtrl(contxt);
         powerUpCtrl = new PowerUpCtrl();
     }
 

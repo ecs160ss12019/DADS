@@ -1,5 +1,8 @@
 package com.example.misslecommand;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 
 public class Hornets {
@@ -9,6 +12,7 @@ public class Hornets {
     public Cows target;
 
     public RectF mRect;
+    Bitmap mBitmap;
     public float speed;
     public float xVelocity;
     public float yVelocity;
@@ -21,7 +25,7 @@ public class Hornets {
     public int finalX;  // The x coordinate of the cow that the hornets are going to fly to
     public int finalY;  // The y coordinate of the cow that the hornets are going to fly to
 
-    public Hornets(int x, int y, Cows cow, int roundLevel){
+    public Hornets(int x, int y, Cows cow, int roundLevel, Context context){
         speed = 200;
         for (int i = 1; i < roundLevel; i++){
             speed += 25;
@@ -34,6 +38,8 @@ public class Hornets {
         finalX = target.xPosition;
         finalY = target.yPosition;
         status = true;
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.hornets);
+
         mRect = new RectF((float)x - width/2, (float)y - height/2, (float)x+width/2, (float)y+height/2);
 
 
@@ -68,6 +74,14 @@ public class Hornets {
             status = false;
             target.kill();
         }
+    }
+
+    RectF getRect(){
+        return mRect;
+    }
+
+    Bitmap getBitmap(){
+        return mBitmap;
     }
 
     public void exploded() {
