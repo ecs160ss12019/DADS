@@ -183,6 +183,7 @@ class MissileCommand extends SurfaceView implements Runnable{
             else{
                 hornetsSpawned = 0;
                 levelCtrl.nextLevel();
+                baseCtrl.base.missiles = new ArrayList<>();
                 state = 0;
             }
         }
@@ -302,8 +303,9 @@ class MissileCommand extends SurfaceView implements Runnable{
                 if (state == 0) {
                     state = 1;
                     startNewGame();
+                    if (menuPlayer != null)
                     menuPlayer.stop();
-                    menuPlayer.release();
+                    //menuPlayer.release();
                     startPlayer.start();
                 }
 
