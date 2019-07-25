@@ -59,18 +59,29 @@ public class Missile {
         // horizontal and vertical speed
         // and the current frame rate(fps)
 
-        xCenter = xCenter + xVelocity/(float)fps;
-        yCenter = yCenter + yVelocity/(float)fps;
+        if (yDest < yCenter) {
+            xCenter = xCenter + xVelocity / (float) fps;
+            yCenter = yCenter + yVelocity / (float) fps;
 
-        // Move the top left corner
-        mRect.left = mRect.left + xVelocity / (float)fps;
-        mRect.top = mRect.top + yVelocity / (float)fps;
+            // Move the top left corner
+            mRect.left = mRect.left + xVelocity / (float)fps;
+            mRect.top = mRect.top + yVelocity / (float)fps;
+
+;
+        }
+        else if (yDest > yCenter) {
+            xCenter = xCenter - xVelocity / (float) fps;
+            yCenter = yCenter - yVelocity / (float) fps;
+
+            // Move the top left corner
+            mRect.left = mRect.left - xVelocity / (float)fps;
+            mRect.top = mRect.top - yVelocity / (float)fps;
+        }
 
         // Match up the bottom right corner
         // based on the size of the missile
         mRect.right = mRect.left + width;
         mRect.bottom = mRect.top + height;
-
 
         if(yCenter <= yDest){
             this.explode();
