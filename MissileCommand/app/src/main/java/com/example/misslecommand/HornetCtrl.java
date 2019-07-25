@@ -13,9 +13,9 @@ public class HornetCtrl {
     public boolean removeHornet = false;
     public int hornetsToSpawn;
 
-    public HornetCtrl(Context context) {
+    public HornetCtrl(Context context, int ammo) {
         contxt = context;
-        hornetsToSpawn = 0;
+        hornetsToSpawn = ammo;
         hornets = new ArrayList<>();
         random = new Random();
     }
