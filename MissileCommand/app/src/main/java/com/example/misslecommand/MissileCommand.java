@@ -51,10 +51,11 @@ class MissileCommand extends SurfaceView implements Runnable{
     private boolean killedPowerup = false;
     private int hornetsSpawned = 0;
 
-    private int state; // 0 = main menu, 1 = in game
+    private int state; // 0 = main menu, 1 = in game, 2 = in between levels
 
     // The current score and lives remaining
     private int score = 0;
+    private boolean scoreAdjusted = false;
     //private int numMissiles = 10;
 
     // Here is the Thread and two control variables
@@ -80,8 +81,9 @@ class MissileCommand extends SurfaceView implements Runnable{
         menuPlayer = MediaPlayer.create(context, R.raw.menu);
         startPlayer = MediaPlayer.create(context, R.raw.start);
         menuPlayer.setVolume(80,80);
+        menuPlayer.setLooping(true);
         startPlayer.setVolume(80,80);
-
+        score = 0;
         menuPlayer.start();
         // Initialize these two members/fields
         // With the values passesd in as parameters
@@ -115,7 +117,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     // or is starting their first game
     private void startNewGame(){
         // Rest the score and the player's missiles
-        score = 0;
+        scoreAdjusted = false;
         baseCtrl.base.ammo = levelCtrl.numMissiles;
         numPowerup = levelCtrl.numPowerups;
         numHornets = levelCtrl.numHornets;
@@ -184,7 +186,8 @@ class MissileCommand extends SurfaceView implements Runnable{
                 hornetsSpawned = 0;
                 levelCtrl.nextLevel();
                 baseCtrl.base.missiles = new ArrayList<>();
-                state = 0;
+                menuPlayer.start();
+                state = 2;
             }
         }
     }
@@ -245,7 +248,29 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mCanvas.drawText("DADS", 500, 500, mPaint);
                 mCanvas.drawText("Davis Aerial Defense System!", 500, 800, mPaint);
                 mOurHolder.unlockCanvasAndPost(mCanvas);
-            } else {
+            }
+            else if (state == 2) {
+                backgrnd.draw(mCanvas, mPaint);
+
+                mPaint.setColor(Color.argb
+                        (255, 255, 255, 255));
+                // Choose the font size
+                mPaint.setTextSize(mFontSize);
+
+                mCanvas.drawText("Level " + levelCtrl.level + " completed!", mScreenX/4,
+                        mScreenY/2, mPaint);
+                int cowsAlive = 0;
+                for (int i = 0; i < cowsCtrl.cows.length; i++) {
+                    if (cowsCtrl.cows[i].status) {
+                        cowsAlive++;
+                    }
+                }
+                mCanvas.drawText("Score: " + score + " + " + cowsAlive*100 + " = " +
+                Integer.toString(score + cowsAlive*100) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+
+                mOurHolder.unlockCanvasAndPost(mCanvas);
+            }
+            else {
 
                 // Fill the screen with a solid color
                 //mCanvas.drawColor(Color.argb(255, 26, 128, 182));
@@ -303,9 +328,21 @@ class MissileCommand extends SurfaceView implements Runnable{
                 if (state == 0) {
                     state = 1;
                     startNewGame();
-                    if (menuPlayer != null)
-                    menuPlayer.stop();
-                    //menuPlayer.release();
+                    menuPlayer.pause();
+                    startPlayer.start();
+                    break;
+                }
+                if (state == 2) {
+                    state = 1;
+                    int cowsAlive = 0;
+                    for (int i = 0; i < cowsCtrl.cows.length; i++) {
+                        if (cowsCtrl.cows[i].status) {
+                            cowsAlive++;
+                        }
+                    }
+                    score = score + 100*cowsAlive;
+                    startNewGame();
+                    menuPlayer.pause();
                     startPlayer.start();
                 }
 
