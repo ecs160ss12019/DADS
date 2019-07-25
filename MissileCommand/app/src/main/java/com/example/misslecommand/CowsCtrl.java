@@ -8,6 +8,7 @@ import android.content.Context;
 
 public class CowsCtrl {
     public int cowNum = 6;
+    public int cowsAlive = 6;
     public Cows[] cows;
 
     public CowsCtrl(int screenY, Context context) {
@@ -23,6 +24,15 @@ public class CowsCtrl {
                 cowX = cowX + 450;
             }
         }
+    }
+
+    public int getCowsAlive(){
+        for (int i = 0; i < cows.length; i++) {
+            if (cows[i].status) {
+                cowsAlive++;
+            }
+        }
+        return cowsAlive;
     }
 
     public void draw(Canvas canvas, Paint paint) {
