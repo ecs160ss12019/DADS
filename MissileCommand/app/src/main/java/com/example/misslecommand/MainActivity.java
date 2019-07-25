@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Point;
 import android.view.Display;
+import android.util.DisplayMetrics;
 
 public class MainActivity extends Activity {
     private MissileCommand missileGame;
@@ -13,6 +14,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         Display display = getWindowManager().getDefaultDisplay();
+
         Point size = new Point();
         display.getSize(size);
 

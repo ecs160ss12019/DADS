@@ -38,6 +38,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private int mFontMargin;
 
     // The game objects controllers
+    private MainMenu mainMen;
     private Background backgrnd;
     private BaseCtrl baseCtrl;
     private CowsCtrl cowsCtrl;
@@ -102,6 +103,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         contxt = context;
 
         // Initialize the cows and base
+        mainMen = new MainMenu(mScreenX, mScreenY, context);
         backgrnd = new Background(mScreenX, mScreenY, context);
         cowsCtrl = new CowsCtrl(mScreenY, context);
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context);
@@ -234,8 +236,10 @@ class MissileCommand extends SurfaceView implements Runnable{
             mCanvas = mOurHolder.lockCanvas();
 
             if (state == 0) {
+                mainMen.draw(mCanvas, mPaint);
                 // Fill the screen with a solid color
                 //mCanvas.drawColor(Color.argb(255, 26, 128, 182));
+                /*
                 backgrnd.draw(mCanvas, mPaint);
 
                 mPaint.setColor(Color.argb
@@ -246,7 +250,9 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 mCanvas.drawText("DADS", 500, 500, mPaint);
                 mCanvas.drawText("Davis Aerial Defense System!", 500, 800, mPaint);
+                */
                 mOurHolder.unlockCanvasAndPost(mCanvas);
+
             }
             else if (state == 2) {
                 backgrnd.draw(mCanvas, mPaint);
