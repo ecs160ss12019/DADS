@@ -36,11 +36,11 @@ public class Missile {
 
         // set coordinate variables
         xCenter = baseXCenter;
-        yCenter = baseYTop -45;
+        yCenter = baseYTop - height/2;
         xDest = xTouch ;
         yDest = yTouch;
         explosionCounter = 0;
-        mRect = new RectF( xCenter- width/2, yCenter - 15,  xCenter + width/2, yCenter+ 30);
+        mRect = new RectF( xCenter - width/2, yCenter - height/2,  xCenter + width/2, yCenter+ height/2);
 
         exploding = false;
         done = false;

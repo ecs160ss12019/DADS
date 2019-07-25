@@ -26,8 +26,8 @@ public class Base{
         context = con;
         missiles = new ArrayList<>();
         xCenter = centerScreenX;
-        yBottom = screenY + 50;
-        yTop = yBottom - height + 50;
+        yBottom = screenY;
+        yTop = yBottom - height;
         mRect = new RectF( xCenter - width/2, yTop, xCenter + width/2, yBottom);
     }
 
@@ -37,7 +37,7 @@ public class Base{
             //out of ammo
             return;
         }
-        missiles.add(new Missile(xCenter, yBottom, xTouch, yTouch, context));
+        missiles.add(new Missile(xCenter, yTop, xTouch, yTouch, context));
         ammo--;
     }
 
