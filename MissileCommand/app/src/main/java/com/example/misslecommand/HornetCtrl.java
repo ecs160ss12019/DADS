@@ -11,9 +11,11 @@ public class HornetCtrl {
     Random random;
     Context contxt;
     public boolean removeHornet = false;
+    public int hornetsToSpawn;
 
     public HornetCtrl(Context context) {
         contxt = context;
+        hornetsToSpawn = 0;
         hornets = new ArrayList<>();
         random = new Random();
     }
@@ -33,9 +35,10 @@ public class HornetCtrl {
     public void spawnHornets(int level, CowsCtrl cowsCtrl, int screenX, Context context) {
         int randCow = random.nextInt(cowsCtrl.cowNum);
         int didFire = random.nextInt(100);
-        if (didFire <= level) {
+        if (didFire <= level && hornetsToSpawn > 0) {
             Cows target = cowsCtrl.cows[randCow];
             hornets.add(new Hornets(random.nextInt(screenX), 0, target, level, context));
+            hornetsToSpawn--;
         }
     }
 

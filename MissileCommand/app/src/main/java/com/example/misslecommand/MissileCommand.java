@@ -46,7 +46,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private LevelCtrl levelCtrl;
 
     private int numPowerup;
-    private int numHornets;
+    private int hornetsDestroyed;
     private boolean killedHornet = false;
     private boolean killedPowerup = false;
     private int hornetsSpawned = 0;
@@ -119,10 +119,12 @@ class MissileCommand extends SurfaceView implements Runnable{
         // Rest the score and the player's missiles
         scoreAdjusted = false;
         baseCtrl.base.ammo = levelCtrl.numMissiles;
-        numPowerup = levelCtrl.numPowerups;
-        numHornets = levelCtrl.numHornets;
         hornetCtrl = new HornetCtrl(contxt);
         powerUpCtrl = new PowerUpCtrl();
+        numPowerup = levelCtrl.numPowerups;
+        hornetCtrl.hornetsToSpawn = levelCtrl.numHornets;
+        hornetsDestroyed = 0;
+
     }
 
     // When we start the thread with:
@@ -172,17 +174,19 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void update() {
         // Call all controller update functions
         if (hornetCtrl != null && baseCtrl != null && powerUpCtrl != null) {
-            if(numHornets > 0){
+            if(hornetCtrl.hornetsToSpawn > 0 && hornetsDestroyed != levelCtrl.numHornets){
                 hornetCtrl.update(mFPS, 1, cowsCtrl, mScreenX);
                 baseCtrl.update(mFPS);
                 powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
                 if(hornetCtrl.removeHornet == true || killedHornet == true){
-                    numHornets--;
+                    hornetsDestroyed++;
+                    //numHornets--;
                     hornetCtrl.removeHornet = false;
                     killedHornet = false;
                 }
             }
             else{
+                hornetsDestroyed = 0;
                 hornetsSpawned = 0;
                 levelCtrl.nextLevel();
                 baseCtrl.base.missiles = new ArrayList<>();
@@ -298,7 +302,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 // Draw the HUD
                 mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
                 mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 500, mFontSize, mPaint);
-                mCanvas.drawText("Hornets Left: " + numHornets, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
+                mCanvas.drawText("Hornets Left: " + hornetCtrl.hornetsToSpawn, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
 
                 if (DEBUGGING) {
                     printDebuggingText();
