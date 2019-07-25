@@ -20,7 +20,8 @@ public class BaseCtrl {
             if (base.missiles.get(i).exploding) {
                 canvas.drawRect(base.missiles.get(i).explodeRect, paint);
             } else {
-                canvas.drawRect(base.missiles.get(i).mRect, paint);
+                //canvas.drawRect(base.missiles.get(i).mRect, paint);
+                canvas.drawBitmap(base.getBitmap(), base.getRect().left, base.getRect().top, paint);
                 canvas.drawLine(base.xCenter,
                         base.yTop,
                         base.missiles.get(i).xCenter,

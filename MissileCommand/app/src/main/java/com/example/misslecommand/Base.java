@@ -3,6 +3,7 @@ package com.example.misslecommand;
 // This is the base class. It is responsible for firing missiles at the hornets.
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.RectF;
 import java.util.*;
 
@@ -18,6 +19,7 @@ public class Base{
     public float yTop;
     
     public int ammo;
+    Bitmap mBitmap;
 
     public List<Missile> missiles;
 
@@ -55,6 +57,14 @@ public class Base{
 
     public void draw(){
 
+    }
+    
+    RectF getRect(){
+        return mRect;
+    }
+
+    Bitmap getBitmap(){
+        return mBitmap;
     }
 
 }
