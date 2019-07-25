@@ -80,7 +80,7 @@ public class Missile {
         mRect.right = mRect.left + width;
         mRect.bottom = mRect.top + height;
 
-        if(yCenter <= yDest && up){
+        if(yCenter <= yDest && up) {
             this.explode();
         }
         else if (yCenter >= yDest && !up) {

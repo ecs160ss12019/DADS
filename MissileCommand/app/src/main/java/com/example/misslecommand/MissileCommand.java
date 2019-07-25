@@ -327,6 +327,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 }
                 if (state == 0) {
                     state = 1;
+                    score = 0;
                     startNewGame();
                     menuPlayer.pause();
                     startPlayer.start();
