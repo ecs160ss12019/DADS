@@ -4,6 +4,7 @@ package com.example.misslecommand;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 import java.util.*;
 
@@ -30,6 +31,8 @@ public class Base{
         xCenter = centerScreenX;
         yBottom = screenY;
         yTop = yBottom - height;
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.base);
+
         mRect = new RectF( xCenter - width/2, yTop, xCenter + width/2, yBottom);
     }
 
@@ -58,7 +61,7 @@ public class Base{
     public void draw(){
 
     }
-    
+
     RectF getRect(){
         return mRect;
     }
