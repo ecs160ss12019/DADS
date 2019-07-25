@@ -21,7 +21,7 @@ public class Base{
     
     public int ammo;
     Bitmap mBitmap;
-
+    
     public List<Missile> missiles;
 
     public Base(float centerScreenX, float screenY, Context con) {
