@@ -49,7 +49,6 @@ class MissileCommand extends SurfaceView implements Runnable{
     private int hornetsDestroyed;
     private boolean killedHornet = false;
     private boolean killedPowerup = false;
-    private int hornetsSpawned = 0;
 
     private int state; // 0 = main menu, 1 = in game, 2 = in between levels
 
@@ -182,6 +181,9 @@ class MissileCommand extends SurfaceView implements Runnable{
                     baseCtrl.base.missiles = new ArrayList<>();
                     menuPlayer.start();
                     state = 2;
+                } else if(cowsCtrl.cowNum == 0){
+                    menuPlayer.start();
+                    state = 0;
                 }
         }
     }
@@ -253,14 +255,9 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 mCanvas.drawText("Level " + levelCtrl.level + " completed!", mScreenX/4,
                         mScreenY/2, mPaint);
-                int cowsAlive = 0;
-                for (int i = 0; i < cowsCtrl.cows.length; i++) {
-                    if (cowsCtrl.cows[i].status) {
-                        cowsAlive++;
-                    }
-                }
-                mCanvas.drawText("Score: " + score + " + " + cowsAlive*100 + " = " +
-                Integer.toString(score + cowsAlive*100) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+
+                mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " = " +
+                Integer.toString(score + cowsCtrl.getCowsAlive()*100) + "!", mScreenX/4, mScreenY/2+300, mPaint);
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             }
@@ -328,13 +325,8 @@ class MissileCommand extends SurfaceView implements Runnable{
                 }
                 if (state == 2) {
                     state = 1;
-                    int cowsAlive = 0;
-                    for (int i = 0; i < cowsCtrl.cows.length; i++) {
-                        if (cowsCtrl.cows[i].status) {
-                            cowsAlive++;
-                        }
-                    }
-                    score = score + 100*cowsAlive;
+
+                    score = score + 100*cowsCtrl.getCowsAlive();
                     startNewGame();
                     menuPlayer.pause();
                     startPlayer.start();
