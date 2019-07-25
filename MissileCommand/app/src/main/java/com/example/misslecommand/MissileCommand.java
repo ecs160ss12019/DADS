@@ -181,8 +181,9 @@ class MissileCommand extends SurfaceView implements Runnable{
                 if(cowsCtrl.getCowsAlive() == 0){
                     levelCtrl = new LevelCtrl();
                     cowsCtrl = new CowsCtrl(mScreenY, contxt);
+                    baseCtrl.base.missiles = new ArrayList<>();
                     menuPlayer.start();
-                    state = 0;
+                    state = 3;
                 }
                 else if (hornetCtrl.hornetsToSpawn == 0 && hornetCtrl.hornets.size() == 0) {
                     levelCtrl.nextLevel();
@@ -269,6 +270,17 @@ class MissileCommand extends SurfaceView implements Runnable{
                 Integer.toString(score + cowsCtrl.getCowsAlive()*100) + "!", mScreenX/4, mScreenY/2+300, mPaint);
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
+            } else if (state == 3){
+                backgrnd.draw(mCanvas, mPaint);
+                mPaint.setColor(Color.argb
+                        (255, 255, 255, 255));
+                // Choose the font size
+                mPaint.setTextSize(mFontSize);
+                mCanvas.drawText("Level " + levelCtrl.level + " Failed, Your Cows Are Dead", mScreenX/6,
+                        mScreenY/2, mPaint);
+                mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " = " +
+                        Integer.toString(score + cowsCtrl.getCowsAlive()*100) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+                mOurHolder.unlockCanvasAndPost(mCanvas);
             }
             else {
 
@@ -334,6 +346,14 @@ class MissileCommand extends SurfaceView implements Runnable{
                     break;
                 }
                 if (state == 2) {
+                    state = 1;
+
+                    score = score + 100*cowsCtrl.getCowsAlive();
+                    startNewGame();
+                    menuPlayer.pause();
+                    startPlayer.start();
+                }
+                if (state == 3) {
                     state = 1;
 
                     score = score + 100*cowsCtrl.getCowsAlive();
