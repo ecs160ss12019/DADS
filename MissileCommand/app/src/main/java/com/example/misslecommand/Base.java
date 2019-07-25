@@ -14,14 +14,14 @@ public class Base{
     public boolean status;
     public RectF mRect;
     private float width = 100;
-    private float height = 100;
+    private float height = 275;
     public float xCenter;
     public float yBottom;
     public float yTop;
     
     public int ammo;
     Bitmap mBitmap;
-    
+
     public List<Missile> missiles;
 
     public Base(float centerScreenX, float screenY, Context con) {
