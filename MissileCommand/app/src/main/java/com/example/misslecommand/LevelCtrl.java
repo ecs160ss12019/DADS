@@ -16,12 +16,6 @@ public class LevelCtrl {
         numPowerups = 2;
     }
 
-    public void controlLevel(){
-        if(numHornets == 0){
-            nextLevel();
-        }
-    }
-
     public void nextLevel(){
         level++;
         numHornets += 2;
