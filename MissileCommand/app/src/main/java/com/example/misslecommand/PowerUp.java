@@ -1,5 +1,8 @@
 package com.example.misslecommand;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 
 public class PowerUp {
@@ -16,13 +19,17 @@ public class PowerUp {
     public int yPosition;
     public int finalX;  // The x coordinate of where the power up will fly to
     public int finalY;  // The y coordinate of where the power up will fly to
+    Bitmap mBitmap;
 
-    public PowerUp(int x, int y, int destY){
+    public PowerUp(int x, int y, int destY, Context context){
         xPosition = x;
         yPosition = 0;
         finalX = x;
         finalY = destY;
         status = true;
+
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.base);
+
         mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
     }
 
@@ -51,6 +58,14 @@ public class PowerUp {
 
     public void draw(){
 
+    }
+
+    RectF getRect(){
+        return mRect;
+    }
+
+    Bitmap getBitmap(){
+        return mBitmap;
     }
 
 }
