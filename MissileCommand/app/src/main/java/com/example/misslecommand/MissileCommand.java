@@ -119,7 +119,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         // Rest the score and the player's missiles
         scoreAdjusted = false;
         baseCtrl.base.ammo = levelCtrl.numMissiles;
-        hornetCtrl = new HornetCtrl(contxt);
+        hornetCtrl = new HornetCtrl(contxt, levelCtrl.numHornets);
         powerUpCtrl = new PowerUpCtrl();
         numPowerup = levelCtrl.numPowerups;
         hornetCtrl.hornetsToSpawn = levelCtrl.numHornets;
@@ -174,25 +174,15 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void update() {
         // Call all controller update functions
         if (hornetCtrl != null && baseCtrl != null && powerUpCtrl != null) {
-            if(hornetCtrl.hornetsToSpawn > 0 || hornetsDestroyed != levelCtrl.numHornets){
                 hornetCtrl.update(mFPS, 1, cowsCtrl, mScreenX);
                 baseCtrl.update(mFPS);
                 powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
-                if(hornetCtrl.removeHornet == true || killedHornet == true){
-                    hornetsDestroyed++;
-                    //numHornets--;
-                    hornetCtrl.removeHornet = false;
-                    killedHornet = false;
+                if (hornetCtrl.hornetsToSpawn == 0 && hornetCtrl.hornets.size() == 0) {
+                    levelCtrl.nextLevel();
+                    baseCtrl.base.missiles = new ArrayList<>();
+                    menuPlayer.start();
+                    state = 2;
                 }
-            }
-            else{
-                hornetsDestroyed = 0;
-                hornetsSpawned = 0;
-                levelCtrl.nextLevel();
-                baseCtrl.base.missiles = new ArrayList<>();
-                menuPlayer.start();
-                state = 2;
-            }
         }
     }
 
