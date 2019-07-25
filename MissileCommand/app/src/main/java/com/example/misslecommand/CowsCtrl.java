@@ -8,7 +8,6 @@ import android.content.Context;
 
 public class CowsCtrl {
     public int cowNum = 6;
-    public int cowsAlive = 6;
     public Cows[] cows;
 
     public CowsCtrl(int screenY, Context context) {
@@ -27,6 +26,7 @@ public class CowsCtrl {
     }
 
     public int getCowsAlive(){
+        int cowsAlive = 0;
         for (int i = 0; i < cows.length; i++) {
             if (cows[i].status) {
                 cowsAlive++;
