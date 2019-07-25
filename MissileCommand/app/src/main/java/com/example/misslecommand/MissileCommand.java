@@ -119,7 +119,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         scoreAdjusted = false;
         baseCtrl.base.ammo = levelCtrl.numMissiles;
         hornetCtrl = new HornetCtrl(contxt, levelCtrl.numHornets);
-        powerUpCtrl = new PowerUpCtrl();
+        powerUpCtrl = new PowerUpCtrl(contxt);
         numPowerup = levelCtrl.numPowerups;
         hornetCtrl.hornetsToSpawn = levelCtrl.numHornets;
         hornetsDestroyed = 0;

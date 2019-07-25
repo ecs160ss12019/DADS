@@ -9,10 +9,12 @@ import java.util.*;
 public class PowerUpCtrl {
     public List<PowerUp> powerUps;
     Random random;
+    Context contxt;
 
-    public PowerUpCtrl() {
+    public PowerUpCtrl(Context context) {
         powerUps = new ArrayList<>();
         random = new Random();
+        contxt = context;
     }
 
     public void draw(Canvas canvas, Paint paint) {
@@ -20,19 +22,20 @@ public class PowerUpCtrl {
                 (255, 255, 0, 0));
 
         for (int i = 0; i < powerUps.size(); i++) {
-            canvas.drawRect(powerUps.get(i).mRect, paint);
+            canvas.drawBitmap(powerUps.get(i).getBitmap(), powerUps.get(i).getRect().left, powerUps.get(i).getRect().top, paint);
+            //canvas.drawRect(powerUps.get(i).mRect, paint);
         }
     }
 
     public void spawnPowerUps(int level, int screenX, int screenY) {
         int didFire = random.nextInt(1000);
         if (didFire <= level) {
-            powerUps.add(new PowerUp(random.nextInt(screenX-69), 0, screenY));
+            powerUps.add(new PowerUp(random.nextInt(screenX-69), 0, screenY, contxt));
         }
     }
 
     public void spawnSingle(int screenX, int screenY) {
-        powerUps.add(new PowerUp(random.nextInt(screenX-69), 0, screenY));
+        powerUps.add(new PowerUp(random.nextInt(screenX-69), 0, screenY, contxt));
     }
 
     public void update(long fps, int level, int screenX, int screenY) {

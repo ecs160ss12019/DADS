@@ -28,7 +28,7 @@ public class PowerUp {
         finalY = destY;
         status = true;
 
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.base);
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ammo);
 
         mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
     }
