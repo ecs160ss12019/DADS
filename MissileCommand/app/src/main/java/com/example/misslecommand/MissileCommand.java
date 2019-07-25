@@ -176,14 +176,17 @@ class MissileCommand extends SurfaceView implements Runnable{
                 hornetCtrl.update(mFPS, 1, cowsCtrl, mScreenX);
                 baseCtrl.update(mFPS);
                 powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
-                if (hornetCtrl.hornetsToSpawn == 0 && hornetCtrl.hornets.size() == 0) {
+                if(cowsCtrl.getCowsAlive() == 0){
+                    levelCtrl = new LevelCtrl();
+                    cowsCtrl = new CowsCtrl(mScreenY, contxt);
+                    menuPlayer.start();
+                    state = 0;
+                }
+                else if (hornetCtrl.hornetsToSpawn == 0 && hornetCtrl.hornets.size() == 0) {
                     levelCtrl.nextLevel();
                     baseCtrl.base.missiles = new ArrayList<>();
                     menuPlayer.start();
                     state = 2;
-                } else if(cowsCtrl.cowNum == 0){
-                    menuPlayer.start();
-                    state = 0;
                 }
         }
     }
