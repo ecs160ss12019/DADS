@@ -22,11 +22,11 @@ public class HornetCtrl {
 
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < hornets.size(); i++) {
-            //canvas.drawRect(hornets.get(i).mRect, paint);
+            canvas.drawRect(hornets.get(i).mRect, paint);
             canvas.drawBitmap(hornets.get(i).getBitmap(), hornets.get(i).getRect().left, hornets.get(i).getRect().top, paint);
             canvas.drawLine(hornets.get(i).initX,
                     hornets.get(i).initY,
-                    hornets.get(i).xPosition+45,
+                    hornets.get(i).xPosition,
                     hornets.get(i).yPosition,
                     paint);
         }

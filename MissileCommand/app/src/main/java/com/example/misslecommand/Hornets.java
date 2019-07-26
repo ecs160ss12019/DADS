@@ -16,8 +16,8 @@ public class Hornets {
     public float speed;
     public float xVelocity;
     public float yVelocity;
-    private float width = 20;
-    private float height = 20;
+    private float width = 90;
+    private float height = 90;
     public float xPosition;
     public float yPosition;
     public int initX;
