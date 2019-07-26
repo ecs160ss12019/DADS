@@ -21,6 +21,10 @@ public class MainMenu {
     Context contxt;
     Bitmap mBitmap;
     Bitmap scaledBitmap;
+    Bitmap bitMapForTitle;
+    Bitmap scaledBitMapForTitle;
+    Bitmap bitMapForSubTitle;
+    Bitmap scaledBitMapForSubTitle;
 
     private int mFontSize;
 
@@ -46,7 +50,8 @@ public class MainMenu {
 
         mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu);
         scaledBitmap = Bitmap.createScaledBitmap(mBitmap, x, y, true);
-
+        bitMapForTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.title);
+        bitMapForSubTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.subtitle);
 
     }
 
@@ -78,14 +83,16 @@ public class MainMenu {
         pnt = paint;
 
         canvas.drawBitmap(this.getBitmap(), this.getRect().left, this.getRect().top, paint);
+        canvas.drawBitmap(bitMapForTitle, (xPosition/2)-150, yPosition/3, paint);
+        canvas.drawBitmap(bitMapForSubTitle, (xPosition/2)-50, yPosition/2, paint);
         paint.setColor(Color.argb(255, 255, 255, 255));
 
         //Choose the font size
         paint.setTextSize(mFontSize);
 
-        drawParts(title,xPosition/2, yPosition/3);
+        //drawParts(title,xPosition/2, yPosition/3);
         //drawParts(subTitle, xPosition/2, yPosition*(4/5));
-        drawParts(tapToStart, xPosition/2, yPosition/2);
+        //drawParts(tapToStart, xPosition/2, yPosition/2);
     }
 
 }
