@@ -12,6 +12,11 @@ public class Missile {
     boolean up;
     boolean insane;
 
+    int ptr = 0;
+    boolean flag = true;
+    long waitTime;
+    int RADIUS_INC = 4;
+
     public RectF mRect;
     public RectF explodeRect;
     public float speed = 1000;
@@ -22,7 +27,9 @@ public class Missile {
     public float xDest;
     public float yDest;
 
-    public int radius = 80;
+    public int radius = 20;
+    public int MAX_EXPL_RADIUS = 100;
+    public int MIN_EXPL_RADIUS = 10;
 
     public int explosionCounter;
     
@@ -123,15 +130,94 @@ public class Missile {
 
     public void explode() {
         exploding = true;
+        //int ptr = 0;
         //fireSound.stop();
         if (explodeRect == null) {
             explodeSound.start();
-            explodeRect = new RectF(xDest - radius, yDest + radius, xDest + radius,
-                    yDest - radius);
+            explodeRect = new RectF(xDest - radius, yDest - radius, xDest + radius,
+                    yDest + radius);
+        }
+        //boolean flag = true;
+
+        //explodePrevTime = System.currentTimeMillis();
+
+        yield:
+        while (flag) {
+            //Log.d("Missile", "Explosion while loop");
+            Log.d("ptr = ","val:" + Float.toString((float)ptr));
+            switch(ptr) {
+                case 0:
+              //      Log.d("Missile.explode()", "case0");
+
+                    radius+=RADIUS_INC;
+                    explodeRect.left-=RADIUS_INC;
+                    explodeRect.right+=RADIUS_INC;
+                    explodeRect.top-=RADIUS_INC;
+                    explodeRect.bottom+=RADIUS_INC;
+                    ptr = 1;
+
+                    //    Log.d("ptr = ","val:" + Float.toString((float)ptr));
+
+                    break yield;
+
+                case 1:
+                  //  Log.d("Missile.explode()", "case1");
+                    if (radius < MAX_EXPL_RADIUS) {
+                        ptr = 0;
+                        break yield;
+                    }
+                    ptr = 2;
+                    break yield;
+
+                case 2:
+                    //Log.d("Missile.explode()", "case2");
+                    radius-=RADIUS_INC;
+                    explodeRect.left+=RADIUS_INC;
+                    explodeRect.right-=RADIUS_INC;
+                    explodeRect.top+=RADIUS_INC;
+                    explodeRect.bottom-=RADIUS_INC;
+                    ptr = 3;
+                    break yield;
+
+                case 3:
+                    Log.d("Missile.explode()", "case3");
+                    if (radius > MIN_EXPL_RADIUS){
+                        Log.d("Missile.explode()", "case3 rad > MIN");
+                        ptr = 2;
+                        break yield;
+                    }
+                    waitTime = System.currentTimeMillis();
+                    ptr = 4;
+                    break yield;
+
+                case 4:
+                    while ( System.currentTimeMillis() - waitTime < 50){
+                        break yield;
+                    }
+                    ptr = 5;
+
+
+                case 5:
+                    done = true;
+
+                    if (explodeSound != null & fireSound != null) {
+                        explodeSound.reset();
+                        explodeSound.release();
+                        explodeSound = null;
+                        fireSound.reset();
+                        fireSound.release();
+                        fireSound = null;
+                    }
+                    flag = false;
+                    break yield;
+
+            }
+
+
         }
 
+        /*
         explosionCounter++;
-
         if(explosionCounter == 20 || explosionCounter == 40){
             explodeRect.left = xDest - radius - 25;
             explodeRect.top = yDest + radius + 25;
@@ -152,7 +238,8 @@ public class Missile {
                 fireSound.release();
                 fireSound = null;
             }
-        }
+        }*/
+
     }
 
 }

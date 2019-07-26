@@ -210,10 +210,14 @@ class MissileCommand extends SurfaceView implements Runnable{
     }
 
     private void checkCollision(Hornets hornet, Missile missile) {
-        float hX = hornet.xPosition;
-        float hY = hornet.yPosition;
-        if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
-                && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {
+
+        float dX = Math.abs(hornet.xPosition - missile.xCenter);
+        float dY = Math.abs(hornet.yPosition - missile.yCenter);
+
+        float dist = (float)Math.sqrt(dX*dX + dY*dY);
+        /*if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
+                && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {*/
+        if ( dist-25 <= missile.radius){
             hornetCtrl.hornets.remove(hornet);
             killedHornet = true;
             score = score + 10;

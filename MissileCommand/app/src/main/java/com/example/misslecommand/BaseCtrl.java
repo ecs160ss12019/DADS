@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
+
 import java.util.*;
 
 public class BaseCtrl {
@@ -18,8 +20,14 @@ public class BaseCtrl {
         //canvas.drawRect(base.mRect, paint);
 
         for (int i = 0; i < base.missiles.size(); i++) {
+            Log.d("BaseCtrl", "looping through missiles");
+
             if (base.missiles.get(i).exploding) {
-                canvas.drawRect(base.missiles.get(i).explodeRect, paint);
+                Log.d("BaseCtrl", "if missiles.exploding");
+                //canvas.drawRect(base.missiles.get(i).explodeRect, paint);
+
+                canvas.drawCircle(base.missiles.get(i).xDest, base.missiles.get(i).yDest,
+                        base.missiles.get(i).radius, paint);
             } else {
                 canvas.drawRect(base.missiles.get(i).mRect, paint);
                 canvas.drawLine(base.xCenter,
