@@ -1,4 +1,4 @@
-# DADS - Missle Command
+# DADS - Missile Command
 
 Team DADS (Davis Aerial Defense System) will create their own version of the classic game “Missile Command” which was originally released for the Atari 2600 in 1981. Our team consists of four members: 
 * Jack Abukhovski, a fourth-year CS major. He enjoys playing Counter-Strike and soccer. 
