@@ -3,12 +3,14 @@ package com.example.misslecommand;
 import android.content.Context;
 import android.graphics.RectF;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 public class Missile {
     MediaPlayer fireSound;
     MediaPlayer explodeSound;
 
     boolean up;
+    boolean insane;
 
     public RectF mRect;
     public RectF explodeRect;
@@ -39,7 +41,7 @@ public class Missile {
         // set coordinate variables
         xCenter = baseXCenter;
         yCenter = baseYTop - height/2;
-        xDest = xTouch ;
+        xDest = xTouch;
         yDest = yTouch;
         explosionCounter = 0;
         mRect = new RectF( xCenter - width/2, yCenter - height/2,  xCenter + width/2, yCenter+ height/2);
@@ -48,13 +50,27 @@ public class Missile {
         done = false;
 
         float py = yDest - yCenter;
+        if (py == 1.0) {
+            yDest++;
+            py = yDest - yCenter;
+        }
         float px = xDest - xCenter;
+
 
         float distance = (float)Math.sqrt(px*px + py*py);
         float scalar = speed/distance;
 
         yVelocity = scalar*(yDest - yCenter);
         xVelocity = scalar*(xDest - xCenter);
+
+        // A bug caused by firing missiles at around the same y coord as top of the base was making
+        // me go insane, hence the "insane" boolean which fixes the problem.
+        if (Math.abs(yVelocity) < 20) {
+            insane = true;
+        }
+        else {
+            insane = false;
+        }
 
         if (yDest < baseYTop) {
             up = true;
@@ -67,23 +83,27 @@ public class Missile {
         // Move the missile based upon the
         // horizontal and vertical speed
         // and the current frame rate(fps)
+        if (!exploding) {
 
-        xCenter = xCenter + xVelocity / (float) fps;
-        yCenter = yCenter + yVelocity / (float) fps;
+            xCenter = xCenter + xVelocity / (float) fps;
+            yCenter = yCenter + yVelocity / (float) fps;
 
-        // Move the top left corner
-        mRect.left = mRect.left + xVelocity / (float)fps;
-        mRect.top = mRect.top + yVelocity / (float)fps;
+            // Move the top left corner
+            mRect.left = mRect.left + xVelocity / (float) fps;
+            mRect.top = mRect.top + yVelocity / (float) fps;
 
-        // Match up the bottom right corner
-        // based on the size of the missile
-        mRect.right = mRect.left + width;
-        mRect.bottom = mRect.top + height;
-
-        if(yCenter <= yDest && up) {
+            // Match up the bottom right corner
+            // based on the size of the missile
+            mRect.right = mRect.left + width;
+            mRect.bottom = mRect.top + height;
+        }
+        if (insane && Math.abs(xCenter - xDest) < 10) {
             this.explode();
         }
-        else if (yCenter >= yDest && !up) {
+        else if(yCenter <= yDest && up && !insane) {
+            this.explode();
+        }
+        else if (yCenter >= yDest && !up && !insane) {
             this.explode();
         }
     }
