@@ -10,12 +10,15 @@ import android.content.Context;
 public class Background {
 
     Bitmap mBitmap;
+    Bitmap scaledBitmap;
     public RectF mRect;
 
     // Constructor
     public Background(int screenX, int screenY, Context context) {
         mRect = new RectF(0, 0, screenX, screenY);
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.stars);
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
+        scaledBitmap = Bitmap.createScaledBitmap(mBitmap, screenX, screenY, true);
+
     }
 
     RectF getRect(){
@@ -23,7 +26,7 @@ public class Background {
     }
 
     Bitmap getBitmap(){
-        return mBitmap;
+        return scaledBitmap;
     }
 
     // Drawing Function

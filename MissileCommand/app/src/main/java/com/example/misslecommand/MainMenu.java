@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.*;
 import android.content.res.Resources;
@@ -23,7 +24,9 @@ public class MainMenu {
 
     private int mFontSize;
 
-
+    String title = "DADS";
+    String subTitle = "Davis Aerial Defense System";
+    String tapToStart = "Tap to Protect the cows from the evil hornets";
 
 
     public MainMenu(int x, int y, Context context){
@@ -59,8 +62,27 @@ public class MainMenu {
         //Choose the font size
         paint.setTextSize(mFontSize);
 
-        canvas.drawText("DADS", 500, 500, paint);
-        canvas.drawText("Davis Aerial Defense System!", 500, 800, paint);
+        Rect bounds = new Rect();
+
+        paint.setColor(Color.RED);
+
+        paint.getTextBounds(title, 0, title.length(), bounds);
+        float mt = paint.measureText(title);
+        int bw = bounds.width();
+
+        Log.i("LCG", String.format(
+                "measureText %f, getTextBounds %d (%s)",
+                mt,
+                bw, bounds.toShortString())
+        );
+        bounds.offset(0, -bounds.top);
+        paint.setStyle(Paint.Style.STROKE);
+
+        paint.setColor(Color.WHITE);
+        canvas.drawText(title, (xPosition/2)-(bw/2), (yPosition/3), paint);
+
+        //canvas.drawText("DADS", xPosition/2, yPosition/3, paint);
+        //canvas.drawText("Davis Aerial Defense System!", xPosition/2, (yPosition*4)/5, paint);
     }
 
 }
