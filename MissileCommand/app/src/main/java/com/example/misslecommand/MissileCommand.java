@@ -179,7 +179,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 baseCtrl.update(mFPS);
                 powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
                 if(cowsCtrl.getCowsAlive() == 0){
-                    levelCtrl = new LevelCtrl();
+                    //levelCtrl = new LevelCtrl();
                     cowsCtrl = new CowsCtrl(mScreenY, contxt);
                     baseCtrl.base.missiles = new ArrayList<>();
                     menuPlayer.start();
@@ -187,6 +187,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 }
                 else if (hornetCtrl.hornetsToSpawn == 0 && hornetCtrl.hornets.size() == 0) {
                     levelCtrl.nextLevel();
+                    //cowsCtrl = new CowsCtrl(mScreenY, contxt);
                     baseCtrl.base.missiles = new ArrayList<>();
                     menuPlayer.start();
                     state = 2;
@@ -278,8 +279,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Level " + levelCtrl.level + " Failed, Your Cows Are Dead", mScreenX/6,
                         mScreenY/2, mPaint);
-                mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " = " +
-                        Integer.toString(score + cowsCtrl.getCowsAlive()*100) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+                mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/4, mScreenY/2+300, mPaint);
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             }
             else {
@@ -347,19 +347,21 @@ class MissileCommand extends SurfaceView implements Runnable{
                 }
                 if (state == 2) {
                     state = 1;
-
                     score = score + 100*cowsCtrl.getCowsAlive();
+                    for (int i = 0; i < cowsCtrl.cowNum; i++) {
+                        cowsCtrl.cows[i].status = true;
+                    }
                     startNewGame();
                     menuPlayer.pause();
                     startPlayer.start();
                 }
                 if (state == 3) {
-                    state = 1;
-
-                    score = score + 100*cowsCtrl.getCowsAlive();
+                    state = 0;
+                    levelCtrl = new LevelCtrl();
+                    score = 0;
                     startNewGame();
-                    menuPlayer.pause();
-                    startPlayer.start();
+                    //menuPlayer.pause();
+                    //startPlayer.start();
                 }
 
                 // If the game was paused unpause
