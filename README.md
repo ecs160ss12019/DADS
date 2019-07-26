@@ -36,6 +36,19 @@ https://github.com/ecs160ss12019/DADS/tree/master/Sprint1/Screenshots
 ![Link to CRC Cards for Sprint 2](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/CRC_Cards.png)
 
 ### 2) Screen Shots Of The Game
-
+##### Main Menu
+![Link to Main Menu](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/MainMenu.png)
+##### Gameplay 1
+![Link to Gameplay 1](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/Gameplay1.png)
+##### Gameplay 2
+![Link to Gameplay 2](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/Gameplay2.png)
+##### Gameplay 3
+![Link to Gameplay 3](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/Gameplay3.png)
+##### Level Completed
+![Link to Level Completed](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/LevelCompleted.png)
+##### Gameplay 5
+![Link to Gameplay 5](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/Gameplay5.png)
+##### Game Over 
+![Link to Game Over](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/GameOver.png)
 ---
 ## Sprint 3
