@@ -24,11 +24,20 @@ https://github.com/ecs160ss12019/DADS/blob/master/AcceptanceCriteria.md
 ---
 ## Sprint 1
 
-### CRC Cards.pdf
+### 1.) CRC Cards.pdf
 https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/CRCCards/CRC%20Cards.pdf
 
-### Screen Shots
-https://github.com/ecs160ss12019/DADS/tree/master/Sprint1/Screenshots
+### 2.) Screen Shots Of The Game 
+##### Fire 
+![Link to Fire](https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/Screenshots/DADSfireScreenshot.png)
+##### Powerup
+![Link to Powerup](https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/Screenshots/DADSpowerupsScreenshot.png)
+##### Gameplay
+![Link to Gameplay](https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/Screenshots/Screen%20Shot%202019-07-16%20at%206.46.03%20PM.png)
+##### Hornets
+![Link to Hornets](https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/Screenshots/Screen%20Shot%202019-07-16%20at%208.03.43%20PM.png)
+##### Cows Dying
+![Link to Cows Dying](https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/Screenshots/Screen%20Shot%202019-07-17%20at%206.52.52%20PM.png)
 
 ---
 ## Sprint 2
