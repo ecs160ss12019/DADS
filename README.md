@@ -42,22 +42,22 @@ https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/CRCCards/CRC%20Cards.p
 ---
 ## Sprint 2
 ### 1) CRC Cards
-![Link to CRC Cards for Sprint 2](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/CRC_Cards.png)
+![Link to CRC Cards for Sprint 2](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/CRC_Cards.png)
 
 ### 2) Screen Shots Of The Game
 ##### Main Menu
-![Link to Main Menu](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/MainMenu.png)
+![Link to Main Menu](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/MainMenu.png)
 ##### Gameplay 1
-![Link to Gameplay 1](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/Gameplay1.png)
+![Link to Gameplay 1](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/Gameplay1.png)
 ##### Gameplay 2
-![Link to Gameplay 2](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/Gameplay2.png)
+![Link to Gameplay 2](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/Gameplay2.png)
 ##### Gameplay 3
-![Link to Gameplay 3](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/Gameplay3.png)
+![Link to Gameplay 3](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/Gameplay3.png)
 ##### Level Completed
-![Link to Level Completed](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/LevelCompleted.png)
+![Link to Level Completed](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/LevelCompleted.png)
 ##### Gameplay 5
-![Link to Gameplay 5](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/Gameplay5.png)
+![Link to Gameplay 5](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/Gameplay5.png)
 ##### Game Over 
-![Link to Game Over](https://github.com/ecs160ss12019/DADS/blob/master/Pictures/GameOver.png)
+![Link to Game Over](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/GameOver.png)
 ---
 ## Sprint 3
