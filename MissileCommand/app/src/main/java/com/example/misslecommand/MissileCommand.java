@@ -45,6 +45,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private HornetCtrl hornetCtrl;
     private PowerUpCtrl powerUpCtrl;
     private LevelCtrl levelCtrl;
+    private Pause pause;
 
     private int numPowerup;
     private int hornetsDestroyed;
@@ -108,6 +109,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         cowsCtrl = new CowsCtrl(mScreenY, context);
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context);
         levelCtrl = new LevelCtrl();
+        pause = new Pause(mScreenX, context);
         state = 0;
 
         // Everything is ready so start the game
@@ -302,6 +304,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     baseCtrl.draw(mCanvas, mPaint);
                     hornetCtrl.draw(mCanvas, mPaint);
                     powerUpCtrl.draw(mCanvas, mPaint);
+                    pause.draw(mCanvas, mPaint);
                 }
 
                 // Reset Color to White
@@ -315,6 +318,10 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
                 mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 500, mFontSize, mPaint);
                 mCanvas.drawText("Hornets Left: " + hornetCtrl.hornetsToSpawn, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
+
+                if (state == 4) {
+                    mCanvas.drawText("PAUSED", mScreenY/3, mScreenX/3, mPaint);
+                }
 
                 if (DEBUGGING) {
                     printDebuggingText();
@@ -330,7 +337,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     // Handle all the screen touches
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-
+        float x = motionEvent.getX();
+        float y = motionEvent.getY();
         // This switch block replaces the
         // if statement from the Sub Hunter game
         switch (motionEvent.getAction() &
@@ -339,6 +347,10 @@ class MissileCommand extends SurfaceView implements Runnable{
             // The player has put their finger on the screen
             case MotionEvent.ACTION_DOWN:
                 if (state == 1) {
+                    if (pause.mRect.contains(x,y)) {
+                        state = 4;
+                        break;
+                    }
                     baseCtrl.base.fire((int)motionEvent.getX(), (int)motionEvent.getY());
                 }
                 if (state == 0) {
@@ -366,6 +378,10 @@ class MissileCommand extends SurfaceView implements Runnable{
                     startNewGame();
                     //menuPlayer.pause();
                     //startPlayer.start();
+                }
+                if (state == 4) {
+                    state = 1;
+                    break;
                 }
 
                 // If the game was paused unpause
