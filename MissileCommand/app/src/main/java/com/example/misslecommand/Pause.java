@@ -28,8 +28,13 @@ public class Pause {
 
     }
 
-    public void draw(Canvas canvas, Paint paint) {
+    public void draw(Canvas canvas, Paint paint, int state) {
         canvas.drawBitmap(bitmap, mRect.left, mRect.top, paint);
+
+        if (state == 4) {
+            canvas.drawText("PAUSED", xPosition/3, yPosition/3, paint);
+        }
+
         option = new Options(xPosition, yPosition, context);
 
         option.draw(canvas, paint);

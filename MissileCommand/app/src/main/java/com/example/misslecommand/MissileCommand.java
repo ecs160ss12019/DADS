@@ -306,7 +306,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     baseCtrl.draw(mCanvas, mPaint);
                     hornetCtrl.draw(mCanvas, mPaint);
                     powerUpCtrl.draw(mCanvas, mPaint);
-                    pause.draw(mCanvas, mPaint);
+                    pause.draw(mCanvas, mPaint, state);
                 }
 
                 // Reset Color to White
@@ -320,10 +320,6 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
                 mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 500, mFontSize, mPaint);
                 mCanvas.drawText("Hornets Left: " + hornetCtrl.hornetsToSpawn, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
-
-                if (state == 4) {
-                    mCanvas.drawText("PAUSED", mScreenY/3, mScreenX/3, mPaint);
-                }
 
                 if (DEBUGGING) {
                     printDebuggingText();
