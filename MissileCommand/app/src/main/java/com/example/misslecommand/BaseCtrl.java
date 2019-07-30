@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.*;
 
 public class BaseCtrl {
+    public int count = 0;
     public Base base;
 
     public BaseCtrl(int centerScreenX, int screenY, Context con) {
@@ -16,7 +17,18 @@ public class BaseCtrl {
     }
 
     public void draw(Canvas canvas, Paint paint) {
-        canvas.drawBitmap(base.getBitmap(), base.getRect().left, base.getRect().top, paint);
+        if (count>20){
+            count = 0;
+        }
+        if (count < 10){
+            canvas.drawBitmap(base.getBitmap2(), base.getRect().left, base.getRect().top, paint);
+        }
+
+        else {
+            canvas.drawBitmap(base.getBitmap(), base.getRect().left, base.getRect().top, paint);
+        }
+
+        count++;
         //canvas.drawRect(base.mRect, paint);
 
         for (int i = 0; i < base.missiles.size(); i++) {

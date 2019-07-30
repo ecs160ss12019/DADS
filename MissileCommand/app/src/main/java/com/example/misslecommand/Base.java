@@ -21,6 +21,7 @@ public class Base{
     
     public int ammo;
     Bitmap mBitmap;
+    Bitmap mBitmap2;
 
     public List<Missile> missiles;
 
@@ -32,6 +33,7 @@ public class Base{
         yBottom = screenY;
         yTop = yBottom - height;
         mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.base);
+        mBitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.base2);
 
         mRect = new RectF( xCenter - width/2, yTop, xCenter + width/2, yBottom);
     }
@@ -68,6 +70,10 @@ public class Base{
 
     Bitmap getBitmap(){
         return mBitmap;
+    }
+
+    Bitmap getBitmap2(){
+        return mBitmap2;
     }
 
 }
