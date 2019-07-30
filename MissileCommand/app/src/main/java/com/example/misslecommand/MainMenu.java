@@ -64,19 +64,6 @@ public class MainMenu {
         return scaledBitmap;
     }
 
-    public void drawParts(String s, int xPos, int yPos){
-        pnt.getTextBounds(s, 0, s.length(), bounds);
-        mt = pnt.measureText(s);
-        bw = bounds.width();
-
-        Log.i("LCG", String.format("measureText %f, getTextBounds %d (%s)", mt, bw, bounds.toShortString()));
-        bounds.offset(0, -bounds.top);
-        //pnt.setStyle(Paint.Style.STROKE);
-        pnt.setColor(Color.BLACK);
-        cnvs.drawText(s, xPos-(bw/2), yPos, pnt);
-
-    }
-
     public void draw(Canvas canvas, Paint paint){
         //backgrnd.draw(mCanvas, mPaint);
         cnvs = canvas;
