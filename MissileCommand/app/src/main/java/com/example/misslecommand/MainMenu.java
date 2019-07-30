@@ -76,10 +76,7 @@ public class MainMenu {
 
         //Choose the font size
         paint.setTextSize(mFontSize);
-
-        //drawParts(title,xPosition/2, yPosition/3);
-        //drawParts(subTitle, xPosition/2, yPosition*(4/5));
-        //drawParts(tapToStart, xPosition/2, yPosition/2);
+        
     }
 
 }
