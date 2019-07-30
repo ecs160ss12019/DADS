@@ -76,7 +76,7 @@ public class MainMenu {
 
         //Choose the font size
         paint.setTextSize(mFontSize);
-        
+
     }
 
 }

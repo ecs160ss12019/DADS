@@ -7,6 +7,7 @@ import java.util.*;
 import android.content.Context;
 
 public class CowsCtrl {
+    public int count = 0;
     public int cowNum = 6;
     public Cows[] cows;
 
