@@ -201,11 +201,11 @@ class MissileCommand extends SurfaceView implements Runnable{
         // Has the missile hit the hornets or power ups?
         for (int i = 0; i < baseCtrl.base.missiles.size(); i++) {
             if (baseCtrl.base.missiles.get(i).exploding) {
-                for (int j = 0; j < hornetCtrl.hornets.size(); j++) {
-                    checkCollision(hornetCtrl.hornets.get(j), baseCtrl.base.missiles.get(i));
-                }
                 for (int k = 0; k < powerUpCtrl.powerUps.size(); k++) {
                     checkCollision(powerUpCtrl.powerUps.get(k), baseCtrl.base.missiles.get(i));
+                }
+                for (int j = 0; j < hornetCtrl.hornets.size(); j++) {
+                    checkCollision(hornetCtrl.hornets.get(j), baseCtrl.base.missiles.get(i));
                 }
             }
         }
@@ -227,13 +227,15 @@ class MissileCommand extends SurfaceView implements Runnable{
     }
 
     private void checkCollision(PowerUp powerUp, Missile missile) {
-        int pX = powerUp.xPosition;
-        int pY = powerUp.yPosition;
-        if (pY < missile.explodeRect.top && pY > missile.explodeRect.bottom
-                && pX > missile.explodeRect.left && pX < missile.explodeRect.right) {
+        float dX = Math.abs(powerUp.xPosition - missile.xCenter);
+        float dY = Math.abs(powerUp.yPosition - missile.yCenter);
+
+        float dist = (float)Math.sqrt(dX*dX + dY*dY);
+        /*if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
+                && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {*/
+        if ( dist-25 <= missile.radius){
             powerUpCtrl.powerUps.remove(powerUp);
             baseCtrl.base.ammo = baseCtrl.base.ammo + 4;
-            killedPowerup = true;
         }
     }
 

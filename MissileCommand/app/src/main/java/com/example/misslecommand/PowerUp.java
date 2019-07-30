@@ -15,8 +15,8 @@ public class PowerUp {
     public float yVelocity = 75;
     private float width = 69;
     private float height = 69;
-    public int xPosition;
-    public int yPosition;
+    public float xPosition;
+    public float yPosition;
     public int finalX;  // The x coordinate of where the power up will fly to
     public int finalY;  // The y coordinate of where the power up will fly to
     Bitmap mBitmap;
@@ -35,8 +35,8 @@ public class PowerUp {
 
     void update(long fps){
 
-        xPosition = xPosition + (int)(xVelocity/fps);
-        yPosition = yPosition + (int)(yVelocity/fps);
+        xPosition = xPosition + (xVelocity/fps);
+        yPosition = yPosition + (yVelocity/fps);
 
         // Move the top left corner
         mRect.left = mRect.left + (xVelocity / fps);
