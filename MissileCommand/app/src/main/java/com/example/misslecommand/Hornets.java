@@ -26,9 +26,9 @@ public class Hornets {
     public int finalY;  // The y coordinate of the cow that the hornets are going to fly to
 
     public Hornets(int x, int y, Cows cow, int roundLevel, Context context){
-        speed = 200;
+        speed = 100;
         for (int i = 1; i < roundLevel; i++){
-            speed += 25;
+            speed += 15;
         }
         initX = x;
         initY = y;

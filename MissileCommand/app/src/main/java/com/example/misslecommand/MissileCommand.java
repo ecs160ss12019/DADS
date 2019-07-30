@@ -175,7 +175,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private void update() {
         // Call all controller update functions
         if (hornetCtrl != null && baseCtrl != null && powerUpCtrl != null) {
-                hornetCtrl.update(mFPS, 1, cowsCtrl, mScreenX);
+                hornetCtrl.update(mFPS, levelCtrl.level, cowsCtrl, mScreenX);
                 baseCtrl.update(mFPS);
                 powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
                 if(cowsCtrl.getCowsAlive() == 0){
