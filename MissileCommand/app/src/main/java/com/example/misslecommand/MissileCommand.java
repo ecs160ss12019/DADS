@@ -109,7 +109,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         cowsCtrl = new CowsCtrl(mScreenY, context);
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context);
         levelCtrl = new LevelCtrl();
-        pause = new Pause(mScreenX, context);
+        pause = new Pause(mScreenX, mScreenY, context);
         state = 0;
 
         // Everything is ready so start the game

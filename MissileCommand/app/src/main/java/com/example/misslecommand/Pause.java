@@ -8,6 +8,10 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 public class Pause {
+    public int xPosition;
+    public int yPosition;
+
+    public Options option;
     public Context context;
     public boolean status;
     public RectF mRect;
@@ -15,7 +19,9 @@ public class Pause {
 
     Bitmap bitmap;
 
-    public Pause (float maxX, Context con) {
+    public Pause (int maxX, int maxY, Context con) {
+        xPosition = maxX;
+        yPosition = maxY;
         context = con;
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
         mRect = new RectF(maxX - width, 0, maxX, width);
@@ -24,6 +30,9 @@ public class Pause {
 
     public void draw(Canvas canvas, Paint paint) {
         canvas.drawBitmap(bitmap, mRect.left, mRect.top, paint);
+        option = new Options(xPosition, yPosition, context);
+
+        option.draw(canvas, paint);
         //canvas.drawRect(mRect, paint);
     }
 }
