@@ -17,6 +17,7 @@ public class Cows {
     public int xPosition;       // The x position of the middle of the left side of the rectangle that represents the cow
     public int yPosition;       // The y position of the middle of the left side of the rectangle that represents the cow
     Bitmap mBitmap;
+    Bitmap mBitmap2;
 
     /*
         The constructor for the Cow object. It sets the status of the cow to True (cow is alive), and takes in
@@ -29,6 +30,8 @@ public class Cows {
         yPosition = y;
 
         mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cow);
+        mBitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.cow2);
+
 
         mRect = new RectF((float)x - width/2, (float)y + height/2 - 85, (float)x + width/2,
                 (float)y - height/2 - 85);
