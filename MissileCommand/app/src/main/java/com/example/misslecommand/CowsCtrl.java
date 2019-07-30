@@ -39,7 +39,16 @@ public class CowsCtrl {
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < cowNum; i++) {
             if (cows[i].status) {
-                canvas.drawBitmap(cows[i].getBitmap(), cows[i].getRect().left, cows[i].getRect().top, paint);
+                if (count > 350){
+                    count = 0;
+                }
+                if (count < 175){
+                    canvas.drawBitmap(cows[i].getBitmap(), cows[i].getRect().left, cows[i].getRect().top, paint);
+                }
+                else{
+                    canvas.drawBitmap(cows[i].getBitmap2(), cows[i].getRect().left, cows[i].getRect().top, paint);
+                }
+                count++;
                 //canvas.drawRect(cows[i].mRect, paint);
             }
         }

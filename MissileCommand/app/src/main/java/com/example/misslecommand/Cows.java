@@ -57,4 +57,8 @@ public class Cows {
         return mBitmap;
     }
 
+    Bitmap getBitmap2(){
+        return mBitmap2;
+    }
+
 }
