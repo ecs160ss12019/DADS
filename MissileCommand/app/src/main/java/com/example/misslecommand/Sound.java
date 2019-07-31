@@ -54,7 +54,7 @@ public class Sound {
 
     }
 
-    // Launch, Explode, and Cow Death are not class variables because I could not figure out how else to allow
+    // Launch, Explode, Cow Death, and Ammo are not class variables because I could not figure out how else to allow
     // multiple launching/exploding noises to play at once, whereas menu and start only need one at
     // a time.
     public void launch() {
@@ -64,7 +64,18 @@ public class Sound {
 
     public void explode() {
         MediaPlayer explode = MediaPlayer.create(context, R.raw.explode);
+        explode.setVolume(0.7f,0.7f);
         explode.start();
+    }
+
+    public void ammo() {
+        MediaPlayer ammo = MediaPlayer.create(context, R.raw.ammo);
+        ammo.start();
+    }
+
+    public void squish() {
+        MediaPlayer squish = MediaPlayer.create(context, R.raw.squish);
+        squish.start();
     }
 
     public void death() {

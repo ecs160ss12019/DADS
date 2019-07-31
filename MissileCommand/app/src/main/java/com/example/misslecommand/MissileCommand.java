@@ -227,6 +227,7 @@ class MissileCommand extends SurfaceView implements Runnable{
             hornetCtrl.hornets.remove(hornet);
             killedHornet = true;
             score = score + 10;
+            sound.squish();
         }
     }
 
@@ -240,6 +241,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         if ( dist-25 <= missile.radius){
             powerUpCtrl.powerUps.remove(powerUp);
             baseCtrl.base.ammo = baseCtrl.base.ammo + 4;
+            sound.ammo();
         }
     }
 
