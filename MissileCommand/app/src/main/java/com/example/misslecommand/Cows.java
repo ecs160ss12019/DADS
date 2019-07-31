@@ -12,8 +12,8 @@ public class Cows {
     MediaPlayer deathSound;
     public boolean status;      // The status of whether the cow is alive or not alive
     public RectF mRect;         // The rectangle that will represent the cow's hit box
-    public float width = 40;   // Width of the cow
-    public float height = 40;  // Height of the cow
+    public float width = 110;   // Width of the cow
+    public float height = 164;  // Height of the cow
     public int xPosition;       // The x position of the middle of the left side of the rectangle that represents the cow
     public int yPosition;       // The y position of the middle of the left side of the rectangle that represents the cow
     Bitmap mBitmap;
