@@ -3,27 +3,49 @@ package com.example.misslecommand;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+// Music Credit: https://patrickdearteaga.com.
 
 public class Sound {
     Context context;
     MediaPlayer menu;
     MediaPlayer start;
-    MediaPlayer
+    MediaPlayer background;
+    MediaPlayer background2;
+    LevelCtrl levelCtrl;
+    int levelChange = 10;
 
-    public Sound (Context con) {
+    public Sound (Context con, LevelCtrl lvl) {
         context = con;
-
+        levelCtrl = lvl;
         menu = MediaPlayer.create(context, R.raw.menu);
         start = MediaPlayer.create(context, R.raw.start);
+        background = MediaPlayer.create(context, R.raw.background);
+        background2 = MediaPlayer.create(context, R.raw.background2);
         menu.setLooping(true);
     }
 
     public void play(MediaPlayer choice) {
-        choice.start();
+        if (!choice.isPlaying()) {
+            if (choice == background) {
+                while (start.isPlaying()) {
+                    choice.seekTo(0);
+                }
+                if (levelCtrl.level >= levelChange) {
+                    choice = background2;
+                }
+            }
+            choice.start();
+        }
     }
 
     public void pause(MediaPlayer choice) {
-        choice.pause();
+        if (levelCtrl.level >= levelChange) {
+            choice = background2;
+        }
+        if (choice.isPlaying()) {
+            choice.pause();
+        }
+
     }
 
     // Launch, Explode, and Cow Death are not class variables because I could not figure out how else to allow

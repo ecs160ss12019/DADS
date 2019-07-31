@@ -98,12 +98,12 @@ class MissileCommand extends SurfaceView implements Runnable{
         contxt = context;
 
         // Initialize the cows and base
-        sound = new Sound(context);
+        levelCtrl = new LevelCtrl();
+        sound = new Sound(context, levelCtrl);
         mainMen = new MainMenu(mScreenX, mScreenY, context);
         backgrnd = new Background(mScreenX, mScreenY, context);
         cowsCtrl = new CowsCtrl(mScreenY, context);
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context, sound);
-        levelCtrl = new LevelCtrl();
         pause = new Pause(mScreenX, mScreenY, context);
         state = 0;
         sound.play(sound.menu);
@@ -123,6 +123,8 @@ class MissileCommand extends SurfaceView implements Runnable{
         numPowerup = levelCtrl.numPowerups;
         hornetCtrl.hornetsToSpawn = levelCtrl.numHornets;
         hornetsDestroyed = 0;
+        sound.background.seekTo(0);
+        sound.play(sound.background);
 
     }
 
@@ -182,6 +184,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     baseCtrl.base.missiles = new ArrayList<>();
                     //menuPlayer.start();
                     sound.play(sound.menu);
+                    sound.pause(sound.background);
                     state = 3;
                 }
                 else if (hornetCtrl.hornetsToSpawn == 0 && hornetCtrl.hornets.size() == 0) {
@@ -190,6 +193,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     baseCtrl.base.missiles = new ArrayList<>();
                     //menuPlayer.start();
                     sound.play(sound.menu);
+                    sound.pause(sound.background);
                     state = 2;
                 }
         }
@@ -345,6 +349,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 if (state == 1) {
                     if (pause.mRect.contains(x,y)) {
                         state = 4;
+                        sound.pause(sound.background);
                         break;
                     }
                     baseCtrl.base.fire((int)motionEvent.getX(), (int)motionEvent.getY());
@@ -381,6 +386,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 }
                 if (state == 4) {
                     state = 1;
+                    sound.play(sound.background);
                     break;
                 }
 
