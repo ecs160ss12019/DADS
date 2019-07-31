@@ -14,7 +14,7 @@ public class CowsCtrl {
     public CowsCtrl(int screenY, Context context) {
         cows = new Cows[cowNum];
         int cowX = 70;
-        int cowY = screenY - 80;
+        int cowY = screenY;
         for (int i = 0; i < cowNum; i++) {
             cows[i] = new Cows(cowX, cowY, context);
             if (i != 2) {
@@ -38,6 +38,7 @@ public class CowsCtrl {
 
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < cowNum; i++) {
+            canvas.drawRect(cows[i].mRect, paint); // debugging purposes
             if (cows[i].status) {
                 if (count > 350){
                     count = 0;

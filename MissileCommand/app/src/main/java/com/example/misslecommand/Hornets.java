@@ -9,7 +9,7 @@ public class Hornets {
 
     public boolean status;
 
-    public Cows target;
+    public Cows targetCow;
 
     public RectF mRect;
     Bitmap mBitmap;
@@ -21,33 +21,49 @@ public class Hornets {
     private float height = 90;
     public float xPosition;
     public float yPosition;
-    public int initX;
-    public int initY;
-    public int finalX;  // The x coordinate of the cow that the hornets are going to fly to
-    public int finalY;  // The y coordinate of the cow that the hornets are going to fly to
+    public float initX;
+    public float initY;
+    public float finalX;  // The x coordinate of the cow that the hornets are going to fly to
+    public float finalY;  // The y coordinate of the cow that the hornets are going to fly to
 
-    public Hornets(int x, int y, Cows cow, int roundLevel, Context context){
+    public double rotateRad;
+    public double rotateDeg;
+    public Hornets(int x, int SCREEN_TOP, Cows cow, int roundLevel, Context context){
         speed = 100;
         for (int i = 1; i < roundLevel; i++){
             speed += 15;
         }
         initX = x;
-        initY = y;
+        initY = SCREEN_TOP;
         xPosition = x;
-        yPosition = y;
-        target = cow;
-        finalX = target.xPosition;
-        finalY = target.yPosition;
+        yPosition = SCREEN_TOP;
+        targetCow = cow;
+        finalX = targetCow.xPosition;
+        finalY = targetCow.yPosition - targetCow.height;
         status = true;
         mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.hornet1);
         mBitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.hornet2);
 
-        mRect = new RectF((float)x - width/2, (float)y - height/2, (float)x+width/2, (float)y+height/2);
+        mRect = new RectF((float)x - width/2, (float)SCREEN_TOP - height/2, (float)x+width/2, (float)SCREEN_TOP+height/2);
 
 
         // VELOCITY CODE
         float px = finalX - xPosition;
         float py = finalY - yPosition;
+
+        double pX = finalX - initX;
+        double pY = finalY - initY;
+        double slope = pY/pX;
+
+        rotateRad = Math.atan(slope);
+        rotateDeg = Math.toDegrees(rotateRad);
+
+        if (rotateDeg > 0) {
+            rotateDeg -= 90;
+        } else {
+            rotateDeg += 90;
+        }
+
 
         float distance = (float)Math.sqrt(px*px + py*py);
         float scalar = speed/distance;
@@ -74,7 +90,7 @@ public class Hornets {
     public void kill(){
         if (yPosition >= finalY) {
             status = false;
-            target.kill();
+            targetCow.kill();
         }
     }
 

@@ -24,6 +24,8 @@ public class HornetCtrl {
 
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < hornets.size(); i++) {
+            canvas.save();
+            canvas.rotate( (float)hornets.get(i).rotateDeg, hornets.get(i).xPosition, hornets.get(i).yPosition);
             canvas.drawRect(hornets.get(i).mRect, paint);
             if (count > 100){
                 count = 0;
@@ -35,6 +37,7 @@ public class HornetCtrl {
                 canvas.drawBitmap(hornets.get(i).getBitmap(), hornets.get(i).getRect().left, hornets.get(i).getRect().top, paint);
             }
             count++;
+            canvas.restore();
             canvas.drawLine(hornets.get(i).initX,
                     hornets.get(i).initY,
                     hornets.get(i).xPosition,
