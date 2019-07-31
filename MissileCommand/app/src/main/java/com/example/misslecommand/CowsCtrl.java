@@ -1,9 +1,7 @@
 package com.example.misslecommand;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import java.util.*;
 import android.content.Context;
 
 public class CowsCtrl {
@@ -11,12 +9,12 @@ public class CowsCtrl {
     public int cowNum = 6;
     public Cows[] cows;
 
-    public CowsCtrl(int screenY, Context context) {
+    public CowsCtrl(int screenY, Context context, Sound sound) {
         cows = new Cows[cowNum];
         int cowX = 70;
         int cowY = screenY;
         for (int i = 0; i < cowNum; i++) {
-            cows[i] = new Cows(cowX, cowY, context);
+            cows[i] = new Cows(cowX, cowY, context, sound);
             if (i != 2) {
                 cowX = cowX + 300;
             }

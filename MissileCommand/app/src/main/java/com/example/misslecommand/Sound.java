@@ -14,7 +14,7 @@ public class Sound {
     LevelCtrl levelCtrl;
     int levelChange = 8;
 
-    public Sound (Context con, LevelCtrl lvl, int state) {
+    public Sound (Context con, LevelCtrl lvl) {
         context = con;
         levelCtrl = lvl;
         menu = MediaPlayer.create(context, R.raw.menu);
@@ -22,10 +22,10 @@ public class Sound {
         background = MediaPlayer.create(context, R.raw.background);
         background2 = MediaPlayer.create(context, R.raw.background2);
         menu.setLooping(true);
-        play(menu, state);
+        play(menu);
     }
 
-    public void play(MediaPlayer choice, int state) {
+    public void play(MediaPlayer choice) {
         if (choice == background) {
             if (!background2.isPlaying() && levelCtrl.level >= levelChange) {
                 background2.start();

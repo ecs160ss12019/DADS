@@ -101,10 +101,10 @@ class MissileCommand extends SurfaceView implements Runnable{
         // Initialize the cows and base
         state = 0;
         levelCtrl = new LevelCtrl();
-        sound = new Sound(context, levelCtrl, state);
+        sound = new Sound(context, levelCtrl);
         mainMen = new MainMenu(mScreenX, mScreenY, context);
         backgrnd = new Background(mScreenX, mScreenY, context);
-        cowsCtrl = new CowsCtrl(mScreenY, context);
+        cowsCtrl = new CowsCtrl(mScreenY, context, sound);
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context, sound);
         pause = new Pause(mScreenX, mScreenY, context);
         //sound.play(sound.menu, state);
@@ -126,7 +126,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         hornetsDestroyed = 0;
         sound.background.seekTo(0);
         sound.background2.seekTo(0);
-        sound.play(sound.background, state);
+        sound.play(sound.background);
 
     }
 
@@ -182,10 +182,10 @@ class MissileCommand extends SurfaceView implements Runnable{
                 powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
                 if(cowsCtrl.getCowsAlive() == 0){
                     //levelCtrl = new LevelCtrl();
-                    cowsCtrl = new CowsCtrl(mScreenY, contxt);
+                    cowsCtrl = new CowsCtrl(mScreenY, contxt, sound);
                     baseCtrl.base.missiles = new ArrayList<>();
                     //menuPlayer.start();
-                    sound.play(sound.menu, state);
+                    sound.play(sound.menu);
                     sound.pause(sound.background);
                     state = 3;
                 }
@@ -194,7 +194,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     //cowsCtrl = new CowsCtrl(mScreenY, contxt);
                     baseCtrl.base.missiles = new ArrayList<>();
                     //menuPlayer.start();
-                    sound.play(sound.menu, state);
+                    sound.play(sound.menu);
                     sound.pause(sound.background);
                     state = 2;
                 }
@@ -369,7 +369,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     //menuPlayer.pause();
                     //startPlayer.start();
                     sound.pause(sound.menu);
-                    sound.play(sound.start, state);
+                    sound.play(sound.start);
                     break;
                 }
                 if (state == 2) {
@@ -382,14 +382,14 @@ class MissileCommand extends SurfaceView implements Runnable{
                     //menuPlayer.pause();
                     //startPlayer.start();
                     sound.pause(sound.menu);
-                    sound.play(sound.start, state);
+                    sound.play(sound.start);
                 }
                 if (state == 3) {
                     state = 0;
                     levelCtrl = new LevelCtrl();
                     score = 0;
                     sound.pause(sound.menu);
-                    sound = new Sound(contxt, levelCtrl, state);
+                    sound = new Sound(contxt, levelCtrl);
                     startNewGame();
                     sound.pause(sound.background);
                     //menuPlayer.pause();
@@ -397,7 +397,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 }
                 if (state == 4) {
                     state = 1;
-                    sound.play(sound.background, state);
+                    sound.play(sound.background);
                     break;
                 }
 
