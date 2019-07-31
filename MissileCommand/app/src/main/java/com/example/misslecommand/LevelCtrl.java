@@ -18,8 +18,8 @@ public class LevelCtrl {
 
     public void nextLevel(){
         level++;
-        numHornets += 2;
-        numMissiles += 1;
+        numHornets *= 1.2;
+        numMissiles *= 1.1;
         if(level % 2 == 0){
             numPowerups += 1;
         }
