@@ -8,7 +8,6 @@ public class Sound {
     Context context;
     MediaPlayer menu;
     MediaPlayer start;
-    MediaPlayer
 
     public Sound (Context con) {
         context = con;

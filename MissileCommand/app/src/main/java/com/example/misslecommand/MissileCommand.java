@@ -46,6 +46,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private LevelCtrl levelCtrl;
     private Pause pause;
     private Sound sound;
+    private int highScore = 0;
 
     private int numPowerup;
     private int hornetsDestroyed;
@@ -278,6 +279,9 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             } else if (state == 3){
+                if (score > highScore){
+                    highScore = score;
+                }
                 backgrnd.draw(mCanvas, mPaint);
                 mPaint.setColor(Color.argb
                         (255, 255, 255, 255));
@@ -286,6 +290,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mCanvas.drawText("Level " + levelCtrl.level + " Failed, Your Cows Are Dead", mScreenX/6,
                         mScreenY/2, mPaint);
                 mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+300, mPaint);
+                mCanvas.drawText("High Score: " + highScore, mScreenX/2, mScreenY/5+300, mPaint);
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             }
             else {
