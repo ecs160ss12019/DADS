@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -17,8 +16,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     // Are we debugging?
     private final boolean DEBUGGING = true;
 
-    MediaPlayer menuPlayer;
-    MediaPlayer startPlayer;
+    //MediaPlayer menuPlayer;
+    //MediaPlayer startPlayer;
 
     // These objects are needed to do the drawing
     private SurfaceHolder mOurHolder;
@@ -46,6 +45,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private PowerUpCtrl powerUpCtrl;
     private LevelCtrl levelCtrl;
     private Pause pause;
+    private Sound sound;
 
     private int numPowerup;
     private int hornetsDestroyed;
@@ -79,13 +79,13 @@ class MissileCommand extends SurfaceView implements Runnable{
         super(context);
 
 
-        menuPlayer = MediaPlayer.create(context, R.raw.menu);
-        startPlayer = MediaPlayer.create(context, R.raw.start);
-        menuPlayer.setVolume(80,80);
-        menuPlayer.setLooping(true);
-        startPlayer.setVolume(80,80);
+        //menuPlayer = MediaPlayer.create(context, R.raw.menu);
+        //startPlayer = MediaPlayer.create(context, R.raw.start);
+        //menuPlayer.setVolume(80,80);
+        //menuPlayer.setLooping(true);
+        //startPlayer.setVolume(80,80);
         score = 0;
-        menuPlayer.start();
+        //menuPlayer.start();
         // Initialize these two members/fields
         // With the values passesd in as parameters
         mScreenX = x;
@@ -110,6 +110,8 @@ class MissileCommand extends SurfaceView implements Runnable{
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context);
         levelCtrl = new LevelCtrl();
         pause = new Pause(mScreenX, mScreenY, context);
+        sound = new Sound(context);
+        sound.play(sound.menu);
         state = 0;
 
         // Everything is ready so start the game
@@ -184,14 +186,16 @@ class MissileCommand extends SurfaceView implements Runnable{
                     //levelCtrl = new LevelCtrl();
                     cowsCtrl = new CowsCtrl(mScreenY, contxt);
                     baseCtrl.base.missiles = new ArrayList<>();
-                    menuPlayer.start();
+                    //menuPlayer.start();
+                    sound.play(sound.menu);
                     state = 3;
                 }
                 else if (hornetCtrl.hornetsToSpawn == 0 && hornetCtrl.hornets.size() == 0) {
                     levelCtrl.nextLevel();
                     //cowsCtrl = new CowsCtrl(mScreenY, contxt);
                     baseCtrl.base.missiles = new ArrayList<>();
-                    menuPlayer.start();
+                    //menuPlayer.start();
+                    sound.play(sound.menu);
                     state = 2;
                 }
         }
@@ -355,8 +359,10 @@ class MissileCommand extends SurfaceView implements Runnable{
                     state = 1;
                     score = 0;
                     startNewGame();
-                    menuPlayer.pause();
-                    startPlayer.start();
+                    //menuPlayer.pause();
+                    //startPlayer.start();
+                    sound.pause(sound.menu);
+                    sound.play(sound.start);
                     break;
                 }
                 if (state == 2) {
@@ -366,8 +372,10 @@ class MissileCommand extends SurfaceView implements Runnable{
                         cowsCtrl.cows[i].status = true;
                     }
                     startNewGame();
-                    menuPlayer.pause();
-                    startPlayer.start();
+                    //menuPlayer.pause();
+                    //startPlayer.start();
+                    sound.pause(sound.menu);
+                    sound.play(sound.start);
                 }
                 if (state == 3) {
                     state = 0;
