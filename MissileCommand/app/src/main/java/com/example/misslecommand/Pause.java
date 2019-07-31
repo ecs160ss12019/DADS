@@ -23,6 +23,8 @@ public class Pause {
         xPosition = maxX;
         yPosition = maxY;
         context = con;
+        option = new Options(xPosition, yPosition, context);
+
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
         mRect = new RectF(maxX - width, 0, maxX, width);
 
@@ -35,9 +37,7 @@ public class Pause {
             canvas.drawText("PAUSED", xPosition/3, yPosition/3, paint);
         }
 
-        option = new Options(xPosition, yPosition, context);
-
-        option.draw(canvas, paint);
+        //option.draw(canvas, paint);
         //canvas.drawRect(mRect, paint);
     }
 }
