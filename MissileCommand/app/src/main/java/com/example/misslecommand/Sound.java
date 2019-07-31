@@ -12,9 +12,9 @@ public class Sound {
     MediaPlayer background;
     MediaPlayer background2;
     LevelCtrl levelCtrl;
-    int levelChange = 10;
+    int levelChange = 8;
 
-    public Sound (Context con, LevelCtrl lvl) {
+    public Sound (Context con, LevelCtrl lvl, int state) {
         context = con;
         levelCtrl = lvl;
         menu = MediaPlayer.create(context, R.raw.menu);
@@ -22,27 +22,33 @@ public class Sound {
         background = MediaPlayer.create(context, R.raw.background);
         background2 = MediaPlayer.create(context, R.raw.background2);
         menu.setLooping(true);
+        play(menu, state);
     }
 
-    public void play(MediaPlayer choice) {
-        if (!choice.isPlaying()) {
-            if (choice == background) {
-                while (start.isPlaying()) {
-                    choice.seekTo(0);
-                }
-                if (levelCtrl.level >= levelChange) {
-                    choice = background2;
-                }
+    public void play(MediaPlayer choice, int state) {
+        if (choice == background) {
+            if (!background2.isPlaying() && levelCtrl.level >= levelChange) {
+                background2.start();
             }
+            else if (!background.isPlaying()) {
+                background.start();
+            }
+        }
+        else if (!choice.isPlaying()) {
             choice.start();
         }
     }
 
     public void pause(MediaPlayer choice) {
-        if (levelCtrl.level >= levelChange) {
-            choice = background2;
+        if (levelCtrl.level >= levelChange && choice == background) {
+            if (background2.isPlaying()) {
+                background2.pause();
+            }
+            if (background.isPlaying()) {
+                background.pause();
+            }
         }
-        if (choice.isPlaying()) {
+        else if (choice.isPlaying()) {
             choice.pause();
         }
 
