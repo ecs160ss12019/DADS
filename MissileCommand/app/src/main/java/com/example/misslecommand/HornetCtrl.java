@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import java.util.*;
 
 public class HornetCtrl {
+    public int count =0;
     public List<Hornets> hornets;
     Random random;
     Context contxt;
@@ -24,7 +25,16 @@ public class HornetCtrl {
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < hornets.size(); i++) {
             canvas.drawRect(hornets.get(i).mRect, paint);
-            canvas.drawBitmap(hornets.get(i).getBitmap(), hornets.get(i).getRect().left, hornets.get(i).getRect().top, paint);
+            if (count > 100){
+                count = 0;
+            }
+            if (count < 50){
+                canvas.drawBitmap(hornets.get(i).getBitmap2(), hornets.get(i).getRect().left, hornets.get(i).getRect().top, paint);
+            }
+            else {
+                canvas.drawBitmap(hornets.get(i).getBitmap(), hornets.get(i).getRect().left, hornets.get(i).getRect().top, paint);
+            }
+            count++;
             canvas.drawLine(hornets.get(i).initX,
                     hornets.get(i).initY,
                     hornets.get(i).xPosition,

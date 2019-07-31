@@ -13,6 +13,7 @@ public class Hornets {
 
     public RectF mRect;
     Bitmap mBitmap;
+    Bitmap mBitmap2;
     public float speed;
     public float xVelocity;
     public float yVelocity;
@@ -38,7 +39,8 @@ public class Hornets {
         finalX = target.xPosition;
         finalY = target.yPosition;
         status = true;
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.hornets);
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.hornet1);
+        mBitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.hornet2);
 
         mRect = new RectF((float)x - width/2, (float)y - height/2, (float)x+width/2, (float)y+height/2);
 
@@ -83,6 +85,7 @@ public class Hornets {
     Bitmap getBitmap(){
         return mBitmap;
     }
+    Bitmap getBitmap2(){ return mBitmap2; }
 
     public void exploded() {
         status = false;
