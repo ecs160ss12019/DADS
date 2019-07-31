@@ -9,7 +9,7 @@ import android.graphics.RectF;
 import java.util.*;
 
 public class Base{
-
+    Sound sound;
     public Context context;
     public boolean status;
     public RectF mRect;
@@ -25,7 +25,8 @@ public class Base{
 
     public List<Missile> missiles;
 
-    public Base(float centerScreenX, float screenY, Context con) {
+    public Base(float centerScreenX, float screenY, Context con, Sound snd) {
+        sound = snd;
         status = true;
         context = con;
         missiles = new ArrayList<>();
@@ -44,7 +45,7 @@ public class Base{
             //out of ammo
             return;
         }
-        missiles.add(new Missile(xCenter, yTop, xTouch, yTouch, context));
+        missiles.add(new Missile(xCenter, yTop, xTouch, yTouch, context, sound));
         ammo--;
     }
 

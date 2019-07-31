@@ -6,8 +6,10 @@ import android.media.MediaPlayer;
 import android.util.Log;
 
 public class Missile {
-    MediaPlayer fireSound;
-    MediaPlayer explodeSound;
+    //MediaPlayer fireSound;
+    //MediaPlayer explodeSound;
+
+    Sound sound;
 
     boolean up;
     boolean insane;
@@ -39,12 +41,13 @@ public class Missile {
     public boolean exploding;
     public boolean done;
     
-    public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch, Context context) {
+    public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch, Context context, Sound snd) {
         // Create MediaPlayers for launch sound and explode sound, start fire sound on creation.
-        fireSound = MediaPlayer.create(context, R.raw.fire);
-        fireSound.start();
-        explodeSound = MediaPlayer.create(context, R.raw.explode);
-
+        //fireSound = MediaPlayer.create(context, R.raw.fire);
+        //fireSound.start();
+        //explodeSound = MediaPlayer.create(context, R.raw.explode);
+        sound = snd;
+        sound.launch();
         // set coordinate variables
         xCenter = baseXCenter;
         yCenter = baseYTop - height/2;
@@ -133,7 +136,8 @@ public class Missile {
         //int ptr = 0;
         //fireSound.stop();
         if (explodeRect == null) {
-            explodeSound.start();
+            //explodeSound.start();
+            sound.explode();
             explodeRect = new RectF(xDest - radius, yDest - radius, xDest + radius,
                     yDest + radius);
         }
@@ -199,15 +203,6 @@ public class Missile {
 
                 case 5:
                     done = true;
-
-                    if (explodeSound != null & fireSound != null) {
-                        explodeSound.reset();
-                        explodeSound.release();
-                        explodeSound = null;
-                        fireSound.reset();
-                        fireSound.release();
-                        fireSound = null;
-                    }
                     flag = false;
                     break yield;
 

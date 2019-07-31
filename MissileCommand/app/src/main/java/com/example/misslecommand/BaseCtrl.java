@@ -12,8 +12,8 @@ public class BaseCtrl {
     public int count = 0;
     public Base base;
 
-    public BaseCtrl(int centerScreenX, int screenY, Context con) {
-        base = new Base(centerScreenX, screenY, con);
+    public BaseCtrl(int centerScreenX, int screenY, Context con, Sound sound) {
+        base = new Base(centerScreenX, screenY, con, sound);
     }
 
     public void draw(Canvas canvas, Paint paint) {

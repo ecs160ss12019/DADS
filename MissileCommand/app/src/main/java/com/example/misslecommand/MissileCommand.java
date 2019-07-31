@@ -78,12 +78,6 @@ class MissileCommand extends SurfaceView implements Runnable{
         // provided by Android
         super(context);
 
-
-        //menuPlayer = MediaPlayer.create(context, R.raw.menu);
-        //startPlayer = MediaPlayer.create(context, R.raw.start);
-        //menuPlayer.setVolume(80,80);
-        //menuPlayer.setLooping(true);
-        //startPlayer.setVolume(80,80);
         score = 0;
         //menuPlayer.start();
         // Initialize these two members/fields
@@ -104,15 +98,15 @@ class MissileCommand extends SurfaceView implements Runnable{
         contxt = context;
 
         // Initialize the cows and base
+        sound = new Sound(context);
         mainMen = new MainMenu(mScreenX, mScreenY, context);
         backgrnd = new Background(mScreenX, mScreenY, context);
         cowsCtrl = new CowsCtrl(mScreenY, context);
-        baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context);
+        baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context, sound);
         levelCtrl = new LevelCtrl();
         pause = new Pause(mScreenX, mScreenY, context);
-        sound = new Sound(context);
-        sound.play(sound.menu);
         state = 0;
+        sound.play(sound.menu);
 
         // Everything is ready so start the game
         draw();
