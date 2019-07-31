@@ -12,6 +12,7 @@ public class HornetCtrl {
     Context contxt;
     public boolean removeHornet = false;
     public int hornetsToSpawn;
+    public int spawnTimer = 0;
 
     public HornetCtrl(Context context, int ammo) {
         contxt = context;
@@ -39,6 +40,7 @@ public class HornetCtrl {
             Cows target = cowsCtrl.cows[randCow];
             hornets.add(new Hornets(random.nextInt(screenX), 0, target, level, context));
             hornetsToSpawn--;
+            spawnTimer = 0;
         }
     }
 
@@ -58,8 +60,12 @@ public class HornetCtrl {
                 removeHornet = true;
             }
         }
-
-        spawnHornets(level, cowsCtrl, screenX, contxt);
+        spawnTimer++;
+        if(spawnTimer >= 33) {  // Have a chance to spawn a hornet every 33 frames
+            spawnHornets(level, cowsCtrl, screenX, contxt);
+        }else{
+            //spawnHornets(level, cowsCtrl, screenX, contxt);
+        }
     }
 
 }
