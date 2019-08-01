@@ -256,6 +256,7 @@ class MissileCommand extends SurfaceView implements Runnable{
             mCanvas = mOurHolder.lockCanvas();
             mPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/Bangers-Regular.ttf"));
 
+
             if (state == 0) {
                 mainMen.draw(mCanvas, mPaint);
 
@@ -266,26 +267,31 @@ class MissileCommand extends SurfaceView implements Runnable{
                 backgrnd.draw(mCanvas, mPaint);
 
                 mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
+                        (255, 212,0,0));
                 // Choose the font size
-                mPaint.setTextSize(mFontSize+70);
+                mPaint.setTextSize(mFontSize+80);
 
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " completed!", mScreenX/4,
                         mScreenY/2, mPaint);
 
-                mPaint.setTextSize(mFontSize);
-                mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " +
-                Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+                mPaint.setTextSize(mFontSize-20);
+                //mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+
+                mCanvas.drawText(" Previous Score:             " + score, mScreenX/2-300, mScreenY/2+200, mPaint);
+                mCanvas.drawText( "Cows          " + cowsCtrl.getCowsAlive()+ "x100            +" + cowsCtrl.getCowsAlive()*100, mScreenX/2-300, mScreenY/2+260, mPaint);
+                mCanvas.drawText( "Missiles    " + baseCtrl.base.ammo + "x10              +" + baseCtrl.base.ammo*10, mScreenX/2-300, mScreenY/2+320, mPaint);
+                mCanvas.drawText( "Total Score                    " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/2-300, mScreenY/2+430, mPaint);
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             } else if (state == 3){
+                backgrnd.drawGameOver(mCanvas, mPaint);
                 if (score > highScore){
                     highScore = score;
                     saveScore();
                 }
-                backgrnd.draw(mCanvas, mPaint);
+                //backgrnd.draw(mCanvas, mPaint);
                 mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
+                        (255, 212,175,55));
                 // Choose the font size
                 mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " Failed, Your Cows Are Dead", mScreenX/6,
@@ -303,12 +309,12 @@ class MissileCommand extends SurfaceView implements Runnable{
             else {
 
                 // Fill the screen with a solid color
-                //mCanvas.drawColor(Color.argb(255, 26, 128, 182));
+                //mCanvas.drawColor(Color.argb(255, 26, 192, 182));
                 backgrnd.draw(mCanvas, mPaint);
 
                 // Choose a color to paint with
                 mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
+                        (255, 212,175,55));
 
                 // Call all controllers draw functions
                 if (cowsCtrl != null && baseCtrl != null && hornetCtrl != null && powerUpCtrl != null) {
@@ -321,7 +327,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 // Reset Color to White
                 mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
+                        (255, 212,175,55));
 
                 // Choose the font size
                 mPaint.setTextSize(mFontSize);

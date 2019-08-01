@@ -13,6 +13,8 @@ public class Background {
 
     Bitmap mBitmap;
     Bitmap scaledBitmap;
+    Bitmap gameOverMap;
+    Bitmap scaledGameOver;
     public RectF mRect;
 
     // Constructor
@@ -21,18 +23,18 @@ public class Background {
         mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.background);
         scaledBitmap = Bitmap.createScaledBitmap(mBitmap, screenX, screenY, true);
 
+        gameOverMap = BitmapFactory.decodeResource(context.getResources(), R.drawable.gameover);
+        scaledGameOver = Bitmap.createScaledBitmap(gameOverMap, screenX, screenY, true);
+
     }
 
-    RectF getRect(){
-        return mRect;
-    }
-
-    Bitmap getBitmap(){
-        return scaledBitmap;
-    }
 
     // Drawing Function
     public void draw(Canvas canvas, Paint paint) {
-        canvas.drawBitmap(this.getBitmap(), this.getRect().left, this.getRect().top, paint);
+        canvas.drawBitmap(scaledBitmap, mRect.left, mRect.top, paint);
+    }
+
+    public void drawGameOver(Canvas canvas, Paint paint) {
+        canvas.drawBitmap(scaledGameOver, mRect.left, mRect.top, paint);
     }
 }
