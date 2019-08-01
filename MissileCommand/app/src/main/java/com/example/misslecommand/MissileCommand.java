@@ -7,8 +7,9 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.graphics.RectF;
 import android.view.SurfaceView;
+
+import java.io.InputStream;
 import java.util.*;
 
 class MissileCommand extends SurfaceView implements Runnable{
@@ -68,6 +69,11 @@ class MissileCommand extends SurfaceView implements Runnable{
     private volatile boolean mPlaying;
     private boolean mPaused = true;
     Context contxt;
+
+
+    InputStream inputStream = getResources().openRawResource(R.raw.leaderboards);
+    CSVFileCtrl csvFile = new CSVFileCtrl(inputStream);
+    List scoreList = csvFile.read();
 
     // The PongGame constructor
     // Called when this line:
@@ -298,6 +304,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                         mScreenY/2, mPaint);
                 mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+300, mPaint);
                 mCanvas.drawText("High Score: " + highScore, mScreenX/2+100, mScreenY/8, mPaint);
+                mCanvas.drawText("High Score for: " + scoreList.get(0), mScreenX/8+100, mScreenY/5, mPaint);
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             }
             else {
