@@ -34,9 +34,6 @@ public class MainMenu {
     public float mt;
     public int bw;
 
-    Canvas cnvs;
-    Paint pnt;
-
     public MainMenu(int x, int y, Context context){
         xPosition = x;
         yPosition = y;
@@ -64,8 +61,6 @@ public class MainMenu {
     }
 
     public void draw(Canvas canvas, Paint paint){
-        cnvs = canvas;
-        pnt = paint;
 
         canvas.drawBitmap(this.getBitmap(), this.getRect().left, this.getRect().top, paint);
         canvas.drawBitmap(bitMapForTitle, (xPosition/2)-150, yPosition/3, paint);
