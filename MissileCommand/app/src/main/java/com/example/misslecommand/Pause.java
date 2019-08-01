@@ -27,7 +27,6 @@ public class Pause {
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
         mRect = new RectF(maxX - width, 0, maxX, width);
-
     }
 
     public void draw(Canvas canvas, Paint paint, int state) {
@@ -35,9 +34,8 @@ public class Pause {
 
         if (state == 4) {
             canvas.drawText("PAUSED", xPosition/3, yPosition/3, paint);
+            option.draw(canvas, paint);
         }
-
-        //option.draw(canvas, paint);
         //canvas.drawRect(mRect, paint);
     }
 }

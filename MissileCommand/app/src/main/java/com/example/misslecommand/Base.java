@@ -13,7 +13,7 @@ public class Base{
     public Context context;
     public boolean status;
     public RectF mRect;
-    private float width = 166;
+    private float width = 196;
     private float height = 300;
     public float xCenter;
     public float yBottom;
