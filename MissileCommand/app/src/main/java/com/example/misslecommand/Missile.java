@@ -17,7 +17,7 @@ public class Missile {
     int ptr = 0;
     boolean flag = true;
     long waitTime;
-    int RADIUS_INC = 7;
+    int RADIUS_INC = 5;
 
     public RectF mRect;
     public RectF explodeRect;
