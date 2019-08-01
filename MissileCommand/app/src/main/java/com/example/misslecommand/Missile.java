@@ -17,7 +17,7 @@ public class Missile {
     int ptr = 0;
     boolean flag = true;
     long waitTime;
-    int RADIUS_INC = 4;
+    int RADIUS_INC = 7;
 
     public RectF mRect;
     public RectF explodeRect;
@@ -210,31 +210,6 @@ public class Missile {
 
 
         }
-
-        /*
-        explosionCounter++;
-        if(explosionCounter == 20 || explosionCounter == 40){
-            explodeRect.left = xDest - radius - 25;
-            explodeRect.top = yDest + radius + 25;
-            explodeRect.right = xDest + radius + 25;
-            explodeRect.bottom = yDest - radius - 25;
-        } else if(explosionCounter == 60 || explosionCounter == 80){
-            explodeRect.left = xDest - radius + 25;
-            explodeRect.top = yDest + radius - 25;
-            explodeRect.right = xDest + radius - 25;
-            explodeRect.bottom = yDest - radius + 25;
-        } else if (explosionCounter >= 100) {
-            done = true;
-            if (explodeSound != null & fireSound != null) {
-                explodeSound.reset();
-                explodeSound.release();
-                explodeSound = null;
-                fireSound.reset();
-                fireSound.release();
-                fireSound = null;
-            }
-        }*/
-
     }
 
 }
