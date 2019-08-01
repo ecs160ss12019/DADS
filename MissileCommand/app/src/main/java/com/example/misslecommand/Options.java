@@ -5,9 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class Options extends Activity {
@@ -17,46 +15,46 @@ public class Options extends Activity {
 
     public RectF audioRect;
     public RectF restartRect;
-    public RectF backRect;
 
-    public float width = 302;
-    public float height = 105;
+    public float width = 902;
+    public float height = 305;
 
     public Bitmap audioBit;
     public Bitmap restartBit;
-    public Bitmap backBit;
 
-    Context contxt;
     Canvas cnvs;
     Paint pnt;
 
     public Options(int x, int y, Context context){
         xPosition = x;
         yPosition = y;
-        contxt = context;
-
-        audioRect = new RectF((float)x/2 - width/2, (float)y/8 - height/2,
-                (float)x/2 + width/2, (float)y/8 + height/2);
-        restartRect = new RectF((float)x/2 - width/2, (float)(3 * y)/8 - height/2,
-                (float)x/2 + width/2, (float)(3 * y)/8 + height/2);
-        backRect = new RectF((float)x/2 - width/2, (float)(5 * y)/8 - height/2,
+        audioRect = new RectF((float)x/2 - width/2, (float)(2 * y)/8 - height/2,
+                (float)x/2 + width/2, (float)(2 * y)/8 + height/2);
+        restartRect = new RectF((float)x/2 - width/2, (float)(5 * y)/8 - height/2,
                 (float)x/2 + width/2, (float)(5 * y)/8 + height/2);
 
-        //mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu);
-        //scaledBitmap = Bitmap.createScaledBitmap(mBitmap, x, y, true);
-        //bitMapForTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.title);
-        //bitMapForSubTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.subtitle);
+        audioBit = BitmapFactory.decodeResource(context.getResources(), R.drawable.audio);
+        restartBit = BitmapFactory.decodeResource(context.getResources(), R.drawable.restart);
 
     }
 
+    public int touch(float x, float y) { // if 1 toggle audio, if 2 restart, if 3 back
+        if (audioRect.contains(x,y)) {
+            return 1;
+        }
+        else if (restartRect.contains(x,y)) {
+            return 2;
+        }
+        return 3;
+    }
+
     public void draw(Canvas canvas, Paint paint){
-        //backgrnd.draw(mCanvas, mPaint);
         cnvs = canvas;
         pnt = paint;
-
-        canvas.drawRect(audioRect, paint);
-        canvas.drawRect(restartRect, paint);
-        canvas.drawRect(backRect, paint);
+        canvas.drawBitmap(audioBit, audioRect.left, audioRect.top, paint);
+        canvas.drawBitmap(restartBit, restartRect.left, restartRect.top, paint);
+        //canvas.drawRect(audioRect, paint);
+        //canvas.drawRect(restartRect, paint);
 
     }
 }

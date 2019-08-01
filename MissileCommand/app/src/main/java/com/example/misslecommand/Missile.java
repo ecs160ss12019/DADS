@@ -6,9 +6,6 @@ import android.media.MediaPlayer;
 import android.util.Log;
 
 public class Missile {
-    //MediaPlayer fireSound;
-    //MediaPlayer explodeSound;
-
     Sound sound;
 
     boolean up;

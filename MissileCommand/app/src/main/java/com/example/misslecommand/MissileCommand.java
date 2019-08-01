@@ -385,20 +385,24 @@ class MissileCommand extends SurfaceView implements Runnable{
                     sound.play(sound.start);
                 }
                 if (state == 3) {
-                    state = 0;
-                    levelCtrl = new LevelCtrl();
-                    score = 0;
-                    sound.pause(sound.menu);
-                    sound = new Sound(contxt, levelCtrl);
-                    startNewGame();
-                    sound.pause(sound.background);
+                    restart();
                     //menuPlayer.pause();
                     //startPlayer.start();
                 }
                 if (state == 4) {
-                    state = 1;
-                    sound.play(sound.background);
-                    break;
+                    int choice = pause.option.touch(x,y);
+                    if (choice == 1) {
+                        sound.toggle();
+                    }
+                    else if (choice == 2) {
+                        restart();
+                    }
+                    else if (choice == 3) {
+                        state = 1;
+                        sound.play(sound.background);
+
+                        break;
+                    }
                 }
 
                 // If the game was paused unpause
@@ -420,6 +424,17 @@ class MissileCommand extends SurfaceView implements Runnable{
             // Maybe use the first finger touch....
         }
         return true;
+    }
+
+    private void restart() {
+        state = 0;
+        levelCtrl = new LevelCtrl();
+        sound = new Sound(contxt, levelCtrl);
+        mainMen = new MainMenu(mScreenX, mScreenY, contxt);
+        backgrnd = new Background(mScreenX, mScreenY, contxt);
+        cowsCtrl = new CowsCtrl(mScreenY, contxt, sound);
+        baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, contxt, sound);
+        pause = new Pause(mScreenX, mScreenY, contxt);
     }
 
     private void printDebuggingText(){

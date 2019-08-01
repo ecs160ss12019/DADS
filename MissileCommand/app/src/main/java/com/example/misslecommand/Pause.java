@@ -27,7 +27,6 @@ public class Pause {
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
         mRect = new RectF(maxX - width, 0, maxX, width);
-
     }
 
     public void draw(Canvas canvas, Paint paint, int state) {
