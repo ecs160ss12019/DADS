@@ -15,6 +15,7 @@ public class Hornets {
     Bitmap mBitmap;
     Bitmap mBitmap2;
     public float speed;
+    private float maxSpeed = 250;
     public float xVelocity;
     public float yVelocity;
     private float width = 90;
@@ -31,7 +32,11 @@ public class Hornets {
     public Hornets(int x, int SCREEN_TOP, Cows cow, int roundLevel, Context context){
         speed = 100;
         for (int i = 1; i < roundLevel; i++){
-            speed += 15;
+            if(speed <= maxSpeed){
+                speed += 15;
+            } else {
+                break;
+            }
         }
         initX = x;
         initY = SCREEN_TOP;
