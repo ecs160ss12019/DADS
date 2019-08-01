@@ -18,7 +18,7 @@ import java.util.*;
 class MissileCommand extends SurfaceView implements Runnable{
 
     // Are we debugging?
-    private final boolean DEBUGGING = true;
+    private final boolean DEBUGGING = false;
 
     // These objects are needed to do the drawing
     private SurfaceHolder mOurHolder;
@@ -321,8 +321,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 // Draw the HUD
                 mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
-                mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 500, mFontSize, mPaint);
-                mCanvas.drawText("Hornets Left: " + hornetCtrl.hornetsToSpawn, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
+                mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 1250, mFontSize, mPaint);
+                //mCanvas.drawText("Hornets Left: " + hornetCtrl.hornetsToSpawn, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
 
                 if (DEBUGGING) {
                     printDebuggingText();
