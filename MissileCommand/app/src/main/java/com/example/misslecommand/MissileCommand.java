@@ -264,7 +264,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 backgrnd.draw(mCanvas, mPaint);
 
                 mPaint.setColor(Color.argb
-                        (255, 128, 128, 128));
+                        (255, 212,175,55));
                 // Choose the font size
                 mPaint.setTextSize(mFontSize+70);
 
@@ -273,16 +273,17 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " +
-                Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+                Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+400, mPaint);
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             } else if (state == 3){
+                backgrnd.drawGameOver(mCanvas, mPaint);
                 if (score > highScore){
                     highScore = score;
                 }
-                backgrnd.draw(mCanvas, mPaint);
+                //backgrnd.draw(mCanvas, mPaint);
                 mPaint.setColor(Color.argb
-                        (255, 128, 128, 128));
+                        (255, 212,175,55));
                 // Choose the font size
                 mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " Failed, Your Cows Are Dead", mScreenX/6,
@@ -298,12 +299,12 @@ class MissileCommand extends SurfaceView implements Runnable{
             else {
 
                 // Fill the screen with a solid color
-                //mCanvas.drawColor(Color.argb(255, 26, 128, 182));
+                //mCanvas.drawColor(Color.argb(255, 26, 192, 182));
                 backgrnd.draw(mCanvas, mPaint);
 
                 // Choose a color to paint with
                 mPaint.setColor(Color.argb
-                        (255, 128, 128, 128));
+                        (255, 212,175,55));
 
                 // Call all controllers draw functions
                 if (cowsCtrl != null && baseCtrl != null && hornetCtrl != null && powerUpCtrl != null) {
@@ -316,7 +317,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 // Reset Color to White
                 mPaint.setColor(Color.argb
-                        (255, 128, 128, 128));
+                        (255, 212,175,55));
 
                 // Choose the font size
                 mPaint.setTextSize(mFontSize);
