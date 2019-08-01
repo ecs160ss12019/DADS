@@ -7,6 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+// This is the pause class. It is responsible for pausing the game and calling Options which draws
+// the buttons that allow the user to change in game experiences.
+
 public class Pause {
     public int xPosition;
     public int yPosition;
@@ -36,6 +39,5 @@ public class Pause {
             canvas.drawText("PAUSED", xPosition/3, yPosition/3, paint);
             option.draw(canvas, paint);
         }
-        //canvas.drawRect(mRect, paint);
     }
 }

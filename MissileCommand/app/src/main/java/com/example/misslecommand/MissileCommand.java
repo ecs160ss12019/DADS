@@ -260,20 +260,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             if (state == 0) {
                 mainMen.draw(mCanvas, mPaint);
-                // Fill the screen with a solid color
-                //mCanvas.drawColor(Color.argb(255, 26, 128, 182));
-                /*
-                backgrnd.draw(mCanvas, mPaint);
 
-                mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
-
-                // Choose the font size
-                mPaint.setTextSize(mFontSize);
-
-                mCanvas.drawText("DADS", 500, 500, mPaint);
-                mCanvas.drawText("Davis Aerial Defense System!", 500, 800, mPaint);
-                */
                 mOurHolder.unlockCanvasAndPost(mCanvas);
 
             }
