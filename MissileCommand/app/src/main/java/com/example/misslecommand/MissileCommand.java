@@ -17,9 +17,6 @@ class MissileCommand extends SurfaceView implements Runnable{
     // Are we debugging?
     private final boolean DEBUGGING = true;
 
-    //MediaPlayer menuPlayer;
-    //MediaPlayer startPlayer;
-
     // These objects are needed to do the drawing
     private SurfaceHolder mOurHolder;
     private Canvas mCanvas;
@@ -76,10 +73,6 @@ class MissileCommand extends SurfaceView implements Runnable{
     List<String> scoreList = csvFile.read();
     //List<String> leadeboardList = csvFile.modifyResults(scoreList);
 
-    // The PongGame constructor
-    // Called when this line:
-    // mPongGame = new PongGame(this, size.x, size.y);
-    // is executed from PongActivity
     public MissileCommand(Context context, int x, int y) {
         // Super... calls the parent class
         // constructor of SurfaceView
@@ -87,7 +80,6 @@ class MissileCommand extends SurfaceView implements Runnable{
         super(context);
 
         score = 0;
-        //menuPlayer.start();
         // Initialize these two members/fields
         // With the values passesd in as parameters
         mScreenX = x;

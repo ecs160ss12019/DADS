@@ -132,19 +132,6 @@ public class Missile {
         }
     }
 
-    public void kill(){
-
-    }
-
-    public void increaseSpeed(){
-
-    }
-
-    public void draw(){
-
-    }
-
-
     public void explode() {
         exploding = true;
         //int ptr = 0;
