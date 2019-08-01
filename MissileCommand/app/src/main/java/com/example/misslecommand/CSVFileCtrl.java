@@ -11,19 +11,21 @@ import java.util.List;
 public class CSVFileCtrl {
     InputStream inputStream;
 
+
     public CSVFileCtrl(InputStream inputStream){
+
         this.inputStream = inputStream;
     }
 
     public List read(){
-        List<String> myLeaderboards = new ArrayList<String>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
+        List<String> myLeaderboards = new ArrayList<String>();
         try {
             String leaderBoardsLine;
             while ((leaderBoardsLine = reader.readLine()) != null) {
-                String[] row = leaderBoardsLine.split(",");
-                myLeaderboards.add(leaderBoardsLine);
+                //String[] row = leaderBoardsLine.split(",");
+                String newString = leaderBoardsLine.replace(",", ": ");
+                myLeaderboards.add(newString);
             }
         }
         catch (IOException ex) {
@@ -39,5 +41,13 @@ public class CSVFileCtrl {
             }
         }
         return myLeaderboards;
+    }
+
+    public List modifyResults(List<String> listToMod){
+        int length = listToMod.size();
+        for(int i = 0; i < length; i++){
+            listToMod.get(i).replace(",", ": ");
+        }
+        return listToMod;
     }
 }

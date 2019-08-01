@@ -73,7 +73,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     InputStream inputStream = getResources().openRawResource(R.raw.leaderboards);
     CSVFileCtrl csvFile = new CSVFileCtrl(inputStream);
-    List scoreList = csvFile.read();
+    List<String> scoreList = csvFile.read();
+    //List<String> leadeboardList = csvFile.modifyResults(scoreList);
 
     // The PongGame constructor
     // Called when this line:
