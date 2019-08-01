@@ -37,6 +37,9 @@ public class Missile {
     public boolean spawned = false;
     public boolean exploding;
     public boolean done;
+
+    public double rotateRad;
+    public double rotateDeg;
     
     public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch, Context context, Sound snd) {
         // Create MediaPlayers for launch sound and explode sound, start fire sound on creation.
@@ -69,6 +72,20 @@ public class Missile {
 
         yVelocity = scalar*(yDest - yCenter);
         xVelocity = scalar*(xDest - xCenter);
+
+
+        double pX = xDest - xCenter;
+        double pY = yDest - yCenter;
+        double slope = pY/pX;
+
+        rotateRad = Math.atan(slope);
+        rotateDeg = Math.toDegrees(rotateRad);
+
+        if (rotateDeg > 0) {
+            rotateDeg -= 90;
+        } else {
+            rotateDeg += 90;
+        }
 
         // A bug caused by firing missiles at around the same y coord as top of the base was making
         // me go insane, hence the "insane" boolean which fixes the problem.

@@ -66,25 +66,33 @@ public class BaseCtrl {
                 }
 
             } else {
-                //canvas.drawRect(base.missiles.get(i).mRect, paint);
-                if (count2 > 50){
-                    count2 = 0;
-                }
-                if (count2 < 25){
-                    canvas.drawBitmap(mBitmapForMissile2, base.missiles.get(i).mRect.left, base.missiles.get(i).mRect.top, paint);
-                }
-                else {
-                    canvas.drawBitmap(mBitmapForMissile2, base.missiles.get(i).mRect.left, base.missiles.get(i).mRect.top, paint);
-                }
-                count2++;
-
-
                 paint.setColor(Color.argb(255, 255, 255, 255));
                 canvas.drawLine(base.xCenter,
                         base.yTop,
                         base.missiles.get(i).xCenter,
                         base.missiles.get(i).yCenter,
                         paint);
+
+                //canvas.drawRect(base.missiles.get(i).mRect, paint);
+
+                canvas.save();
+                canvas.rotate( (float)base.missiles.get(i).rotateDeg, base.missiles.get(i).xCenter, base.missiles.get(i).yCenter);
+
+                if (count2 > 50){
+                    count2 = 0;
+                }
+                if (count2 < 25){
+                    canvas.drawBitmap(mBitmapForMissile2, base.missiles.get(i).mRect.left-23, base.missiles.get(i).mRect.top-20, paint);
+                }
+                else {
+                    canvas.drawBitmap(mBitmapForMissile2, base.missiles.get(i).mRect.left-23, base.missiles.get(i).mRect.top-20, paint);
+                }
+                count2++;
+
+                canvas.restore();
+
+
+
             }
         }
     }
