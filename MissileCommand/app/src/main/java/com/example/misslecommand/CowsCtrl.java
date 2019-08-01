@@ -36,7 +36,7 @@ public class CowsCtrl {
 
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < cowNum; i++) {
-            canvas.drawRect(cows[i].mRect, paint); // debugging purposes
+            //canvas.drawRect(cows[i].mRect, paint); // debugging purposes
             if (cows[i].status) {
                 if (count > 350){
                     count = 0;
