@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 // This is the pause class. It is responsible for pausing the game and calling Options which draws
-// the buttons that allow the user to change in game experiences.
+// the buttons that allow the user to toggle audio on/off and restart, and drawing the pause button.
 
 public class Pause {
     public int xPosition;
@@ -16,7 +16,6 @@ public class Pause {
 
     public Options option;
     public Context context;
-    public boolean status;
     public RectF mRect;
     public int width = 130;
 
@@ -32,6 +31,9 @@ public class Pause {
         mRect = new RectF(maxX - width, 0, maxX, width);
     }
 
+    // This draw function is called every time the MissileCommand draw function is cycled, when the
+    // game is paused or not, Pause.draw draws the circular pause button at the top right of the screen
+    // and if the game IS paused, then it will call the options.draw function too.
     public void draw(Canvas canvas, Paint paint, int state) {
         canvas.drawBitmap(bitmap, mRect.left, mRect.top, paint);
 
