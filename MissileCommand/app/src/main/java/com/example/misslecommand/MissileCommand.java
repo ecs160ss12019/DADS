@@ -265,14 +265,18 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mPaint.setColor(Color.argb
                         (255, 255, 255, 255));
                 // Choose the font size
-                mPaint.setTextSize(mFontSize+70);
+                mPaint.setTextSize(mFontSize+80);
 
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " completed!", mScreenX/4,
                         mScreenY/2, mPaint);
 
-                mPaint.setTextSize(mFontSize);
-                mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " +
-                Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+                mPaint.setTextSize(mFontSize-20);
+                //mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+
+                mCanvas.drawText(" Previous Score:             +" + score, mScreenX/2-300, mScreenY/2+200, mPaint);
+                mCanvas.drawText( "Cows       " + cowsCtrl.getCowsAlive()+ "x100              +" + cowsCtrl.getCowsAlive()*100, mScreenX/2-300, mScreenY/2+260, mPaint);
+                mCanvas.drawText( "Ammo        " + baseCtrl.base.ammo + "x10              +" + baseCtrl.base.ammo*10, mScreenX/2-300, mScreenY/2+320, mPaint);
+                mCanvas.drawText( "Total Score                    " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/2-300, mScreenY/2+430, mPaint);
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             } else if (state == 3){
