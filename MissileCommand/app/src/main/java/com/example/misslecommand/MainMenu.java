@@ -12,6 +12,8 @@ import android.graphics.RectF;
 import android.util.*;
 import android.content.res.Resources;
 
+// This is the main menu class and it is responsible for drawing the background,
+// the text for the Title and subtitles.
 public class MainMenu {
 
     public int xPosition;
