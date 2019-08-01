@@ -302,10 +302,13 @@ class MissileCommand extends SurfaceView implements Runnable{
                 // Choose the font size
                 mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " Failed, Your Cows Are Dead", mScreenX/6,
-                        mScreenY/2, mPaint);
+                        mScreenY/2+125, mPaint);
                 mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+300, mPaint);
-                mCanvas.drawText("High Score: " + highScore, mScreenX/2+100, mScreenY/8, mPaint);
-                mCanvas.drawText("High Score for: " + scoreList.get(0), mScreenX/8+100, mScreenY/5, mPaint);
+                mCanvas.drawText("Your High Score: " + highScore, mScreenX/2, mScreenY/8, mPaint);
+                mCanvas.drawText("Top Scorers", mScreenX/10-100, mScreenY/8, mPaint);
+                for(int i = 0; i < 3; i++){
+                    mCanvas.drawText((i+1) + ". " + scoreList.get(i), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                }
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             }
             else {
