@@ -76,8 +76,6 @@ public class HornetCtrl {
         spawnTimer++;
         if(spawnTimer >= 33) {  // Have a chance to spawn a hornet every 33 frames
             spawnHornets(level, cowsCtrl, screenX, contxt);
-        }else{
-            //spawnHornets(level, cowsCtrl, screenX, contxt);
         }
     }
 

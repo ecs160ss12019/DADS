@@ -11,6 +11,7 @@ public class PowerUpCtrl {
     public List<PowerUp> powerUps;
     Random random;
     Context contxt;
+    public int powerUpTimer = 0;
 
     public PowerUpCtrl(Context context) {
         powerUps = new ArrayList<>();
@@ -42,6 +43,7 @@ public class PowerUpCtrl {
         int didFire = random.nextInt(1000);
         if (didFire <= level) {
             powerUps.add(new PowerUp(random.nextInt(screenX-69), 0, screenY, contxt));
+            powerUpTimer = 0;
         }
     }
 
@@ -58,7 +60,10 @@ public class PowerUpCtrl {
             }
         }
 
-        spawnPowerUps(level, screenX, screenY);
+        powerUpTimer++;
+        if(powerUpTimer >= 33){     //have a chance to spawn a powerup every 33 frames
+            spawnPowerUps(level, screenX, screenY);
+        }
     }
 
 }
