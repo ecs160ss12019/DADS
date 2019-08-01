@@ -4,6 +4,10 @@ import android.content.Context;
 import android.media.MediaPlayer;
 
 // Music Credit: https://patrickdearteaga.com.
+// Sound Effects are from freesound.org
+
+// This class is responsible for storing, playing, and pausing sound effects and music.
+// It was created based on feedback given by the professor saying that sound should be given a class.
 
 public class Sound {
     Context context;
@@ -31,6 +35,9 @@ public class Sound {
         play(menu);
     }
 
+    // This function is called by telling Sound which MediaPlayer to play, then sets the volume to
+    // the current volume, and calling the MediaPlayer.start() function. It also has an if statement
+    // at the beginning used to implement a different background music.
     public void play(MediaPlayer choice) {
         if (choice == background) {
             if (!background2.isPlaying() && levelCtrl.level >= levelChange) {
@@ -48,6 +55,8 @@ public class Sound {
         }
     }
 
+    // This function flips volume between 1f and 0f, which is called when the player turns audio on
+    // or off in the pause menu.
     public void toggle() {
         if (volume == 1f) {
             volume = 0f;
@@ -58,6 +67,7 @@ public class Sound {
 
     }
 
+    // This function is the same as play, but calls the MediaPlayer.pause() function instead.
     public void pause(MediaPlayer choice) {
         if (levelCtrl.level >= levelChange && choice == background) {
             if (background2.isPlaying()) {
@@ -73,9 +83,11 @@ public class Sound {
 
     }
 
-    // Launch, Explode, Cow Death, and Ammo are not class variables because I could not figure out how else to allow
+    // All the functions below have MediaPlayers that are not class variables because I could not figure out how else to allow
     // multiple launching/exploding noises to play at once, whereas menu and start only need one at
     // a time.
+    // They all have OnCompletionListeners that releases the MediaPlayer when the sound is
+    // done playing.
     public void launch() {
         if (volume == 0f) {
             return;
@@ -92,6 +104,9 @@ public class Sound {
         });
     }
 
+    // The explode sound effect sets volume to 0.7f instead of 1f because the explosion sound was
+    // much louder than squish or ammo, and since those sound effects usually play together, it
+    // would drown them out.
     public void explode() {
         MediaPlayer explode = MediaPlayer.create(context, R.raw.explode);
         explode.setVolume(volume, volume);
