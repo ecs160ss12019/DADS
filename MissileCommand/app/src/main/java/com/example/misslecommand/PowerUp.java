@@ -20,6 +20,7 @@ public class PowerUp {
     public int finalX;  // The x coordinate of where the power up will fly to
     public int finalY;  // The y coordinate of where the power up will fly to
     Bitmap mBitmap;
+    Bitmap mBitmap2;
 
     public PowerUp(int x, int y, int destY, Context context){
         xPosition = x;
@@ -28,7 +29,9 @@ public class PowerUp {
         finalY = destY;
         status = true;
 
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ammo);
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ammo1);
+        mBitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ammo2);
+
 
         mRect = new RectF((float)x, (float)y, (float)x+width, (float)y+height);
     }
@@ -67,5 +70,9 @@ public class PowerUp {
     Bitmap getBitmap(){
         return mBitmap;
     }
+    Bitmap getBitmap2(){
+        return mBitmap2;
+    }
+
 
 }
