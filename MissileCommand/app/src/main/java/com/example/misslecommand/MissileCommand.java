@@ -281,8 +281,8 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " completed!", mScreenX/4,
                         mScreenY/2, mPaint);
 
-                mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " = " +
-                Integer.toString(score + cowsCtrl.getCowsAlive()*100) + "!", mScreenX/4, mScreenY/2+300, mPaint);
+                mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " +
+                Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             } else if (state == 3){
@@ -374,7 +374,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 }
                 if (state == 2) {
                     state = 1;
-                    score = score + 100*cowsCtrl.getCowsAlive();
+                    score = score + 100*cowsCtrl.getCowsAlive() + baseCtrl.base.ammo*10;
                     for (int i = 0; i < cowsCtrl.cowNum; i++) {
                         cowsCtrl.cows[i].status = true;
                     }
