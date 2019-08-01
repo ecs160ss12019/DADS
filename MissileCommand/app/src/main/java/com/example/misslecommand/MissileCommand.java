@@ -76,6 +76,14 @@ class MissileCommand extends SurfaceView implements Runnable{
     private CSVFileCtrl csvFile = new CSVFileCtrl(inputStream);
     private List<String> scoreList = csvFile.read();
     public SharedPreferences sharedpreferences;
+    private int jackRScore = 9530;
+    private int jackAScore = 1500;
+    private int johnScore = 100;
+    private int shayanSore = 2000;
+    private String jackHS = "JackR: " + jackRScore;
+    private String Shayan = "Shayan: " + shayanSore;
+    private String JackA = "JackA " + jackAScore;
+    private String John = "John " + johnScore;
     //List<String> leadeboardList = csvFile.modifyResults(scoreList);
 
     public MissileCommand(Context context, int x, int y) {
@@ -102,6 +110,12 @@ class MissileCommand extends SurfaceView implements Runnable{
         mPaint = new Paint();
         contxt = context;
         sharedpreferences = contxt.getSharedPreferences("leaderboards", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("HS1", jackHS);
+        editor.putString("HS2", Shayan);
+        editor.putString("HS3", JackA);
+        editor.putString("HS4", John);
+        editor.commit();
         // Initialize the cows and base
         state = 0;
         levelCtrl = new LevelCtrl();
@@ -299,8 +313,21 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+300, mPaint);
                 mCanvas.drawText("Your High Score: " + highScore, mScreenX/2, mScreenY/8, mPaint);
                 mCanvas.drawText("Top Scorers", mScreenX/10-100, mScreenY/8, mPaint);
-                mCanvas.drawText(sharedpreferences.getString("High Score", "null"), mScreenX/10-100, mScreenY/8+115, mPaint);
-                //for(int i = 0; i < 3; i++){
+                //mCanvas.drawText(sharedpreferences.getString("High Score", "null"), mScreenX/10-100, mScreenY/8+115, mPaint);
+                for(int i = 0; i < 4; i++){
+                    if(highScore > jackRScore){
+                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                    } else if(highScore > shayanSore){
+                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                    } else if(highScore > jackAScore){
+                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                    } else {
+                        mCanvas.drawText(sharedpreferences.getString("HS"+(i+1), "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+
+                    }
+                }
+
+                //for(int i = 0; i < 4; i++){
                 //    mCanvas.drawText((i+1) + ". " + scoreList.get(i), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
                 //}
                 //csvFile.write("Guest," + Integer.toString(highScore));
@@ -461,8 +488,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     public void saveScore(){
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        String newString = "Guest: " + highScore;
-        editor.putString("High Score",newString);
+        String guest = "Guest: " + highScore;
+        editor.putString("Guest",guest);
         editor.commit();
     }
 
