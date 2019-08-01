@@ -34,9 +34,6 @@ public class MainMenu {
     public float mt;
     public int bw;
 
-    Canvas cnvs;
-    Paint pnt;
-
     public MainMenu(int x, int y, Context context){
         xPosition = x;
         yPosition = y;
