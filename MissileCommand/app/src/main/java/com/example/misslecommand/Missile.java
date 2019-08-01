@@ -1,9 +1,6 @@
 package com.example.misslecommand;
 
-import android.content.Context;
 import android.graphics.RectF;
-import android.media.MediaPlayer;
-import android.util.Log;
 
 public class Missile {
     Sound sound;
@@ -34,20 +31,19 @@ public class Missile {
     
     public int width = 30;
     public int height = 30;
-    public boolean spawned = false;
     public boolean exploding;
     public boolean done;
 
     public double rotateRad;
     public double rotateDeg;
     
-    public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch, Context context, Sound snd) {
-        // Create MediaPlayers for launch sound and explode sound, start fire sound on creation.
-        //fireSound = MediaPlayer.create(context, R.raw.fire);
-        //fireSound.start();
-        //explodeSound = MediaPlayer.create(context, R.raw.explode);
+    public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch, Sound snd) {
+        // calls the sound.launch() function on creation, because instances off missiles are only created
+        // when the player taps, so playing the sound effect as the missile is spawned lines the two
+        // up perfectly.
         sound = snd;
         sound.launch();
+
         // set coordinate variables
         xCenter = baseXCenter;
         yCenter = baseYTop - height/2;
@@ -59,6 +55,8 @@ public class Missile {
         exploding = false;
         done = false;
 
+        // determine the distance in x and y coordinates from the spawn point to the destination point
+        // in order to calculate the velocity.
         float py = yDest - yCenter;
         if (py == 1.0) {
             yDest++;
@@ -78,6 +76,9 @@ public class Missile {
         double pY = yDest - yCenter;
         double slope = pY/pX;
 
+        // use the slope from spawn to destination to calculate the angle that the missile image needs
+        // to be rotated so that the missile is facing the direction it is travelling rather than
+        // facing straight upwards which looks wrong.
         rotateRad = Math.atan(slope);
         rotateDeg = Math.toDegrees(rotateRad);
 
@@ -96,6 +97,9 @@ public class Missile {
             insane = false;
         }
 
+        // Determines if the missile is travelling upwards or downwards relative to the spawn point
+        // at the top of the base, which allows missiles to be fired downwards, since the explosion
+        // code needs to be adjusted accordingly.
         if (yDest < baseYTop) {
             up = true;
         }
@@ -121,6 +125,8 @@ public class Missile {
             mRect.right = mRect.left + width;
             mRect.bottom = mRect.top + height;
         }
+        // Depending on if the missile is going up or down, or is insane, calculate if the missile has
+        // reached its target based on its coordinates. If it has, call explode().
         if (insane && Math.abs(xCenter - xDest) < 10) {
             this.explode();
         }
@@ -134,39 +140,27 @@ public class Missile {
 
     public void explode() {
         exploding = true;
-        //int ptr = 0;
-        //fireSound.stop();
         if (explodeRect == null) {
-            //explodeSound.start();
             sound.explode();
             explodeRect = new RectF(xDest - radius, yDest - radius, xDest + radius,
                     yDest + radius);
         }
-        //boolean flag = true;
 
-        //explodePrevTime = System.currentTimeMillis();
-
+        // calculates circles that will be used to draw the multi-colored, circular explosion that
+        // occurs once the explode function is called when the missile reaches its target destination.
         yield:
         while (flag) {
-            //Log.d("Missile", "Explosion while loop");
-            Log.d("ptr = ","val:" + Float.toString((float)ptr));
             switch(ptr) {
                 case 0:
-              //      Log.d("Missile.explode()", "case0");
-
                     radius+=RADIUS_INC;
                     explodeRect.left-=RADIUS_INC;
                     explodeRect.right+=RADIUS_INC;
                     explodeRect.top-=RADIUS_INC;
                     explodeRect.bottom+=RADIUS_INC;
                     ptr = 1;
-
-                    //    Log.d("ptr = ","val:" + Float.toString((float)ptr));
-
                     break yield;
 
                 case 1:
-                  //  Log.d("Missile.explode()", "case1");
                     if (radius < MAX_EXPL_RADIUS) {
                         ptr = 0;
                         break yield;
@@ -175,7 +169,6 @@ public class Missile {
                     break yield;
 
                 case 2:
-                    //Log.d("Missile.explode()", "case2");
                     radius-=RADIUS_INC;
                     explodeRect.left+=RADIUS_INC;
                     explodeRect.right-=RADIUS_INC;
@@ -185,9 +178,7 @@ public class Missile {
                     break yield;
 
                 case 3:
-                    Log.d("Missile.explode()", "case3");
                     if (radius > MIN_EXPL_RADIUS){
-                        Log.d("Missile.explode()", "case3 rad > MIN");
                         ptr = 2;
                         break yield;
                     }
@@ -206,10 +197,7 @@ public class Missile {
                     done = true;
                     flag = false;
                     break yield;
-
             }
-
-
         }
     }
 

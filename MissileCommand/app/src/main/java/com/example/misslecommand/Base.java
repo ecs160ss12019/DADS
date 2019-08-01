@@ -45,7 +45,7 @@ public class Base{
             //out of ammo
             return;
         }
-        missiles.add(new Missile(xCenter, yTop, xTouch, yTouch, context, sound));
+        missiles.add(new Missile(xCenter, yTop, xTouch, yTouch, sound));
         ammo--;
     }
 
