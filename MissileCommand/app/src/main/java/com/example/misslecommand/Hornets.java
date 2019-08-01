@@ -112,13 +112,4 @@ public class Hornets {
         status = false;
     }
 
-
-    public void increaseSpeed(){
-
-    }
-
-    public void draw(){
-
-    }
-
 }
