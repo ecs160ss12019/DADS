@@ -12,6 +12,8 @@ public class BaseCtrl {
     public int count = 0;
     public Base base;
 
+    public Paint paint;
+
     public BaseCtrl(int centerScreenX, int screenY, Context con, Sound sound) {
         base = new Base(centerScreenX, screenY, con, sound);
     }
@@ -38,9 +40,18 @@ public class BaseCtrl {
             if (base.missiles.get(i).exploding) {
                 Log.d("BaseCtrl", "if missiles.exploding");
                 //canvas.drawRect(base.missiles.get(i).explodeRect, paint);
+                int OPAC = 255;
+                int RED = 255;
+                int GREEN = 0;
+                int BLUE = 0;
+                for (int concentric_rad = base.missiles.get(i).radius; concentric_rad > base.missiles.get(i).MIN_EXPL_RADIUS; concentric_rad -= 3 ) {
+                    paint.setColor(Color.argb(OPAC, RED, GREEN, BLUE));
+                    canvas.drawCircle(base.missiles.get(i).xDest, base.missiles.get(i).yDest,
+                            concentric_rad, paint);
+                    GREEN += 20;
+                    BLUE += 5;
+                }
 
-                canvas.drawCircle(base.missiles.get(i).xDest, base.missiles.get(i).yDest,
-                        base.missiles.get(i).radius, paint);
             } else {
                 canvas.drawRect(base.missiles.get(i).mRect, paint);
                 canvas.drawLine(base.xCenter,
