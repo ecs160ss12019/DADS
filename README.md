@@ -27,7 +27,7 @@ https://github.com/ecs160ss12019/DADS/blob/master/AcceptanceCriteria.md
 ### 1.) CRC Cards.pdf
 https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/CRCCards/CRC%20Cards.pdf
 
-### 2.) Screen Shots Of The Game 
+### 2.) Screenshots of the Game 
 ##### Fire 
 ![Link to Fire](https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/Screenshots/DADSfireScreenshot.png)
 ##### Powerup
@@ -44,7 +44,7 @@ https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/CRCCards/CRC%20Cards.p
 ### 1) CRC Cards
 ![Link to CRC Cards for Sprint 2](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/CRC_Cards.png)
 
-### 2) Screen Shots Of The Game
+### 2) Screenshots of the Game
 ##### Main Menu
 ![Link to Main Menu](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/MainMenu.png)
 ##### Gameplay 1
@@ -61,3 +61,21 @@ https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/CRCCards/CRC%20Cards.p
 ![Link to Game Over](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/GameOver.png)
 ---
 ## Sprint 3
+
+### 1) CRC Cards
+
+### 2) Screenshots of the Game
+##### Main Menu
+![MM](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%203/mainmenu.png)
+##### Hornets and PowerUp on Screen
+![HP](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%203/hornetsnpowerup.png)
+##### Missile on the Way!
+![MW](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%203/missilefired.png)
+##### Explosion
+![EX](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%203/explosion.png)
+##### Pause Screen with Options
+![PS](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%203/pause.png)
+##### Level Completed
+![LC](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%203/scorescreen.png)
+##### Game Over
+![GO](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%203/gameover.png)
