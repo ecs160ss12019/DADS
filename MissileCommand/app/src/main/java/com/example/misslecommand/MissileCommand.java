@@ -286,15 +286,15 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mPaint.setTextSize(mFontSize+80);
 
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " completed!", mScreenX/4,
-                        mScreenY/2, mPaint);
+                        mScreenY/2 - 100, mPaint);
 
                 mPaint.setTextSize(mFontSize-20);
                 //mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
 
-                mCanvas.drawText(" Previous Score:             " + score, mScreenX/2-300, mScreenY/2+200, mPaint);
-                mCanvas.drawText( "Cows          " + cowsCtrl.getCowsAlive()+ "x100            +" + cowsCtrl.getCowsAlive()*100, mScreenX/2-300, mScreenY/2+260, mPaint);
-                mCanvas.drawText( "Missiles    " + baseCtrl.base.ammo + "x10              +" + baseCtrl.base.ammo*10, mScreenX/2-300, mScreenY/2+320, mPaint);
-                mCanvas.drawText( "Total Score                    " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/2-300, mScreenY/2+430, mPaint);
+                mCanvas.drawText(" Previous Score:             " + score, mScreenX/2-600, mScreenY/2+50, mPaint);
+                mCanvas.drawText( "Cows          " + cowsCtrl.getCowsAlive()+ "x100            +" + cowsCtrl.getCowsAlive()*100, mScreenX/2-600, mScreenY/2+160, mPaint);
+                mCanvas.drawText( "Missiles    " + baseCtrl.base.ammo + "x10              +" + baseCtrl.base.ammo*10, mScreenX/2-600, mScreenY/2+260, mPaint);
+                mCanvas.drawText( "Total Score                    " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/2-600, mScreenY/2+360, mPaint);
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             } else if (state == 3){
@@ -310,7 +310,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " Failed, Your Cows Are Dead", mScreenX/6,
                         mScreenY/2+125, mPaint);
-                mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+300, mPaint);
+                mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+400, mPaint);
                 mCanvas.drawText("Your High Score: " + highScore, mScreenX/2, mScreenY/8, mPaint);
                 mCanvas.drawText("Top Scorers", mScreenX/10-100, mScreenY/8, mPaint);
                 //mCanvas.drawText(sharedpreferences.getString("High Score", "null"), mScreenX/10-100, mScreenY/8+115, mPaint);
@@ -361,7 +361,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 // Draw the HUD
                 mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
-                mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 1250, mFontSize, mPaint);
+                mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mScreenX- 800, mFontSize, mPaint);
                 //mCanvas.drawText("Hornets Left: " + hornetCtrl.hornetsToSpawn, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
 
                 if (DEBUGGING) {

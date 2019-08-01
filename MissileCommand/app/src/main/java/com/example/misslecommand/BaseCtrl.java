@@ -23,7 +23,7 @@ public class BaseCtrl {
     public Paint paint;
 
     public BaseCtrl(int centerScreenX, int screenY, Context con, Sound sound) {
-        base = new Base(centerScreenX, screenY, con, sound);
+        base = new Base(centerScreenX, screenY - 100, con, sound);
         mBitmapForMissile = BitmapFactory.decodeResource(con.getResources(), R.drawable.missile1);
         mBitmapForMissile2 = BitmapFactory.decodeResource(con.getResources(), R.drawable.missile2);
     }

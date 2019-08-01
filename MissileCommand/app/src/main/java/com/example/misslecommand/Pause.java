@@ -17,7 +17,7 @@ public class Pause {
     public Options option;
     public Context context;
     public RectF mRect;
-    public int width = 130;
+    public int width = 200;
 
     Bitmap bitmap;
 

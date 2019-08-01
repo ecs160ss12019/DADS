@@ -26,8 +26,8 @@ public class Options extends Activity {
     public RectF audioRect;
     public RectF restartRect;
 
-    public float width = 902;
-    public float height = 305;
+    public float width = 1202;
+    public float height = 405;
 
     public Bitmap audioOnBit;
     public Bitmap audioOffBit;

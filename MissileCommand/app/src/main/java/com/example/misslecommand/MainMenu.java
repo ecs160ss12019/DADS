@@ -64,8 +64,8 @@ public class MainMenu {
         canvas.drawBitmap(this.getBitmap(), this.getRect().left, this.getRect().top, paint);
         canvas.drawBitmap(bitMapForTitle, (xPosition/2)-150, yPosition/3, paint);
         canvas.drawBitmap(bitMapForSubTitle, (xPosition/2)-50, yPosition/2, paint);
-        canvas.drawBitmap(bitMapForInfo1, (xPosition/2)-430, yPosition-200, paint);
-        canvas.drawBitmap(bitMapForInfo2, (xPosition/2)+100, yPosition-200, paint);
+        canvas.drawBitmap(bitMapForInfo1, (xPosition/2)-630, yPosition-200, paint);
+        canvas.drawBitmap(bitMapForInfo2, (xPosition/2)+300, yPosition-200, paint);
 
         paint.setColor(Color.argb(255, 255, 255, 255));
         paint.setTextSize(mFontSize);
