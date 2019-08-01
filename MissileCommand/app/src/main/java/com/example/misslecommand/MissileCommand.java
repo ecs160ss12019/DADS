@@ -265,11 +265,12 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mPaint.setColor(Color.argb
                         (255, 255, 255, 255));
                 // Choose the font size
-                mPaint.setTextSize(mFontSize);
+                mPaint.setTextSize(mFontSize+70);
 
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " completed!", mScreenX/4,
                         mScreenY/2, mPaint);
 
+                mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " +
                 Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
 
