@@ -24,6 +24,13 @@ public class HornetCtrl {
 
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < hornets.size(); i++) {
+            paint.setColor(Color.argb(255, 255, 255, 255));
+            canvas.drawLine(hornets.get(i).initX,
+                    hornets.get(i).initY,
+                    hornets.get(i).xPosition,
+                    hornets.get(i).yPosition,
+                    paint);
+
             canvas.save();
             canvas.rotate( (float)hornets.get(i).rotateDeg, hornets.get(i).xPosition, hornets.get(i).yPosition);
             canvas.drawRect(hornets.get(i).mRect, paint);
@@ -38,11 +45,7 @@ public class HornetCtrl {
             }
             count++;
             canvas.restore();
-            canvas.drawLine(hornets.get(i).initX,
-                    hornets.get(i).initY,
-                    hornets.get(i).xPosition,
-                    hornets.get(i).yPosition,
-                    paint);
+
         }
     }
 

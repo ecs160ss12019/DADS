@@ -54,6 +54,7 @@ public class BaseCtrl {
 
             } else {
                 canvas.drawRect(base.missiles.get(i).mRect, paint);
+                paint.setColor(Color.argb(255, 255, 255, 255));
                 canvas.drawLine(base.xCenter,
                         base.yTop,
                         base.missiles.get(i).xCenter,
