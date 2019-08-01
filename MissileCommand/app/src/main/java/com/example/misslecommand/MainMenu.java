@@ -25,6 +25,8 @@ public class MainMenu {
     Bitmap scaledBitMapForTitle;
     Bitmap bitMapForSubTitle;
     Bitmap scaledBitMapForSubTitle;
+    Bitmap bitMapForInfo1;
+    Bitmap bitMapForInfo2;
 
     private int mFontSize;
 
@@ -52,6 +54,8 @@ public class MainMenu {
         scaledBitmap = Bitmap.createScaledBitmap(mBitmap, x, y, true);
         bitMapForTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.title);
         bitMapForSubTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.subtitle);
+        bitMapForInfo1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.info1);
+        bitMapForInfo2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.info2);
 
     }
 
@@ -72,6 +76,11 @@ public class MainMenu {
         canvas.drawBitmap(this.getBitmap(), this.getRect().left, this.getRect().top, paint);
         canvas.drawBitmap(bitMapForTitle, (xPosition/2)-150, yPosition/3, paint);
         canvas.drawBitmap(bitMapForSubTitle, (xPosition/2)-50, yPosition/2, paint);
+        canvas.drawBitmap(bitMapForInfo1, (xPosition/2)-430, yPosition-200, paint);
+        canvas.drawBitmap(bitMapForInfo2, (xPosition/2)+100, yPosition-200, paint);
+
+
+
         paint.setColor(Color.argb(255, 255, 255, 255));
 
         //Choose the font size
