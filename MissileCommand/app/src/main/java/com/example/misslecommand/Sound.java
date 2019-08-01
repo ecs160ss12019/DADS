@@ -14,7 +14,7 @@ public class Sound {
     LevelCtrl levelCtrl;
     int levelChange = 8;
 
-    public Sound (Context con, LevelCtrl lvl, int state) {
+    public Sound (Context con, LevelCtrl lvl) {
         context = con;
         levelCtrl = lvl;
         menu = MediaPlayer.create(context, R.raw.menu);
@@ -22,10 +22,10 @@ public class Sound {
         background = MediaPlayer.create(context, R.raw.background);
         background2 = MediaPlayer.create(context, R.raw.background2);
         menu.setLooping(true);
-        play(menu, state);
+        play(menu);
     }
 
-    public void play(MediaPlayer choice, int state) {
+    public void play(MediaPlayer choice) {
         if (choice == background) {
             if (!background2.isPlaying() && levelCtrl.level >= levelChange) {
                 background2.start();
@@ -60,26 +60,62 @@ public class Sound {
     public void launch() {
         MediaPlayer launch = MediaPlayer.create(context, R.raw.fire);
         launch.start();
+        launch.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
+                mediaPlayer.release();
+            }
+        });
     }
 
     public void explode() {
         MediaPlayer explode = MediaPlayer.create(context, R.raw.explode);
         explode.setVolume(0.7f,0.7f);
         explode.start();
+        explode.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
+                mediaPlayer.release();
+            }
+        });
     }
 
     public void ammo() {
         MediaPlayer ammo = MediaPlayer.create(context, R.raw.ammo);
         ammo.start();
+        ammo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
+                mediaPlayer.release();
+            }
+        });
     }
 
     public void squish() {
         MediaPlayer squish = MediaPlayer.create(context, R.raw.squish);
         squish.start();
+        squish.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
+                mediaPlayer.release();
+            }
+        });
     }
 
     public void death() {
         MediaPlayer moo = MediaPlayer.create(context, R.raw.death);
         moo.start();
+        moo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
+                mediaPlayer.release();
+            }
+        });
     }
+
 }

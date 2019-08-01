@@ -9,7 +9,7 @@ import android.provider.MediaStore;
 
 
 public class Cows {
-    MediaPlayer deathSound;
+    Sound sound;
     public boolean status;      // The status of whether the cow is alive or not alive
     public RectF mRect;         // The rectangle that will represent the cow's hit box
     public float width = 110;   // Width of the cow
@@ -23,8 +23,8 @@ public class Cows {
         The constructor for the Cow object. It sets the status of the cow to True (cow is alive), and takes in
         the x and y coordinates of the location of where to draw the cow
      */
-    public Cows(int x, int screenY, Context context) {
-        deathSound = MediaPlayer.create(context, R.raw.death);
+    public Cows(int x, int screenY, Context context, Sound snd) {
+        sound = snd;
         status = true;
         xPosition = x;
         yPosition = screenY;
@@ -40,7 +40,7 @@ public class Cows {
     // This function will kill (remove the cow entity)
     public void kill(){
         if (status) {
-            deathSound.start();
+            sound.death();
         }
         status = false;
     }
