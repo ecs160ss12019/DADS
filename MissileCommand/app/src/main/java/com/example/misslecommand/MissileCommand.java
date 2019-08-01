@@ -253,6 +253,7 @@ class MissileCommand extends SurfaceView implements Runnable{
             mCanvas = mOurHolder.lockCanvas();
             mPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/Bangers-Regular.ttf"));
 
+
             if (state == 0) {
                 mainMen.draw(mCanvas, mPaint);
 
@@ -263,7 +264,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 backgrnd.draw(mCanvas, mPaint);
 
                 mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
+                        (255, 128, 128, 128));
                 // Choose the font size
                 mPaint.setTextSize(mFontSize+80);
 
@@ -285,7 +286,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 }
                 backgrnd.draw(mCanvas, mPaint);
                 mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
+                        (255, 128, 128, 128));
                 // Choose the font size
                 mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " Failed, Your Cows Are Dead", mScreenX/6,
@@ -306,7 +307,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 // Choose a color to paint with
                 mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
+                        (255, 128, 128, 128));
 
                 // Call all controllers draw functions
                 if (cowsCtrl != null && baseCtrl != null && hornetCtrl != null && powerUpCtrl != null) {
@@ -319,7 +320,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 // Reset Color to White
                 mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
+                        (255, 128, 128, 128));
 
                 // Choose the font size
                 mPaint.setTextSize(mFontSize);
