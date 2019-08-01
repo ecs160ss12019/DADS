@@ -35,9 +35,8 @@ public class Pause {
 
         if (state == 4) {
             canvas.drawText("PAUSED", xPosition/3, yPosition/3, paint);
+            option.draw(canvas, paint);
         }
-
-        //option.draw(canvas, paint);
         //canvas.drawRect(mRect, paint);
     }
 }
