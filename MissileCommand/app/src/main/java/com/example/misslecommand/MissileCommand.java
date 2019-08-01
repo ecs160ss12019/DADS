@@ -203,7 +203,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     cowsCtrl = new CowsCtrl(mScreenY, contxt, sound);
                     baseCtrl.base.missiles = new ArrayList<>();
                     //menuPlayer.start();
-                    sound.play(sound.menu);
+                    sound.gameOver();
                     sound.pause(sound.background);
                     state = 3;
                 }
@@ -422,6 +422,9 @@ class MissileCommand extends SurfaceView implements Runnable{
                         sound.toggle();
                     }
                     else if (choice == 2) {
+                        sound.pause(sound.background);
+                        sound.pause(sound.background2);
+                        sound.pause(sound.menu);
                         restart();
                     }
                     else if (choice == 3) {
