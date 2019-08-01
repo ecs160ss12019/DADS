@@ -51,7 +51,6 @@ public class MainMenu {
 
     }
 
-
     RectF getRect(){
         return mRect;
     }

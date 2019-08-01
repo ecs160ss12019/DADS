@@ -26,13 +26,9 @@ public class BaseCtrl {
         base = new Base(centerScreenX, screenY, con, sound);
         mBitmapForMissile = BitmapFactory.decodeResource(con.getResources(), R.drawable.missile1);
         mBitmapForMissile2 = BitmapFactory.decodeResource(con.getResources(), R.drawable.missile2);
-
-        //mRectForMissile = new RectF( centerScreenX*2 - 40/2, screenY-100, centerScreenX*2 + 40/2, screenY);
-
     }
 
     public void draw(Canvas canvas, Paint paint) {
-        //canvas.drawRect(base.mRect, paint);
         if (count>20){
             count = 0;
         }
@@ -45,7 +41,6 @@ public class BaseCtrl {
         }
 
         count++;
-        //canvas.drawRect(base.mRect, paint);
 
         for (int i = 0; i < base.missiles.size(); i++) {
             Log.d("BaseCtrl", "looping through missiles");
@@ -72,9 +67,7 @@ public class BaseCtrl {
                         base.missiles.get(i).xCenter,
                         base.missiles.get(i).yCenter,
                         paint);
-
-                //canvas.drawRect(base.missiles.get(i).mRect, paint);
-
+                
                 canvas.save();
                 canvas.rotate( (float)base.missiles.get(i).rotateDeg, base.missiles.get(i).xCenter, base.missiles.get(i).yCenter);
 
