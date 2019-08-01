@@ -33,7 +33,7 @@ public class HornetCtrl {
 
             canvas.save();
             canvas.rotate( (float)hornets.get(i).rotateDeg, hornets.get(i).xPosition, hornets.get(i).yPosition);
-            canvas.drawRect(hornets.get(i).mRect, paint);
+            //canvas.drawRect(hornets.get(i).mRect, paint);
             if (count > 100){
                 count = 0;
             }

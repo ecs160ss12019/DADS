@@ -32,7 +32,7 @@ public class BaseCtrl {
     }
 
     public void draw(Canvas canvas, Paint paint) {
-        canvas.drawRect(base.mRect, paint);
+        //canvas.drawRect(base.mRect, paint);
         if (count>20){
             count = 0;
         }
