@@ -9,58 +9,44 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.util.*;
-import android.content.res.Resources;
 
-public class Options {
+public class Options extends Activity {
 
     public int xPosition;
     public int yPosition;
 
-    public RectF mRect;
+    public RectF audioRect;
+    public RectF restartRect;
+    public RectF backRect;
+
+    public float width = 302;
+    public float height = 105;
+
+    public Bitmap audioBit;
+    public Bitmap restartBit;
+    public Bitmap backBit;
+
     Context contxt;
-    Bitmap mBitmap;
-    Bitmap scaledBitmap;
-    Bitmap bitMapForTitle;
-    Bitmap scaledBitMapForTitle;
-    Bitmap bitMapForSubTitle;
-    Bitmap scaledBitMapForSubTitle;
-
-    private int mFontSize;
-
-    Rect bounds = new Rect();
-    public float mt;
-    public int bw;
-
     Canvas cnvs;
     Paint pnt;
-
-    String title = "Settings";
-    String subTitle = "Audio";
-    String tapToStart = "Restart";
-
 
     public Options(int x, int y, Context context){
         xPosition = x;
         yPosition = y;
-        mFontSize = x / 20;
         contxt = context;
 
-        mRect = new RectF((float)0, (float)0, (float)x/2, (float)y/2);
+        audioRect = new RectF((float)x/2 - width/2, (float)y/8 - height/2,
+                (float)x/2 + width/2, (float)y/8 + height/2);
+        restartRect = new RectF((float)x/2 - width/2, (float)(3 * y)/8 - height/2,
+                (float)x/2 + width/2, (float)(3 * y)/8 + height/2);
+        backRect = new RectF((float)x/2 - width/2, (float)(5 * y)/8 - height/2,
+                (float)x/2 + width/2, (float)(5 * y)/8 + height/2);
 
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu);
-        scaledBitmap = Bitmap.createScaledBitmap(mBitmap, x, y, true);
-        bitMapForTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.title);
-        bitMapForSubTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.subtitle);
+        //mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu);
+        //scaledBitmap = Bitmap.createScaledBitmap(mBitmap, x, y, true);
+        //bitMapForTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.title);
+        //bitMapForSubTitle = BitmapFactory.decodeResource(context.getResources(), R.drawable.subtitle);
 
-    }
-
-    RectF getRect(){
-        return mRect;
-    }
-
-    Bitmap getBitmap(){
-        return scaledBitmap;
     }
 
     public void draw(Canvas canvas, Paint paint){
@@ -68,13 +54,9 @@ public class Options {
         cnvs = canvas;
         pnt = paint;
 
-        //canvas.drawBitmap(this.getBitmap(), this.getRect().left, this.getRect().top, paint);
-        canvas.drawBitmap(bitMapForTitle, (xPosition/2)-150, yPosition/3, paint);
-        canvas.drawBitmap(bitMapForSubTitle, (xPosition/2)-50, yPosition/2, paint);
-        paint.setColor(Color.argb(255, 255, 255, 255));
-
-        //Choose the font size
-        paint.setTextSize(mFontSize);
+        canvas.drawRect(audioRect, paint);
+        canvas.drawRect(restartRect, paint);
+        canvas.drawRect(backRect, paint);
 
     }
 }
