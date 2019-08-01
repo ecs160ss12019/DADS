@@ -1,9 +1,12 @@
 package com.example.misslecommand;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.fonts.Font;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -104,7 +107,6 @@ class MissileCommand extends SurfaceView implements Runnable{
         mOurHolder = getHolder();
         mPaint = new Paint();
         contxt = context;
-
         // Initialize the cows and base
         state = 0;
         levelCtrl = new LevelCtrl();
@@ -257,6 +259,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         if (mOurHolder.getSurface().isValid()) {
             // Lock the canvas (graphics memory) ready to draw
             mCanvas = mOurHolder.lockCanvas();
+            mPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/Bangers-Regular.ttf"));
 
             if (state == 0) {
                 mainMen.draw(mCanvas, mPaint);
