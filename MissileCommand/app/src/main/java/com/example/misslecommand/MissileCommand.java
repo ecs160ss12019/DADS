@@ -364,8 +364,6 @@ class MissileCommand extends SurfaceView implements Runnable{
                     state = 1;
                     score = 0;
                     startNewGame();
-                    //menuPlayer.pause();
-                    //startPlayer.start();
                     sound.pause(sound.menu);
                     sound.play(sound.start);
                     break;
@@ -377,15 +375,11 @@ class MissileCommand extends SurfaceView implements Runnable{
                         cowsCtrl.cows[i].status = true;
                     }
                     startNewGame();
-                    //menuPlayer.pause();
-                    //startPlayer.start();
                     sound.pause(sound.menu);
                     sound.play(sound.start);
                 }
                 if (state == 3) {
                     restart();
-                    //menuPlayer.pause();
-                    //startPlayer.start();
                 }
                 if (state == 4) {
                     int choice = pause.option.touch(x,y);
@@ -403,23 +397,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     }
                 }
 
-                // If the game was paused unpause
-                //mPaused = false;
-
-                //Where did the touch happen? Where it happens is where the missile will explode
-                // use motionEvent.getX() + motionEvent.getX() to set where you want the missiles
-                // go to
-
-                //base.fire(motionEvent.getX(), motionEvent.getY());
-
-
                 break;
-
-            // The player lifted their finger
-            // from anywhere on screen.
-            // It is possible to create bugs by using
-            // multiple fingers. We need to deal with this. I suggest we just stop and ignore.
-            // Maybe use the first finger touch....
         }
         return true;
     }
@@ -444,7 +422,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     }
 
-    // This method is called by PongActivity
+    // This method is called by MainActivity
     // when the player quits the game
     public void pause() {
 
@@ -460,7 +438,6 @@ class MissileCommand extends SurfaceView implements Runnable{
         }
 
     }
-
 
     // This method is called by MainActivity
     // when the player starts the game
