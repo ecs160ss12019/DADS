@@ -67,7 +67,7 @@ public class BaseCtrl {
                         base.missiles.get(i).xCenter,
                         base.missiles.get(i).yCenter,
                         paint);
-                
+
                 canvas.save();
                 canvas.rotate( (float)base.missiles.get(i).rotateDeg, base.missiles.get(i).xCenter, base.missiles.get(i).yCenter);
 

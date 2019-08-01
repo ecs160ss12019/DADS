@@ -57,14 +57,6 @@ public class Base{
         }
     }
 
-    public void collision(){
-
-    }
-
-    public void draw(){
-
-    }
-
     RectF getRect(){
         return mRect;
     }
