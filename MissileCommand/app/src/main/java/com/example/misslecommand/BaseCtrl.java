@@ -32,6 +32,7 @@ public class BaseCtrl {
         if (count>20){
             count = 0;
         }
+        //canvas.drawRect(base.mRect, paint);
         if (count < 10){
             canvas.drawBitmap(base.getBitmap2(), base.getRect().left, base.getRect().top, paint);
         }
@@ -52,7 +53,7 @@ public class BaseCtrl {
                 int RED = 255;
                 int GREEN = 0;
                 int BLUE = 0;
-                for (int concentric_rad = base.missiles.get(i).radius; concentric_rad > base.missiles.get(i).MIN_EXPL_RADIUS; concentric_rad -= 3 ) {
+                for (int concentric_rad = base.missiles.get(i).radius; concentric_rad > base.missiles.get(i).MIN_EXPL_RADIUS; concentric_rad -= 8 ) {
                     paint.setColor(Color.argb(OPAC, RED, GREEN, BLUE));
                     canvas.drawCircle(base.missiles.get(i).xDest, base.missiles.get(i).yDest,
                             concentric_rad, paint);
@@ -74,6 +75,7 @@ public class BaseCtrl {
                 if (count2 > 50){
                     count2 = 0;
                 }
+                //canvas.drawRect(base.missiles.get(i).mRect, paint);
                 if (count2 < 25){
                     canvas.drawBitmap(mBitmapForMissile2, base.missiles.get(i).mRect.left-23, base.missiles.get(i).mRect.top-20, paint);
                 }

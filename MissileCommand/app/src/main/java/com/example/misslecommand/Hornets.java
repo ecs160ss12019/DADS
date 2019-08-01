@@ -18,7 +18,7 @@ public class Hornets {
     private float maxSpeed = 250;
     public float xVelocity;
     public float yVelocity;
-    private float width = 106;
+    private float width = 160;
     private float height = 90;
     public float xPosition;
     public float yPosition;

@@ -241,7 +241,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         float dist = (float)Math.sqrt(dX*dX + dY*dY);
         /*if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
                 && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {*/
-        if ( dist-25 <= missile.radius){
+        if ( dist-45 <= missile.radius){
             hornetCtrl.hornets.remove(hornet);
             killedHornet = true;
             score = score + 10;
@@ -256,7 +256,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         float dist = (float)Math.sqrt(dX*dX + dY*dY);
         /*if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
                 && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {*/
-        if ( dist-25 <= missile.radius){
+        if ( dist-35 <= missile.radius){
             powerUpCtrl.powerUps.remove(powerUp);
             baseCtrl.base.ammo = baseCtrl.base.ammo + 4;
             sound.ammo();

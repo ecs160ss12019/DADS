@@ -24,12 +24,12 @@ public class Missile {
     public float yDest;
 
     public int radius = 20;
-    public int MAX_EXPL_RADIUS = 100;
+    public int MAX_EXPL_RADIUS = 130;
     public int MIN_EXPL_RADIUS = 10;
 
     public int explosionCounter;
     
-    public int width = 30;
+    public int width = 70;
     public int height = 30;
     public boolean exploding;
     public boolean done;
@@ -86,6 +86,10 @@ public class Missile {
             rotateDeg -= 90;
         } else {
             rotateDeg += 90;
+        }
+
+        if(yTouch > baseYTop) {
+            rotateDeg += 180;
         }
 
         // A bug caused by firing missiles at around the same y coord as top of the base was making
