@@ -20,9 +20,6 @@ class MissileCommand extends SurfaceView implements Runnable{
     // Are we debugging?
     private final boolean DEBUGGING = true;
 
-    //MediaPlayer menuPlayer;
-    //MediaPlayer startPlayer;
-
     // These objects are needed to do the drawing
     private SurfaceHolder mOurHolder;
     private Canvas mCanvas;
@@ -79,10 +76,6 @@ class MissileCommand extends SurfaceView implements Runnable{
     List<String> scoreList = csvFile.read();
     //List<String> leadeboardList = csvFile.modifyResults(scoreList);
 
-    // The PongGame constructor
-    // Called when this line:
-    // mPongGame = new PongGame(this, size.x, size.y);
-    // is executed from PongActivity
     public MissileCommand(Context context, int x, int y) {
         // Super... calls the parent class
         // constructor of SurfaceView
@@ -90,7 +83,6 @@ class MissileCommand extends SurfaceView implements Runnable{
         super(context);
 
         score = 0;
-        //menuPlayer.start();
         // Initialize these two members/fields
         // With the values passesd in as parameters
         mScreenX = x;
@@ -263,20 +255,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
             if (state == 0) {
                 mainMen.draw(mCanvas, mPaint);
-                // Fill the screen with a solid color
-                //mCanvas.drawColor(Color.argb(255, 26, 128, 182));
-                /*
-                backgrnd.draw(mCanvas, mPaint);
 
-                mPaint.setColor(Color.argb
-                        (255, 255, 255, 255));
-
-                // Choose the font size
-                mPaint.setTextSize(mFontSize);
-
-                mCanvas.drawText("DADS", 500, 500, mPaint);
-                mCanvas.drawText("Davis Aerial Defense System!", 500, 800, mPaint);
-                */
                 mOurHolder.unlockCanvasAndPost(mCanvas);
 
             }
@@ -305,10 +284,13 @@ class MissileCommand extends SurfaceView implements Runnable{
                 // Choose the font size
                 mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " Failed, Your Cows Are Dead", mScreenX/6,
-                        mScreenY/2, mPaint);
+                        mScreenY/2+125, mPaint);
                 mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+300, mPaint);
-                mCanvas.drawText("High Score: " + highScore, mScreenX/2+100, mScreenY/8, mPaint);
-                mCanvas.drawText("High Score for: " + scoreList.get(0), mScreenX/8+100, mScreenY/5, mPaint);
+                mCanvas.drawText("Your High Score: " + highScore, mScreenX/2, mScreenY/8, mPaint);
+                mCanvas.drawText("Top Scorers", mScreenX/10-100, mScreenY/8, mPaint);
+                for(int i = 0; i < 3; i++){
+                    mCanvas.drawText((i+1) + ". " + scoreList.get(i), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                }
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             }
             else {
@@ -377,8 +359,6 @@ class MissileCommand extends SurfaceView implements Runnable{
                     state = 1;
                     score = 0;
                     startNewGame();
-                    //menuPlayer.pause();
-                    //startPlayer.start();
                     sound.pause(sound.menu);
                     sound.play(sound.start);
                     break;
@@ -390,15 +370,11 @@ class MissileCommand extends SurfaceView implements Runnable{
                         cowsCtrl.cows[i].status = true;
                     }
                     startNewGame();
-                    //menuPlayer.pause();
-                    //startPlayer.start();
                     sound.pause(sound.menu);
                     sound.play(sound.start);
                 }
                 if (state == 3) {
                     restart();
-                    //menuPlayer.pause();
-                    //startPlayer.start();
                 }
                 if (state == 4) {
                     int choice = pause.option.touch(x,y);
@@ -416,23 +392,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     }
                 }
 
-                // If the game was paused unpause
-                //mPaused = false;
-
-                //Where did the touch happen? Where it happens is where the missile will explode
-                // use motionEvent.getX() + motionEvent.getX() to set where you want the missiles
-                // go to
-
-                //base.fire(motionEvent.getX(), motionEvent.getY());
-
-
                 break;
-
-            // The player lifted their finger
-            // from anywhere on screen.
-            // It is possible to create bugs by using
-            // multiple fingers. We need to deal with this. I suggest we just stop and ignore.
-            // Maybe use the first finger touch....
         }
         return true;
     }
@@ -457,7 +417,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     }
 
-    // This method is called by PongActivity
+    // This method is called by MainActivity
     // when the player quits the game
     public void pause() {
 
@@ -473,7 +433,6 @@ class MissileCommand extends SurfaceView implements Runnable{
         }
 
     }
-
 
     // This method is called by MainActivity
     // when the player starts the game

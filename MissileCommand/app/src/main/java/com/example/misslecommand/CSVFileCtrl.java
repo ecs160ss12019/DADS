@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/*
+    Code obtained from: https://javapapers.com/android/android-read-csv-file/
+    Slightly adapted to use ArrayList of strings
+ */
+
 public class CSVFileCtrl {
     InputStream inputStream;
 

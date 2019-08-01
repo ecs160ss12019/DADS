@@ -36,7 +36,6 @@ public class CowsCtrl {
 
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < cowNum; i++) {
-            //canvas.drawRect(cows[i].mRect, paint); // debugging purposes
             if (cows[i].status) {
                 if (count > 350){
                     count = 0;
@@ -48,7 +47,6 @@ public class CowsCtrl {
                     canvas.drawBitmap(cows[i].getBitmap2(), cows[i].getRect().left, cows[i].getRect().top, paint);
                 }
                 count++;
-                //canvas.drawRect(cows[i].mRect, paint);
             }
         }
     }

@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.content.Context;
 
+// This is the game background class. This loads, and draws the background image behind the game.
+// It scales the image based on the size of screen.
 public class Background {
 
     Bitmap mBitmap;
@@ -31,7 +33,6 @@ public class Background {
 
     // Drawing Function
     public void draw(Canvas canvas, Paint paint) {
-
         canvas.drawBitmap(this.getBitmap(), this.getRect().left, this.getRect().top, paint);
     }
 }
