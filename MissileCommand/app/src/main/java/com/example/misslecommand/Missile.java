@@ -7,7 +7,9 @@ import android.graphics.RectF;
  * the Base.java method ```fire()``` instantiates a new Missile where the missiles spawn from, i.e.
  * the top of the base.
  *
+ * It has two methods: ```update()``` and ```explode()```
  */
+
 public class Missile {
     Sound sound;
     boolean up;
@@ -110,6 +112,7 @@ public class Missile {
             up = false;
         }
     }
+
     void update(long fps){
         // Move the missile based upon the horizontal and vertical speed and the current frame rate
         if (!exploding) {
@@ -149,7 +152,7 @@ public class Missile {
 
         // calculates circles that will be used to draw the multi-colored, circular explosion that
         // occurs once the explode function is called when the missile reaches its target destination.
-        
+
         // Switch statement logic inspired by:
         // https://github.com/leonardo-ono/JavaMissileCommandGame
         yield:
