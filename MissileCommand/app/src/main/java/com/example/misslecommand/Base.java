@@ -1,6 +1,9 @@
 package com.example.misslecommand;
 
-// This is the base class. It is responsible for firing missiles at the hornets.
+/*
+ * The Base Class is responsible for firing missiles at the hornets.
+ * It draws the missiles on the screen and keeps track of the ammo count
+ */
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,8 +14,8 @@ import java.util.*;
 public class Base{
     Sound sound;
     public Context context;
-    public boolean status;
     public RectF mRect;
+
     private float width = 300;
     private float height = 300;
     public float xCenter;
@@ -20,26 +23,31 @@ public class Base{
     public float yTop;
     
     public int ammo;
+    public boolean status;
+
     Bitmap mBitmap;
     Bitmap mBitmap2;
 
     public List<Missile> missiles;
 
     public Base(float centerScreenX, float screenY, Context con, Sound snd) {
-        sound = snd;
-        status = true;
-        context = con;
         missiles = new ArrayList<>();
+        sound = snd;
+        context = con;
+        status = true;
+
         xCenter = centerScreenX;
         yBottom = screenY;
         yTop = yBottom - height;
+
         mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.base);
         mBitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.base2);
 
         mRect = new RectF( xCenter - width/2, yTop, xCenter + width/2, yBottom);
     }
 
-    //will create an instance of missile and then from TouchEvent fire it to a certain location
+    // Creates an instance of missile and then from TouchEvent fire it to a certain location
+    // Decrements ammo
     public void fire(int xTouch, int yTouch){
         if (ammo <= 0) {
             //out of ammo
@@ -64,7 +72,6 @@ public class Base{
     Bitmap getBitmap(){
         return mBitmap;
     }
-
     Bitmap getBitmap2(){
         return mBitmap2;
     }
