@@ -61,7 +61,7 @@ https://github.com/ecs160ss12019/DADS/blob/master/Sprint1/CRCCards/CRC%20Cards.p
 ![Link to Game Over](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%202/GameOver.png)
 ---
 ## Sprint 3
-![CRC](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%203/CRC%20Cards.pdf)
+![CRC](https://github.com/ecs160ss12019/DADS/blob/master/Sprint%203/CRC%20Cards.png)
 ### 1) CRC Cards
 
 ### 2) Screenshots of the Game
