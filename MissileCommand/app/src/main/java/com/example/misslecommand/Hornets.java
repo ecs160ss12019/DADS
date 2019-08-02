@@ -5,6 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 
+/*
+ * The Hornets class is for the hornets flying from the top of the screen
+ * towards the Cows. It's trajectory is calculated from it's random
+ * spawn location. The specific cow it is intended to destroy is randomly chosen
+ * in the HornetCtrl.java class.
+ *
+ * An array of hornets are kept in the HornetCtrl.java class and instantiates
+ * new hornets, the number of which is based on what level the player is on.
+ *
+ */
 public class Hornets {
 
     public boolean status;
@@ -108,7 +118,9 @@ public class Hornets {
     Bitmap getBitmap(){
         return mBitmap;
     }
-    Bitmap getBitmap2(){ return mBitmap2; }
+    Bitmap getBitmap2(){
+        return mBitmap2;
+    }
 
     public void exploded() {
         status = false;

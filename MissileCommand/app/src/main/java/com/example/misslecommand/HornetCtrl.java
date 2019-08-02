@@ -6,6 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import java.util.*;
 
+/*
+ * The HornetCtrl.java class is instantiated in the MissileCommand.java class and is
+ * used to spawn the hornets to the game.
+ * The number of hornets spawned is probablistically determined; the higher level the
+ * player gets to the more probable a hornet is to spawn.
+ */
 public class HornetCtrl {
     public int count =0;
     public List<Hornets> hornets;
@@ -22,6 +28,9 @@ public class HornetCtrl {
         random = new Random();
     }
 
+    /*
+     * Draws the hornets on its spawn location by accessing the Hornets.java class
+     */
     public void draw(Canvas canvas, Paint paint) {
         for (int i = 0; i < hornets.size(); i++) {
             paint.setColor(Color.argb(255, 255, 255, 255));
@@ -31,6 +40,9 @@ public class HornetCtrl {
                     hornets.get(i).yPosition,
                     paint);
 
+            // Rotate the canvas depending on the hornet's trajectory and draw it
+            // A counter is used to alternate between the two hornet .png files to
+            // emulate a sprite.
             canvas.save();
             canvas.rotate( (float)hornets.get(i).rotateDeg, hornets.get(i).xPosition, hornets.get(i).yPosition);
             //drawRect(hornets.get(i).mRect, paint);
