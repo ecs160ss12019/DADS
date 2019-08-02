@@ -4,6 +4,11 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.content.Context;
 
+/*
+ * The Cows Controller class is responsible for drawing the cows.
+ * In addition it manages the cow list
+ */
+
 public class CowsCtrl {
     public int count = 0;
     public int cowNum = 6;

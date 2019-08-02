@@ -7,8 +7,11 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.content.Context;
 
-// This is the game background class. This loads, and draws the background image behind the game.
-// It scales the image based on the size of screen. It is also responsible for the Game Over screen
+/*
+ * The Background class is responsible for loading, drawing and scaling the game background image,
+ * and the Game Over image.
+ */
+
 public class Background {
 
     Bitmap mBitmap;
