@@ -4,9 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 import android.content.Context;
-import android.media.MediaPlayer;
-import android.provider.MediaStore;
-
 
 public class Cows {
     Sound sound;
@@ -37,16 +34,13 @@ public class Cows {
                 (float)screenY);
     }
 
-    // This function will kill (remove the cow entity)
+    // This function will set status to false and call sound to play the cow death sound effect.
+    // The draw function in CowsCtrl will not draw cows with status == false.
     public void kill(){
         if (status) {
             sound.death();
         }
         status = false;
-    }
-
-    public void draw(){
-
     }
 
     RectF getRect(){

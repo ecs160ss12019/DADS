@@ -2,12 +2,10 @@ package com.example.misslecommand;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.graphics.fonts.Font;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -38,7 +36,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     private int mFontSize;
     private int mFontMargin;
 
-    // The game objects controllers
+    // The game objects controllers and other functionality classes
     private MainMenu mainMen;
     private Background backgrnd;
     private BaseCtrl baseCtrl;
@@ -50,17 +48,18 @@ class MissileCommand extends SurfaceView implements Runnable{
     private Sound sound;
     private int highScore = 0;
 
-    private int numPowerup;
-    private int hornetsDestroyed;
-    private boolean killedHornet = false;
-    private boolean killedPowerup = false;
 
-    private int state; // 0 = main menu, 1 = in game, 2 = in between levels
+    // This variable is used to determine the current game state, which will mostly differ in the fact
+    // that update is only called in "in game" state, and it also determines what gets drawn and what
+    // happens when the player taps the screen.
+    // We know this isn't the optimal way to do game state, as mentioned by the professor in canvas comments,
+    // but we had to strike a balance between getting the game done in time and using best practices,
+    // and ultimately we went with the quick and dirty method to get done in time. If we had more time,
+    // we would correct this and other bad choices we made for the sake of time.
+    private int state; // 0 = main menu, 1 = in game, 2 = in between levels, 3 = game over
 
-    // The current score and lives remaining
-    private int score = 0;
+    private int score;
     private boolean scoreAdjusted = false;
-    //private int numMissiles = 10;
 
     // Here is the Thread and two control variables
     private Thread mGameThread = null;
@@ -68,9 +67,12 @@ class MissileCommand extends SurfaceView implements Runnable{
     // This volatile variable can be accessed
     // from inside and outside the thread
     private volatile boolean mPlaying;
-    private boolean mPaused = true;
     Context contxt;
 
+    private int numPowerup;
+    private int hornetsDestroyed;
+    private boolean killedHornet = false;
+    private boolean killedPowerup = false;
 
     private InputStream inputStream = getResources().openRawResource(R.raw.leaderboards);
     private CSVFileCtrl csvFile = new CSVFileCtrl(inputStream);
@@ -85,6 +87,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         super(context);
 
         score = 0;
+
         // Initialize these two members/fields
         // With the values passesd in as parameters
         mScreenX = x;
@@ -102,7 +105,8 @@ class MissileCommand extends SurfaceView implements Runnable{
         mPaint = new Paint();
         contxt = context;
         sharedpreferences = contxt.getSharedPreferences("leaderboards", Context.MODE_PRIVATE);
-        // Initialize the cows and base
+
+        // Initialize all of the controller classes
         state = 0;
         levelCtrl = new LevelCtrl();
         sound = new Sound(context, levelCtrl);
@@ -111,14 +115,14 @@ class MissileCommand extends SurfaceView implements Runnable{
         cowsCtrl = new CowsCtrl(mScreenY, context, sound);
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context, sound);
         pause = new Pause(mScreenX, mScreenY, context);
-        //sound.play(sound.menu, state);
 
-        // Everything is ready so start the game
+        // since state is set to 0, draw will draw the main menu screen when the game is first opened.
         draw();
     }
 
-    // The player has just lost, beat the round
-    // or is starting their first game
+    // This function is called each time a new level is started, it restocks the base with missiles,
+    // resets the hornet and power up controllers, and starts playing the in-game background music from
+    // the beginning.
     private void startNewGame(){
         // Rest the score and the player's missiles
         scoreAdjusted = false;
@@ -133,13 +137,10 @@ class MissileCommand extends SurfaceView implements Runnable{
         sound.play(sound.background);
 
     }
-
-    // When we start the thread with:
-    // mGameThread.start();
-    // the run method is continuously called by Android
-    // because we implemented the Runnable interface
-    // Calling mGameThread.join();
-    // will stop the thread
+    // This is based off of the old pong run() function, but we made it so that update() is only called
+    // when state == 1, along with collision detection, but draw() will be called no matter what.
+    // This function is essentially the main game loop since it calls the main three functions which
+    // do all of the game.
     @Override
     public void run() {
         // mPlaying gives us finer control
