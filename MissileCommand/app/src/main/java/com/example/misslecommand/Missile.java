@@ -7,7 +7,9 @@ import android.graphics.RectF;
  * the Base.java method ```fire()``` instantiates a new Missile where the missiles spawn from, i.e.
  * the top of the base.
  *
- * It has two methods: ```update()``` and ```explode()```
+ * An array of Missiles are stored in Base.java and BaseCtrl.java is responsible for calling
+ * updating the Missile's location and checks if it is at it's destination which in turn calls
+ * it to explode.
  */
 
 public class Missile {
