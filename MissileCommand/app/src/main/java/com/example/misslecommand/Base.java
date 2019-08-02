@@ -1,15 +1,15 @@
 package com.example.misslecommand;
 
-/*
- * The Base Class is responsible for firing missiles at the hornets.
- * It draws the missiles on the screen and keeps track of the ammo count
- */
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 import java.util.*;
+
+/*
+ * The Base Class is responsible for firing missiles at the hornets.
+ * It draws the missiles on the screen and keeps track of the ammo count
+ */
 
 public class Base{
     Sound sound;

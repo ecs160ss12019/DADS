@@ -5,6 +5,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 import android.content.Context;
 
+/*
+ * The Cow Class is responsible for creating and removing the Cow objects
+ */
+
 public class Cows {
     Sound sound;
     public boolean status;      // The status of whether the cow is alive or not alive
@@ -16,10 +20,6 @@ public class Cows {
     Bitmap mBitmap;
     Bitmap mBitmap2;
 
-    /*
-        The constructor for the Cow object. It sets the status of the cow to True (cow is alive), and takes in
-        the x and y coordinates of the location of where to draw the cow
-     */
     public Cows(int x, int screenY, Context context, Sound snd) {
         sound = snd;
         status = true;
