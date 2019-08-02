@@ -61,6 +61,8 @@ public class HornetCtrl {
         }
     }
 
+
+    //Probablistically spawn hornets
     public void spawnHornets(int level, CowsCtrl cowsCtrl, int screenX, Context context) {
         int randCow = random.nextInt(cowsCtrl.cowNum);
         int didFire = random.nextInt(100);
@@ -72,13 +74,7 @@ public class HornetCtrl {
         }
     }
 
-    public void spawnSingle(int level, CowsCtrl cowsCtrl, int screenX, Context context) {
-        int randCow = random.nextInt(cowsCtrl.cowNum);
-        Cows target = cowsCtrl.cows[randCow];
-        hornets.add(new Hornets(random.nextInt(screenX), 0, target, level, context));
-    }
-
-
+    // Call the update function on Hornet.java
     public void update(long fps, int level, CowsCtrl cowsCtrl, int screenX) {
         for (int i = 0; i < hornets.size(); i++) {
             hornets.get(i).update(fps);
