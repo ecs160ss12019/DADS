@@ -3,12 +3,13 @@ package com.example.misslecommand;
 public class LevelCtrl {
 
     public int level;
-    public HornetCtrl hornets;
     public int numHornets;
     public int numMissiles;
     public int numPowerups;
-    public int speedDivisor;    // Math will be calculated to take care of the speed of the falling hornets
 
+    /*
+        Initialize the variables in LevelCtrl
+     */
     public LevelCtrl(){
         level = 1;
         numHornets = 10;
@@ -16,6 +17,9 @@ public class LevelCtrl {
         numPowerups = 2;
     }
 
+    /*
+        When the next level is reached, increment number of hornets, missiles, and powerups when the level is incremented
+     */
     public void nextLevel(){
         level++;
         numHornets *= 1.2;
@@ -24,5 +28,4 @@ public class LevelCtrl {
             numPowerups += 1;
         }
     }
-
 }
