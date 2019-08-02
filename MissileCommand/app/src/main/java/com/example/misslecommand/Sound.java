@@ -3,11 +3,13 @@ package com.example.misslecommand;
 import android.content.Context;
 import android.media.MediaPlayer;
 
-// Music Credit: https://patrickdearteaga.com.
-// Sound Effects are from freesound.org
-
-// This class is responsible for storing, playing, and pausing sound effects and music.
-// It was created based on feedback given by the professor saying that sound should be given a class.
+/*
+ *  Music Credit: https://patrickdearteaga.com.
+ *  Sound Effects are from freesound.org
+ *
+ *  The Sound class is responsible for storing, playing and pausing sound effects and music
+ *  It was created on feedback given by the professor during class
+ */
 
 public class Sound {
     Context context;
