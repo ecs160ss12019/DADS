@@ -324,16 +324,20 @@ class MissileCommand extends SurfaceView implements Runnable{
                 int temp1 = jackRScore;
                 int temp2 = shayanSore;
                 int temp3 = jackAScore;
+                int hsNum = 1;
                 for(int i = 0; i < 4; i++){
                     if(tempScore < temp1){
-                        mCanvas.drawText(sharedpreferences.getString("HS"+(i+1), "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                        mCanvas.drawText(sharedpreferences.getString("HS"+hsNum, "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
                         temp1 = 0;
+                        hsNum++;
                     } else if(tempScore < temp2){
-                        mCanvas.drawText(sharedpreferences.getString("HS"+(i+1), "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                        mCanvas.drawText(sharedpreferences.getString("HS"+hsNum, "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
                         temp2 = 0;
+                        hsNum++;
                     } else if(tempScore < temp3){
-                        mCanvas.drawText(sharedpreferences.getString("HS"+(i+1), "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                        mCanvas.drawText(sharedpreferences.getString("HS"+hsNum, "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
                         temp3 = 0;
+                        hsNum++;
                     } else{
                         mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
                         tempScore = 0;
