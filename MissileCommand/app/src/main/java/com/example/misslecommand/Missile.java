@@ -2,19 +2,30 @@ package com.example.misslecommand;
 
 import android.graphics.RectF;
 
+/*
+ * This is the Missile class. When the player taps the screen, MissileCommand.java calls
+ * the Base.java method ```fire()``` instantiates a new Missile where the missiles spawn from, i.e.
+ * the top of the base.
+ *
+ */
 public class Missile {
-    Sound sound;
 
+    Sound sound;
     boolean up;
     boolean insane;
 
-    int ptr = 0;
-    boolean flag = true;
+    int sequencePtr = 0;
+    boolean explodingFlag = true;
     long waitTime;
     int RADIUS_INC = 5;
+    public int radius = 20;
+    public int MAX_EXPL_RADIUS = 130;
+    public int MIN_EXPL_RADIUS = 10;
+    public RectF explodeRect;
+    public boolean exploding;
 
     public RectF mRect;
-    public RectF explodeRect;
+
     public float speed = 1000;
     public float xVelocity;
     public float yVelocity;
@@ -22,17 +33,10 @@ public class Missile {
     public float yCenter;
     public float xDest;
     public float yDest;
-
-    public int radius = 20;
-    public int MAX_EXPL_RADIUS = 100;
-    public int MIN_EXPL_RADIUS = 10;
-
-    public int explosionCounter;
     
-    public int width = 30;
+    public int width = 70;
     public int height = 30;
-    public boolean exploding;
-    public boolean done;
+    public boolean doneExploding;
 
     public double rotateRad;
     public double rotateDeg;
@@ -49,11 +53,10 @@ public class Missile {
         yCenter = baseYTop - height/2;
         xDest = xTouch;
         yDest = yTouch;
-        explosionCounter = 0;
         mRect = new RectF( xCenter - width/2, yCenter - height/2,  xCenter + width/2, yCenter+ height/2);
 
         exploding = false;
-        done = false;
+        doneExploding = false;
 
         // determine the distance in x and y coordinates from the spawn point to the destination point
         // in order to calculate the velocity.
@@ -86,6 +89,10 @@ public class Missile {
             rotateDeg -= 90;
         } else {
             rotateDeg += 90;
+        }
+
+        if(yTouch > baseYTop) {
+            rotateDeg += 180;
         }
 
         // A bug caused by firing missiles at around the same y coord as top of the base was making
@@ -149,23 +156,23 @@ public class Missile {
         // calculates circles that will be used to draw the multi-colored, circular explosion that
         // occurs once the explode function is called when the missile reaches its target destination.
         yield:
-        while (flag) {
-            switch(ptr) {
+        while (exploding) {
+            switch(sequencePtr) {
                 case 0:
                     radius+=RADIUS_INC;
                     explodeRect.left-=RADIUS_INC;
                     explodeRect.right+=RADIUS_INC;
                     explodeRect.top-=RADIUS_INC;
                     explodeRect.bottom+=RADIUS_INC;
-                    ptr = 1;
+                    sequencePtr = 1;
                     break yield;
 
                 case 1:
                     if (radius < MAX_EXPL_RADIUS) {
-                        ptr = 0;
+                        sequencePtr = 0;
                         break yield;
                     }
-                    ptr = 2;
+                    sequencePtr = 2;
                     break yield;
 
                 case 2:
@@ -174,28 +181,28 @@ public class Missile {
                     explodeRect.right-=RADIUS_INC;
                     explodeRect.top+=RADIUS_INC;
                     explodeRect.bottom-=RADIUS_INC;
-                    ptr = 3;
+                    sequencePtr = 3;
                     break yield;
 
                 case 3:
                     if (radius > MIN_EXPL_RADIUS){
-                        ptr = 2;
+                        sequencePtr = 2;
                         break yield;
                     }
                     waitTime = System.currentTimeMillis();
-                    ptr = 4;
+                    sequencePtr = 4;
                     break yield;
 
                 case 4:
                     while ( System.currentTimeMillis() - waitTime < 50){
                         break yield;
                     }
-                    ptr = 5;
+                    sequencePtr = 5;
 
 
                 case 5:
-                    done = true;
-                    flag = false;
+                    doneExploding = true;
+                    exploding = false;
                     break yield;
             }
         }

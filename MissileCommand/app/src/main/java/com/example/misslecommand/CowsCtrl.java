@@ -11,15 +11,15 @@ public class CowsCtrl {
 
     public CowsCtrl(int screenY, Context context, Sound sound) {
         cows = new Cows[cowNum];
-        int cowX = 70;
-        int cowY = screenY;
+        int cowX = 85;
+        int cowY = screenY - 85;
         for (int i = 0; i < cowNum; i++) {
             cows[i] = new Cows(cowX, cowY, context, sound);
             if (i != 2) {
-                cowX = cowX + 300;
+                cowX = cowX + 450;
             }
             else {
-                cowX = cowX + 450;
+                cowX = cowX + 750;
             }
         }
     }

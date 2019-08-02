@@ -78,6 +78,14 @@ class MissileCommand extends SurfaceView implements Runnable{
     private CSVFileCtrl csvFile = new CSVFileCtrl(inputStream);
     private List<String> scoreList = csvFile.read();
     public SharedPreferences sharedpreferences;
+    private int jackRScore = 9530;
+    private int jackAScore = 1500;
+    private int johnScore = 100;
+    private int shayanSore = 2000;
+    private String jackHS = "JackR: " + jackRScore;
+    private String Shayan = "Shayan: " + shayanSore;
+    private String JackA = "JackA " + jackAScore;
+    private String John = "John " + johnScore;
     //List<String> leadeboardList = csvFile.modifyResults(scoreList);
 
     public MissileCommand(Context context, int x, int y) {
@@ -105,8 +113,13 @@ class MissileCommand extends SurfaceView implements Runnable{
         mPaint = new Paint();
         contxt = context;
         sharedpreferences = contxt.getSharedPreferences("leaderboards", Context.MODE_PRIVATE);
-
-        // Initialize all of the controller classes
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("HS1", jackHS);
+        editor.putString("HS2", Shayan);
+        editor.putString("HS3", JackA);
+        editor.putString("HS4", John);
+        editor.commit();
+        // Initialize the cows and base
         state = 0;
         levelCtrl = new LevelCtrl();
         sound = new Sound(context, levelCtrl);
@@ -190,7 +203,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                     cowsCtrl = new CowsCtrl(mScreenY, contxt, sound);
                     baseCtrl.base.missiles = new ArrayList<>();
                     //menuPlayer.start();
-                    sound.play(sound.menu);
+                    sound.gameOver();
                     sound.pause(sound.background);
                     state = 3;
                 }
@@ -228,7 +241,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         float dist = (float)Math.sqrt(dX*dX + dY*dY);
         /*if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
                 && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {*/
-        if ( dist-25 <= missile.radius){
+        if ( dist-45 <= missile.radius){
             hornetCtrl.hornets.remove(hornet);
             killedHornet = true;
             score = score + 10;
@@ -243,7 +256,7 @@ class MissileCommand extends SurfaceView implements Runnable{
         float dist = (float)Math.sqrt(dX*dX + dY*dY);
         /*if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
                 && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {*/
-        if ( dist-25 <= missile.radius){
+        if ( dist-35 <= missile.radius){
             powerUpCtrl.powerUps.remove(powerUp);
             baseCtrl.base.ammo = baseCtrl.base.ammo + 4;
             sound.ammo();
@@ -273,15 +286,15 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mPaint.setTextSize(mFontSize+80);
 
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " completed!", mScreenX/4,
-                        mScreenY/2, mPaint);
+                        mScreenY/2 - 100, mPaint);
 
                 mPaint.setTextSize(mFontSize-20);
                 //mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
 
-                mCanvas.drawText(" Previous Score:             " + score, mScreenX/2-300, mScreenY/2+200, mPaint);
-                mCanvas.drawText( "Cows          " + cowsCtrl.getCowsAlive()+ "x100            +" + cowsCtrl.getCowsAlive()*100, mScreenX/2-300, mScreenY/2+260, mPaint);
-                mCanvas.drawText( "Missiles    " + baseCtrl.base.ammo + "x10              +" + baseCtrl.base.ammo*10, mScreenX/2-300, mScreenY/2+320, mPaint);
-                mCanvas.drawText( "Total Score                    " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/2-300, mScreenY/2+430, mPaint);
+                mCanvas.drawText(" Previous Score:             " + score, mScreenX/2-600, mScreenY/2+50, mPaint);
+                mCanvas.drawText( "Cows          " + cowsCtrl.getCowsAlive()+ "x100            +" + cowsCtrl.getCowsAlive()*100, mScreenX/2-600, mScreenY/2+160, mPaint);
+                mCanvas.drawText( "Missiles    " + baseCtrl.base.ammo + "x10              +" + baseCtrl.base.ammo*10, mScreenX/2-600, mScreenY/2+260, mPaint);
+                mCanvas.drawText( "Total Score                    " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/2-600, mScreenY/2+360, mPaint);
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
             } else if (state == 3){
@@ -297,11 +310,24 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mPaint.setTextSize(mFontSize);
                 mCanvas.drawText("Level " + (levelCtrl.level-1) + " Failed, Your Cows Are Dead", mScreenX/6,
                         mScreenY/2+125, mPaint);
-                mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+300, mPaint);
+                mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+400, mPaint);
                 mCanvas.drawText("Your High Score: " + highScore, mScreenX/2, mScreenY/8, mPaint);
                 mCanvas.drawText("Top Scorers", mScreenX/10-100, mScreenY/8, mPaint);
-                mCanvas.drawText(sharedpreferences.getString("High Score", "null"), mScreenX/10-100, mScreenY/8+115, mPaint);
-                //for(int i = 0; i < 3; i++){
+                //mCanvas.drawText(sharedpreferences.getString("High Score", "null"), mScreenX/10-100, mScreenY/8+115, mPaint);
+                for(int i = 0; i < 4; i++){
+                    if(highScore > jackRScore){
+                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                    } else if(highScore > shayanSore){
+                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                    } else if(highScore > jackAScore){
+                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                    } else {
+                        mCanvas.drawText(sharedpreferences.getString("HS"+(i+1), "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+
+                    }
+                }
+
+                //for(int i = 0; i < 4; i++){
                 //    mCanvas.drawText((i+1) + ". " + scoreList.get(i), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
                 //}
                 //csvFile.write("Guest," + Integer.toString(highScore));
@@ -335,7 +361,7 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 // Draw the HUD
                 mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
-                mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mFontMargin + 1250, mFontSize, mPaint);
+                mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mScreenX- 800, mFontSize, mPaint);
                 //mCanvas.drawText("Hornets Left: " + hornetCtrl.hornetsToSpawn, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
 
                 if (DEBUGGING) {
@@ -396,6 +422,9 @@ class MissileCommand extends SurfaceView implements Runnable{
                         sound.toggle();
                     }
                     else if (choice == 2) {
+                        sound.pause(sound.background);
+                        sound.pause(sound.background2);
+                        sound.pause(sound.menu);
                         restart();
                     }
                     else if (choice == 3) {
@@ -462,8 +491,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
     public void saveScore(){
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        String newString = "Guest: " + highScore;
-        editor.putString("High Score",newString);
+        String guest = "Guest: " + highScore;
+        editor.putString("Guest",guest);
         editor.commit();
     }
 

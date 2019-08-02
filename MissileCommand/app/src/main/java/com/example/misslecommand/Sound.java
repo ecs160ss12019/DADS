@@ -162,4 +162,17 @@ public class Sound {
         });
     }
 
+    public void gameOver() {
+        MediaPlayer gameOver = MediaPlayer.create(context, R.raw.gameover);
+        gameOver.setVolume(volume, volume);
+        gameOver.start();
+        gameOver.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
+                mediaPlayer.release();
+            }
+        });
+    }
+
 }

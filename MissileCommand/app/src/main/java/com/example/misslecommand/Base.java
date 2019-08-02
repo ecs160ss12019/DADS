@@ -13,7 +13,7 @@ public class Base{
     public Context context;
     public boolean status;
     public RectF mRect;
-    private float width = 218;
+    private float width = 300;
     private float height = 300;
     public float xCenter;
     public float yBottom;
@@ -51,7 +51,7 @@ public class Base{
 
     public void update() {
         for (int i = 0; i < missiles.size(); i++) {
-            if (missiles.get(i).done) {
+            if (missiles.get(i).doneExploding) {
                 missiles.remove(i);
             }
         }
