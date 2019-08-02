@@ -68,6 +68,12 @@ public class Hornets {
         float px = finalX - xPosition;
         float py = finalY - yPosition;
 
+        float distance = (float)Math.sqrt(px*px + py*py);
+        float scalar = speed/distance;
+        yVelocity = scalar*py;
+        xVelocity = scalar*px;
+
+        // ROTATION CODE
         double pX = finalX - initX;
         double pY = finalY - initY;
         double slope = pY/pX;
@@ -82,10 +88,7 @@ public class Hornets {
         }
 
 
-        float distance = (float)Math.sqrt(px*px + py*py);
-        float scalar = speed/distance;
-        yVelocity = scalar*py;
-        xVelocity = scalar*px;
+
     }
 
     void update(long fps){
