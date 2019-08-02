@@ -41,8 +41,9 @@ public class Hornets {
     public float finalX;  // The x coordinate of the cow that the hornets are going to fly to
     public float finalY;  // The y coordinate of the cow that the hornets are going to fly to
 
-    public Hornets(int x, int SCREEN_TOP, Cows cow, int roundLevel, Context context){
-        speed = 100;
+    public Hornets(int randX, int SCREEN_TOP, Cows cow, int roundLevel, Context context){
+        speed = 100; // Initial speed: 100 pixels per second
+        // Increase speed depending on what level it is
         for (int i = 1; i < roundLevel; i++){
             if(speed <= MAX_SPEED){
                 speed += 15;
@@ -50,19 +51,19 @@ public class Hornets {
                 break;
             }
         }
-        initX = x;
+        initX = randX;
         initY = SCREEN_TOP;
-        xPosition = x;
+        xPosition = randX;
         yPosition = SCREEN_TOP;
         targetCow = cow;
         finalX = targetCow.xPosition;
         finalY = targetCow.yPosition - targetCow.height;
         status = true;
+
         mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.hornet1);
         mBitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.hornet2);
 
-        mRect = new RectF((float)x - width/2, (float)SCREEN_TOP - height/2, (float)x+width/2, (float)SCREEN_TOP+height/2);
-
+        mRect = new RectF((float)randX - width/2, (float)SCREEN_TOP - height/2, (float)randX+width/2, (float)SCREEN_TOP+height/2);
 
         // VELOCITY CODE
         float px = finalX - xPosition;
@@ -86,13 +87,9 @@ public class Hornets {
         } else {
             rotateDeg += 90;
         }
-
-
-
     }
 
     void update(long fps){
-
         xPosition = xPosition + xVelocity/fps;
         yPosition = yPosition + yVelocity/fps;
 
@@ -104,7 +101,6 @@ public class Hornets {
         // based on the size of the missile
         mRect.right = mRect.left + width;
         mRect.bottom = mRect.top + height;
-
     }
 
     public void kill(){
