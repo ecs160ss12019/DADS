@@ -12,15 +12,20 @@ import java.util.*;
  * The number of hornets spawned is probablistically determined; the higher level the
  * player gets to the more probable a hornet is to spawn.
  */
+
 public class HornetCtrl {
-    public int count =0;
-    public List<Hornets> hornets;
     Random random;
     Context contxt;
+    public int count =0;
+    public List<Hornets> hornets;
     public boolean removeHornet = false;
     public int hornetsToSpawn;
     public int spawnTimer = 0;
 
+    /*
+        HornetCtrl constructor, initializes context and ammo and creates an ArrayList that will store all the hornets that are
+        on the screen currently
+     */
     public HornetCtrl(Context context, int ammo) {
         contxt = context;
         hornetsToSpawn = ammo;
@@ -40,12 +45,10 @@ public class HornetCtrl {
                     hornets.get(i).yPosition,
                     paint);
 
-            // Rotate the canvas depending on the hornet's trajectory and draw it
-            // A counter is used to alternate between the two hornet .png files to
-            // emulate a sprite.
             canvas.save();
-            canvas.rotate( (float)hornets.get(i).rotateDeg, hornets.get(i).xPosition, hornets.get(i).yPosition);
-            //drawRect(hornets.get(i).mRect, paint);
+            canvas.rotate( (float)hornets.get(i).rotateDeg, hornets.get(i).xPosition, hornets.get(i).yPosition);    // Rotate the canvas depending on the hornet's trajectory and draw it
+
+            // A counter is used to alternate between the two hornet .png files to emulate a sprite
             if (count > 100){
                 count = 0;
             }
@@ -57,10 +60,8 @@ public class HornetCtrl {
             }
             count++;
             canvas.restore();
-
         }
     }
-
 
     //Probablistically spawn hornets
     public void spawnHornets(int level, CowsCtrl cowsCtrl, int screenX, Context context) {
@@ -89,5 +90,4 @@ public class HornetCtrl {
             spawnHornets(level, cowsCtrl, screenX, contxt);
         }
     }
-
 }
