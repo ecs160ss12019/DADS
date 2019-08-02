@@ -7,39 +7,40 @@ import android.graphics.RectF;
  * the Base.java method ```fire()``` instantiates a new Missile where the missiles spawn from, i.e.
  * the top of the base.
  *
+ * An array of Missiles are stored in Base.java and BaseCtrl.java is responsible for calling
+ * updating the Missile's location and checks if it is at it's destination which in turn calls
+ * it to explode.
  */
-public class Missile {
 
+public class Missile {
     Sound sound;
     boolean up;
     boolean insane;
 
-    int sequencePtr = 0;
-    boolean explodingFlag = true;
-    long waitTime;
-    int RADIUS_INC = 5;
-    public int radius = 20;
-    public int MAX_EXPL_RADIUS = 130;
-    public int MIN_EXPL_RADIUS = 10;
-    public RectF explodeRect;
-    public boolean exploding;
-
+    // Variables for missile travelling
     public RectF mRect;
-
-    public float speed = 1000;
+    public int width = 70;
+    public int height = 30;
+    public float speed = 1000; // Constant speed, 1000 pixels per second.
     public float xVelocity;
     public float yVelocity;
     public float xCenter;
     public float yCenter;
     public float xDest;
     public float yDest;
-    
-    public int width = 70;
-    public int height = 30;
-    public boolean doneExploding;
-
-    public double rotateRad;
+    public double rotateRad; // Variable used to rotate the missile towards it's destination
     public double rotateDeg;
+
+    // Variables controlling the explosion
+    public RectF explodeRect;
+    public int radius = 20;
+    public int MAX_EXPL_RADIUS = 130;
+    public int MIN_EXPL_RADIUS = 10;
+    int RADIUS_INC = 5;
+    public boolean exploding;
+    public boolean doneExploding;
+    int sequencePtr = 0;
+    long waitTime;
     
     public Missile(float baseXCenter, float baseYTop, float xTouch, float yTouch, Sound snd) {
         // calls the sound.launch() function on creation, because instances off missiles are only created
@@ -67,13 +68,11 @@ public class Missile {
         }
         float px = xDest - xCenter;
 
-
         float distance = (float)Math.sqrt(px*px + py*py);
         float scalar = speed/distance;
 
         yVelocity = scalar*(yDest - yCenter);
         xVelocity = scalar*(xDest - xCenter);
-
 
         double pX = xDest - xCenter;
         double pY = yDest - yCenter;
@@ -85,6 +84,7 @@ public class Missile {
         rotateRad = Math.atan(slope);
         rotateDeg = Math.toDegrees(rotateRad);
 
+        // Need to rotate so the image of the missile aligns
         if (rotateDeg > 0) {
             rotateDeg -= 90;
         } else {
@@ -114,12 +114,11 @@ public class Missile {
             up = false;
         }
     }
-    void update(long fps){
-        // Move the missile based upon the
-        // horizontal and vertical speed
-        // and the current frame rate(fps)
-        if (!exploding) {
 
+    void update(long fps){
+        // Move the missile based upon the horizontal and vertical speed and the current frame rate
+        if (!exploding) {
+            // Update missile location
             xCenter = xCenter + xVelocity / (float) fps;
             yCenter = yCenter + yVelocity / (float) fps;
 
@@ -155,6 +154,9 @@ public class Missile {
 
         // calculates circles that will be used to draw the multi-colored, circular explosion that
         // occurs once the explode function is called when the missile reaches its target destination.
+
+        // Switch statement logic inspired by:
+        // https://github.com/leonardo-ono/JavaMissileCommandGame
         yield:
         while (exploding) {
             switch(sequencePtr) {

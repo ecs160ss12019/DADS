@@ -5,21 +5,35 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.RectF;
 
+/*
+ * The Hornets class is for the hornets flying from the top of the screen
+ * towards the Cows. It's trajectory is calculated from it's random
+ * spawn location. The specific cow it is intended to destroy is randomly chosen
+ * in the HornetCtrl.java class.
+ *
+ * An array of hornets are kept in the HornetCtrl.java class and instantiates
+ * new hornets, the number of which is based on what level the player is on.
+ *
+ */
 public class Hornets {
 
     public boolean status;
 
     public Cows targetCow;
-
-    public RectF mRect;
     Bitmap mBitmap;
     Bitmap mBitmap2;
-    public float speed;
-    private float maxSpeed = 250;
-    public float xVelocity;
-    public float yVelocity;
+
+    public RectF mRect;
     private float width = 160;
     private float height = 90;
+
+    public float speed;
+    private float MAX_SPEED = 250;
+    public float xVelocity;
+    public float yVelocity;
+    public double rotateRad;
+    public double rotateDeg;
+
     public float xPosition;
     public float yPosition;
     public float initX;
@@ -27,12 +41,10 @@ public class Hornets {
     public float finalX;  // The x coordinate of the cow that the hornets are going to fly to
     public float finalY;  // The y coordinate of the cow that the hornets are going to fly to
 
-    public double rotateRad;
-    public double rotateDeg;
     public Hornets(int x, int SCREEN_TOP, Cows cow, int roundLevel, Context context){
         speed = 100;
         for (int i = 1; i < roundLevel; i++){
-            if(speed <= maxSpeed){
+            if(speed <= MAX_SPEED){
                 speed += 15;
             } else {
                 break;
@@ -106,7 +118,9 @@ public class Hornets {
     Bitmap getBitmap(){
         return mBitmap;
     }
-    Bitmap getBitmap2(){ return mBitmap2; }
+    Bitmap getBitmap2(){
+        return mBitmap2;
+    }
 
     public void exploded() {
         status = false;

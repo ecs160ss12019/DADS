@@ -153,7 +153,7 @@ class MissileCommand extends SurfaceView implements Runnable{
     // This is based off of the old pong run() function, but we made it so that update() is only called
     // when state == 1, along with collision detection, but draw() will be called no matter what.
     // This function is essentially the main game loop since it calls the main three functions which
-    // do all of the game.
+    // control the flow of the game.
     @Override
     public void run() {
         // mPlaying gives us finer control
@@ -191,13 +191,16 @@ class MissileCommand extends SurfaceView implements Runnable{
         }
 
     }
-
+    // This function calls the update() functions inside hornet, base, and powerUp controllers, and
+    // also detects when a round has ended, or the player gets a game over.
     private void update() {
         // Call all controller update functions
         if (hornetCtrl != null && baseCtrl != null && powerUpCtrl != null) {
                 hornetCtrl.update(mFPS, levelCtrl.level, cowsCtrl, mScreenX);
                 baseCtrl.update(mFPS);
                 powerUpCtrl.update(mFPS, 1, mScreenX, mScreenY);
+
+                // Next Level
                 if(cowsCtrl.getCowsAlive() == 0){
                     //levelCtrl = new LevelCtrl();
                     cowsCtrl = new CowsCtrl(mScreenY, contxt, sound);
@@ -207,18 +210,20 @@ class MissileCommand extends SurfaceView implements Runnable{
                     sound.pause(sound.background);
                     state = 3;
                 }
+
+                // Game Over
                 else if (hornetCtrl.hornetsToSpawn == 0 && hornetCtrl.hornets.size() == 0) {
                     levelCtrl.nextLevel();
-                    //cowsCtrl = new CowsCtrl(mScreenY, contxt);
                     baseCtrl.base.missiles = new ArrayList<>();
-                    //menuPlayer.start();
                     sound.play(sound.menu);
                     sound.pause(sound.background);
                     state = 2;
                 }
         }
     }
-
+    // This is the function that requires the most amount of optimization if we had more time to do so.
+    // It contains a nested for loop that loops through each exploding missile, then through each
+    // powerUp and hornet to call the appropriate checkCollision function with the two objects.
     private void detectCollisions() {
         // Has the missile hit the hornets or power ups?
         for (int i = 0; i < baseCtrl.base.missiles.size(); i++) {
@@ -233,14 +238,16 @@ class MissileCommand extends SurfaceView implements Runnable{
         }
     }
 
+    // This function takes a hornet and a missile and checks if they have collided by calculating the
+    // distance from the center of the explosion and the hornet. It will then remove the hornet, add
+    // to score, and play the sound effect.
     private void checkCollision(Hornets hornet, Missile missile) {
 
         float dX = Math.abs(hornet.xPosition - missile.xCenter);
         float dY = Math.abs(hornet.yPosition - missile.yCenter);
 
         float dist = (float)Math.sqrt(dX*dX + dY*dY);
-        /*if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
-                && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {*/
+
         if ( dist-45 <= missile.radius){
             hornetCtrl.hornets.remove(hornet);
             killedHornet = true;
@@ -248,14 +255,13 @@ class MissileCommand extends SurfaceView implements Runnable{
             sound.squish();
         }
     }
-
+    // Same as above but checks collision between powerUp and a missile.
     private void checkCollision(PowerUp powerUp, Missile missile) {
         float dX = Math.abs(powerUp.xPosition - missile.xCenter);
         float dY = Math.abs(powerUp.yPosition - missile.yCenter);
 
         float dist = (float)Math.sqrt(dX*dX + dY*dY);
-        /*if (hY < missile.explodeRect.top && hY > missile.explodeRect.bottom
-                && hX > missile.explodeRect.left && hX < missile.explodeRect.right) {*/
+
         if ( dist-35 <= missile.radius){
             powerUpCtrl.powerUps.remove(powerUp);
             baseCtrl.base.ammo = baseCtrl.base.ammo + 4;
@@ -291,7 +297,7 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mPaint.setTextSize(mFontSize-20);
                 //mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
 
-                mCanvas.drawText(" Previous Score:             " + score, mScreenX/2-600, mScreenY/2+50, mPaint);
+                mCanvas.drawText(" Previous Score:              " + score, mScreenX/2-600, mScreenY/2+50, mPaint);
                 mCanvas.drawText( "Cows          " + cowsCtrl.getCowsAlive()+ "x100            +" + cowsCtrl.getCowsAlive()*100, mScreenX/2-600, mScreenY/2+160, mPaint);
                 mCanvas.drawText( "Missiles    " + baseCtrl.base.ammo + "x10              +" + baseCtrl.base.ammo*10, mScreenX/2-600, mScreenY/2+260, mPaint);
                 mCanvas.drawText( "Total Score                    " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/2-600, mScreenY/2+360, mPaint);
