@@ -16,23 +16,19 @@ import java.util.*;
 
 class MissileCommand extends SurfaceView implements Runnable{
 
-    // Are we debugging?
-    private final boolean DEBUGGING = false;
+    private final boolean DEBUGGING = false;        // Are we debugging?
 
     // These objects are needed to do the drawing
     private SurfaceHolder mOurHolder;
     private Canvas mCanvas;
     private Paint mPaint;
 
-    // How many frames per second did we get?
-    private long mFPS;
-    // The number of milliseconds in a second
-    private final int MILLIS_IN_SECOND = 1000;
+    private long mFPS;                              // How many frames per second did we get?
+    private final int MILLIS_IN_SECOND = 1000;      // The number of milliseconds in a second
 
     // Holds the resolution of the screen
     private int mScreenX;
     private int mScreenY;
-    // How big will the text be?
     private int mFontSize;
     private int mFontMargin;
 
@@ -49,24 +45,21 @@ class MissileCommand extends SurfaceView implements Runnable{
     private int highScore = 0;
 
 
-    // This variable is used to determine the current game state, which will mostly differ in the fact
-    // that update is only called in "in game" state, and it also determines what gets drawn and what
-    // happens when the player taps the screen.
-    // We know this isn't the optimal way to do game state, as mentioned by the professor in canvas comments,
-    // but we had to strike a balance between getting the game done in time and using best practices,
-    // and ultimately we went with the quick and dirty method to get done in time. If we had more time,
-    // we would correct this and other bad choices we made for the sake of time.
-    private int state; // 0 = main menu, 1 = in game, 2 = in between levels, 3 = game over
-
+    /*  This variable is used to determine the current game state, which will mostly differ in the fact
+        that update is only called in "in game" state, and it also determines what gets drawn and what
+        happens when the player taps the screen.
+        We know this isn't the optimal way to do game state, as mentioned by the professor in canvas comments,
+        but we had to strike a balance between getting the game done in time and using best practices,
+        and ultimately we went with the quick and dirty method to get done in time. If we had more time,
+        we would correct this and other bad choices we made for the sake of time.
+    */
+    private int state;  // 0 = main menu, 1 = in game, 2 = in between levels, 3 = game over
     private int score;
     private boolean scoreAdjusted = false;
 
-    // Here is the Thread and two control variables
-    private Thread mGameThread = null;
+    private Thread mGameThread = null;      // Main Game thread
 
-    // This volatile variable can be accessed
-    // from inside and outside the thread
-    private volatile boolean mPlaying;
+    private volatile boolean mPlaying;      // This volatile variable can be accessed from inside and outside the thread
     Context contxt;
 
     private int numPowerup;
@@ -77,41 +70,47 @@ class MissileCommand extends SurfaceView implements Runnable{
     private InputStream inputStream = getResources().openRawResource(R.raw.leaderboards);
     private CSVFileCtrl csvFile = new CSVFileCtrl(inputStream);
     private List<String> scoreList = csvFile.read();
-    public SharedPreferences sharedpreferences;
+
+
+    public SharedPreferences sharedpreferences;     // Using SharedPreferences to read and write data to an XML file for the leaderboards.
+
+    /*
+        Arbitrary scores to use in the SharedPreferences XML file
+     */
     private int jackRScore = 9530;
     private int jackAScore = 1500;
     private int johnScore = 100;
     private int shayanSore = 2000;
+
+    /*
+        String that is inputted into the SharedPreferences XML file
+     */
     private String jackHS = "JackR: " + jackRScore;
     private String Shayan = "Shayan: " + shayanSore;
     private String JackA = "JackA " + jackAScore;
     private String John = "John " + johnScore;
-    //List<String> leadeboardList = csvFile.modifyResults(scoreList);
+
 
     public MissileCommand(Context context, int x, int y) {
-        // Super... calls the parent class
-        // constructor of SurfaceView
-        // provided by Android
         super(context);
 
         score = 0;
+        state = 0;
 
-        // Initialize these two members/fields
-        // With the values passesd in as parameters
         mScreenX = x;
         mScreenY = y;
 
-        // Font is 5% (1/20th) of screen width
-        mFontSize = mScreenX / 20;
-        // Margin is 1.5% (1/75th) of screen width
-        mFontMargin = mScreenX / 75;
+        mFontSize = mScreenX / 20;      // Font is 5% (1/20th) of screen width
+        mFontMargin = mScreenX / 75;    // Margin is 1.5% (1/75th) of screen width
 
-        // Initialize the objects
-        // ready for drawing with
-        // getHolder is a method of SurfaceView
-        mOurHolder = getHolder();
+        mOurHolder = getHolder();       // Initialize the objects ready for drawing with getHolder which is a method of SurfaceView
         mPaint = new Paint();
+
         contxt = context;
+
+        /*
+            Use SharedPreferences to store arbitrary leaderboards data of our 4 group members
+         */
         sharedpreferences = contxt.getSharedPreferences("leaderboards", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putString("HS1", jackHS);
@@ -119,8 +118,8 @@ class MissileCommand extends SurfaceView implements Runnable{
         editor.putString("HS3", JackA);
         editor.putString("HS4", John);
         editor.commit();
-        // Initialize the cows and base
-        state = 0;
+
+        // Initializes the objects that we will be working with
         levelCtrl = new LevelCtrl();
         sound = new Sound(context, levelCtrl);
         mainMen = new MainMenu(mScreenX, mScreenY, context);
@@ -129,15 +128,15 @@ class MissileCommand extends SurfaceView implements Runnable{
         baseCtrl = new BaseCtrl(mScreenX/2, mScreenY, context, sound);
         pause = new Pause(mScreenX, mScreenY, context);
 
-        // since state is set to 0, draw will draw the main menu screen when the game is first opened.
-        draw();
+        draw(); // since state is set to 0, draw will draw the main menu screen when the game is first opened.
     }
 
-    // This function is called each time a new level is started, it restocks the base with missiles,
-    // resets the hornet and power up controllers, and starts playing the in-game background music from
-    // the beginning.
+    /*
+        This function is called each time a new level is started, it restocks the base with missiles,
+        resets the hornet and power up controllers, and starts playing the in-game background music from
+        the beginning.
+    */
     private void startNewGame(){
-        // Rest the score and the player's missiles
         scoreAdjusted = false;
         baseCtrl.base.ammo = levelCtrl.numMissiles;
         hornetCtrl = new HornetCtrl(contxt, levelCtrl.numHornets);
@@ -148,51 +147,40 @@ class MissileCommand extends SurfaceView implements Runnable{
         sound.background.seekTo(0);
         sound.background2.seekTo(0);
         sound.play(sound.background);
-
     }
-    // This is based off of the old pong run() function, but we made it so that update() is only called
-    // when state == 1, along with collision detection, but draw() will be called no matter what.
-    // This function is essentially the main game loop since it calls the main three functions which
-    // control the flow of the game.
+
+    /*
+        This is based off of the old pong run() function, but we made it so that update() is only called
+        when state == 1, along with collision detection, but draw() will be called no matter what.
+        This function is essentially the main game loop since it calls the main three functions which
+        control the flow of the game.
+    */
     @Override
     public void run() {
-        // mPlaying gives us finer control
-        // rather than just relying on the calls to run
-        // mPlaying must be true AND
-        // the thread running for the main loop to execute
+        // mPlaying gives us finer control rather than just relying on the calls to run
+        // mPlaying must be true AND the thread running for the main loop to execute
         while (mPlaying) {
 
-            // What time is it now at the start of the loop?
-            long frameStartTime = System.currentTimeMillis();
+            long frameStartTime = System.currentTimeMillis();   // What time is it now at the start of the loop?
 
-            // Provided the game isn't paused call the update method
-
-            // The movement has been handled and collisions
-            // detected now we can draw the scene.
-            if (state == 1) {
+            if (state == 1) {   // Is in game state, update() every frame, and detect collisions between objects in the game
                 update();
                 detectCollisions();
             }
             draw();
+            long timeThisFrame = System.currentTimeMillis() - frameStartTime;   // Store how long the frame/loop take
 
-            // How long did this frame/loop take?
-            // Store the answer in timeThisFrame
-            long timeThisFrame = System.currentTimeMillis() - frameStartTime;
-
-            // Make sure timeThisFrame is at least 1 millisecond
-            // because accidentally dividing by zero crashes the game
+            // Make sure timeThisFrame is at least 1 millisecond because accidentally dividing by zero crashes the game
             if (timeThisFrame > 0) {
-                // Store the current frame rate in mFPS
-                // ready to pass to the update methods of
-                // mBat and mBall next frame/loop
-                mFPS = MILLIS_IN_SECOND / timeThisFrame;
+                mFPS = MILLIS_IN_SECOND / timeThisFrame;    // Store the current frame rate in mFPS so it is ready to be used in the next frame/loop
             }
-
         }
-
     }
-    // This function calls the update() functions inside hornet, base, and powerUp controllers, and
-    // also detects when a round has ended, or the player gets a game over.
+
+    /*
+        This function calls the update() functions inside hornet, base, and powerUp controllers, and
+        also detects when a round has ended, or the player gets a game over.
+     */
     private void update() {
         // Call all controller update functions
         if (hornetCtrl != null && baseCtrl != null && powerUpCtrl != null) {
@@ -202,10 +190,8 @@ class MissileCommand extends SurfaceView implements Runnable{
 
                 // Next Level
                 if(cowsCtrl.getCowsAlive() == 0){
-                    //levelCtrl = new LevelCtrl();
                     cowsCtrl = new CowsCtrl(mScreenY, contxt, sound);
                     baseCtrl.base.missiles = new ArrayList<>();
-                    //menuPlayer.start();
                     sound.gameOver();
                     sound.pause(sound.background);
                     state = 3;
@@ -221,9 +207,12 @@ class MissileCommand extends SurfaceView implements Runnable{
                 }
         }
     }
-    // This is the function that requires the most amount of optimization if we had more time to do so.
-    // It contains a nested for loop that loops through each exploding missile, then through each
-    // powerUp and hornet to call the appropriate checkCollision function with the two objects.
+
+    /*
+        This is the function that requires the most amount of optimization if we had more time to do so.
+        It contains a nested for loop that loops through each exploding missile, then through each
+        powerUp and hornet to call the appropriate checkCollision function with the two objects.
+    */
     private void detectCollisions() {
         // Has the missile hit the hornets or power ups?
         for (int i = 0; i < baseCtrl.base.missiles.size(); i++) {
@@ -238,9 +227,11 @@ class MissileCommand extends SurfaceView implements Runnable{
         }
     }
 
-    // This function takes a hornet and a missile and checks if they have collided by calculating the
-    // distance from the center of the explosion and the hornet. It will then remove the hornet, add
-    // to score, and play the sound effect.
+    /*
+        This function takes a hornet and a missile and checks if they have collided by calculating the
+        distance from the center of the explosion and the hornet. It will then remove the hornet, add
+        to score, and play the sound effect.
+    */
     private void checkCollision(Hornets hornet, Missile missile) {
 
         float dX = Math.abs(hornet.xPosition - missile.xCenter);
@@ -255,6 +246,7 @@ class MissileCommand extends SurfaceView implements Runnable{
             sound.squish();
         }
     }
+
     // Same as above but checks collision between powerUp and a missile.
     private void checkCollision(PowerUp powerUp, Missile missile) {
         float dX = Math.abs(powerUp.xPosition - missile.xCenter);
@@ -272,30 +264,18 @@ class MissileCommand extends SurfaceView implements Runnable{
     // Draw the game objects and the HUD
     void draw() {
         if (mOurHolder.getSurface().isValid()) {
-            // Lock the canvas (graphics memory) ready to draw
-            mCanvas = mOurHolder.lockCanvas();
+            mCanvas = mOurHolder.lockCanvas();      // Lock the canvas (graphics memory) ready to draw
             mPaint.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/Bangers-Regular.ttf"));
 
-
-            if (state == 0) {
+            if (state == 0) {   // Handles the Main Menu screen
                 mainMen.draw(mCanvas, mPaint);
-
                 mOurHolder.unlockCanvasAndPost(mCanvas);
-
-            }
-            else if (state == 2) {
+            } else if (state == 2) {    // In between levels screen
                 backgrnd.draw(mCanvas, mPaint);
-
-                mPaint.setColor(Color.argb
-                        (255, 212,0,0));
-                // Choose the font size
-                mPaint.setTextSize(mFontSize+80);
-
-                mCanvas.drawText("Level " + (levelCtrl.level-1) + " completed!", mScreenX/4,
-                        mScreenY/2 - 100, mPaint);
-
+                mPaint.setColor(Color.argb(255, 212,0,0));
+                mPaint.setTextSize(mFontSize+80);   // Choose the font size
+                mCanvas.drawText("Level " + (levelCtrl.level-1) + " completed!", mScreenX/4,mScreenY/2 - 100, mPaint);
                 mPaint.setTextSize(mFontSize-20);
-                //mCanvas.drawText("Score: " + score + " + " + cowsCtrl.getCowsAlive()*100 + " +" + baseCtrl.base.ammo*10 + " = " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/4, mScreenY/2+300, mPaint);
 
                 mCanvas.drawText(" Previous Score:              " + score, mScreenX/2-600, mScreenY/2+50, mPaint);
                 mCanvas.drawText( "Cows          " + cowsCtrl.getCowsAlive()+ "x100            +" + cowsCtrl.getCowsAlive()*100, mScreenX/2-600, mScreenY/2+160, mPaint);
@@ -303,28 +283,28 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mCanvas.drawText( "Total Score                    " + Integer.toString(score + cowsCtrl.getCowsAlive()*100 + baseCtrl.base.ammo*10) + "!", mScreenX/2-600, mScreenY/2+360, mPaint);
 
                 mOurHolder.unlockCanvasAndPost(mCanvas);
-            } else if (state == 3){
+            } else if (state == 3){     // Game Over Screen
                 backgrnd.drawGameOver(mCanvas, mPaint);
                 if (score > highScore){
                     highScore = score;
                     saveScore();
                 }
-                //backgrnd.draw(mCanvas, mPaint);
-                mPaint.setColor(Color.argb
-                        (255, 212,175,55));
-                // Choose the font size
-                mPaint.setTextSize(mFontSize);
-                mCanvas.drawText("Level " + (levelCtrl.level-1) + " Failed, Your Cows Are Dead", mScreenX/6,
-                        mScreenY/2+125, mPaint);
+                mPaint.setColor(Color.argb(255, 212,175,55));
+
+                mPaint.setTextSize(mFontSize);  // Choose the font size
+                mCanvas.drawText("Level " + (levelCtrl.level-1) + " Failed, Your Cows Are Dead", mScreenX/6,mScreenY/2+125, mPaint);
                 mCanvas.drawText("Score: " + score + ". Tap anywhere to try again.", mScreenX/8, mScreenY/2+400, mPaint);
                 mCanvas.drawText("Your High Score: " + highScore, mScreenX/2, mScreenY/8, mPaint);
                 mCanvas.drawText("Top Scorers", mScreenX/10-100, mScreenY/8, mPaint);
-                //mCanvas.drawText(sharedpreferences.getString("High Score", "null"), mScreenX/10-100, mScreenY/8+115, mPaint);
+
+                // Use temp scores to be able to print out the leaderboards correctly
                 int tempScore = highScore;
                 int temp1 = jackRScore;
                 int temp2 = shayanSore;
                 int temp3 = jackAScore;
                 int hsNum = 1;
+
+                // Prints out the leaderboards in the loop
                 for(int i = 0; i < 4; i++){
                     if(tempScore < temp1){
                         mCanvas.drawText(sharedpreferences.getString("HS"+hsNum, "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
@@ -343,22 +323,10 @@ class MissileCommand extends SurfaceView implements Runnable{
                         tempScore = 0;
                     }
                 }
-
-                //for(int i = 0; i < 4; i++){
-                //    mCanvas.drawText((i+1) + ". " + scoreList.get(i), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
-                //}
-                //csvFile.write("Guest," + Integer.toString(highScore));
                 mOurHolder.unlockCanvasAndPost(mCanvas);
-            }
-            else {
-
-                // Fill the screen with a solid color
-                //mCanvas.drawColor(Color.argb(255, 26, 192, 182));
-                backgrnd.draw(mCanvas, mPaint);
-
-                // Choose a color to paint with
-                mPaint.setColor(Color.argb
-                        (255, 212,175,55));
+            } else {
+                backgrnd.draw(mCanvas, mPaint);     // Fill the screen with a solid color
+                mPaint.setColor(Color.argb(255, 212,175,55));   // Choose a color to paint with
 
                 // Call all controllers draw functions
                 if (cowsCtrl != null && baseCtrl != null && hornetCtrl != null && powerUpCtrl != null) {
@@ -369,27 +337,18 @@ class MissileCommand extends SurfaceView implements Runnable{
                     pause.draw(mCanvas, mPaint, state);
                 }
 
-                // Reset Color to White
-                mPaint.setColor(Color.argb
-                        (255, 212,175,55));
+                mPaint.setColor(Color.argb(255, 212,175,55));   // Reset Color to White
+                mPaint.setTextSize(mFontSize);  // Choose the font size
 
-                // Choose the font size
-                mPaint.setTextSize(mFontSize);
-
-                // Draw the HUD
-                mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);
+                mCanvas.drawText("Score: " + score, mFontMargin, mFontSize, mPaint);    // Draw the HUD
                 mCanvas.drawText("Missiles: " + baseCtrl.base.ammo, mScreenX- 800, mFontSize, mPaint);
-                //mCanvas.drawText("Hornets Left: " + hornetCtrl.hornetsToSpawn, mFontMargin + 1000, mFontSize, mPaint); //hornetCtrl.hornets.size()
 
                 if (DEBUGGING) {
                     printDebuggingText();
                 }
-                // Display the drawing on screen
-                // unlockCanvasAndPost is a method of SurfaceView
-                mOurHolder.unlockCanvasAndPost(mCanvas);
+                mOurHolder.unlockCanvasAndPost(mCanvas);    // Display the drawing on screen unlockCanvasAndPost is a method of SurfaceView
             }
         }
-
     }
 
     // Handle all the screen touches
@@ -397,8 +356,8 @@ class MissileCommand extends SurfaceView implements Runnable{
     public boolean onTouchEvent(MotionEvent motionEvent) {
         float x = motionEvent.getX();
         float y = motionEvent.getY();
-        // This switch block replaces the
-        // if statement from the Sub Hunter game
+
+        // This switch block replaces the if statement from the Sub Hunter game
         switch (motionEvent.getAction() &
                 MotionEvent.ACTION_MASK) {
 
@@ -447,16 +406,18 @@ class MissileCommand extends SurfaceView implements Runnable{
                     else if (choice == 3) {
                         state = 1;
                         sound.play(sound.background);
-
                         break;
                     }
                 }
-
                 break;
         }
         return true;
     }
 
+    /*
+        This function will restart the game by changing the game state and will set all object states to their initial states
+        that they need to be in at the start of the game
+     */
     private void restart() {
         state = 0;
         levelCtrl = new LevelCtrl();
@@ -474,37 +435,29 @@ class MissileCommand extends SurfaceView implements Runnable{
         mPaint.setTextSize(debugSize);
         mCanvas.drawText("FPS: " + mFPS ,
                 10, debugStart + debugSize, mPaint);
-
     }
 
-    // This method is called by MainActivity
-    // when the player quits the game
+    // This method is called by MainActivity when the player pauses the game
     public void pause() {
-
-        // Set mPlaying to false
-        // Stopping the thread isn't
-        // always instant
+        // Stopping the thread isn't always instant
         mPlaying = false;
         try {
-            // Stop the thread
-            mGameThread.join();
+            mGameThread.join();     // Stop the thread
         } catch (InterruptedException e) {
             Log.e("Error:", "joining thread");
         }
-
     }
 
-    // This method is called by MainActivity
-    // when the player starts the game
+    // This method is called by MainActivity when the player continues the game
     public void resume() {
         mPlaying = true;
-        // Initialize the instance of Thread
-        mGameThread = new Thread(this);
-
-        // Start the thread
-        mGameThread.start();
+        mGameThread = new Thread(this); // Initialize the instance of Thread
+        mGameThread.start();    // Start the thread
     }
 
+    /*
+        This function saves the score of the Guest (the player playing the game) to the sharedPreferences XML file
+     */
     public void saveScore(){
         SharedPreferences.Editor editor = sharedpreferences.edit();
         String guest = "Guest: " + highScore;
