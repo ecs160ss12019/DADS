@@ -1,0 +1,74 @@
+﻿Our DADS game starts by running MainActivity.java, which calls the "onCreate()" method, which creates a new "MissileCommand()" game. 
+
+
+The overall logic game is as follows:
+
+
+The game starts and the menu screen is displayed. Then in the MissileCommand.java class the game waits for user input which is handled in it’s "OnTouchEvent()" method. This method is essentially the game loop. There, the "state" variable changes so that "startNewGame()" is called, which just initializes the game data variables. This "state" variable is what takes the player from the game screen to the menu screen, to the game over screen, etc etc.
+
+
+MissileCommand.java:
+Once the game is started, this class constantly calls "draw()" and waits for the player to tap the screen. One the screen is tapped, the (x,y) coordinates are passed through to the "baseCtrl.base.fire()" method which is in the "OnTouchEvent()" method, with state == 1.
+
+
+        Base.java:
+The BaseCtrl.java class holds the only instance of the Base.java class, and once the "fire()" method is called, the Base.java class creates a new instance of a missile by passing in the (x,y) coordinates given by the MissileCommand.java class and places it in the array.
+
+
+        Missile.java:
+This class takes in the (x,y) coordinates mentioned before and calculates it’s X and Y velocity and stores it in its member variables. Now the missile is ready to fly.
+
+
+Everything explained thus far occurs quickly, and the game loop in MissileCommand.java is still calling "update()" and "detectCollisions()". The "update()" method calls the other game object classes to call their own "update()" method. The main objects here are the HornetCtrl, BaseCtrl, and PowerUpCtrl. These update all the moving objects. However, those two functions are only called when the state variable is set to 1, which means it is in-game. State can also be 0, 2, or 3, which correspond to menu, score screen, and game over screen respectively. In those states, only draw will be called.
+
+
+
+
+
+
+
+
+PowerUp.java: update()
+The PowerUp objects drops from a random X coordinate and drops in a straight line at a constant Y velocity. "update()" here just updates it’s new location.
+
+
+        HornetCtrl.java:
+The "update()" method here makes all the Hornet.java objects move along the trajectory. At the start of the game, the Hornets array is empty, so it goes to the line where it is determined probabilistically whether a hornet is to be spawned.
+
+
+        Hornet/Missile.java: update()
+The "update()" methods of both these classes are quite similar. They calculate their initial spawn position and their destination position. For the Hornet object, it’s destination is one of the six Cows it intends to destroy. The Missile object’s destination is the (x,y) coordinate the player touched. The calculations for the trajectory are calculated at the object’s creation and the "update()" method merely adds the correct X and Y velocity so that next time draw() is called it will draw the missile/hornet at it’s updated position.
+
+
+        The Missile, once it reaches its destination, it changes it’s "exploding" boolean variable to “true” and calls its "explode()" method. All the while the "detectCollision()" method in MissileCommand.java is being called, and if there is any collisions between a Hornet and Explosion, Hornet and Cow, or Explosion and PowerUp, then the engine will update the game accordingly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Poster Presentation
