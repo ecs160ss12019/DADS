@@ -314,16 +314,23 @@ class MissileCommand extends SurfaceView implements Runnable{
                 mCanvas.drawText("Your High Score: " + highScore, mScreenX/2, mScreenY/8, mPaint);
                 mCanvas.drawText("Top Scorers", mScreenX/10-100, mScreenY/8, mPaint);
                 //mCanvas.drawText(sharedpreferences.getString("High Score", "null"), mScreenX/10-100, mScreenY/8+115, mPaint);
+                int tempScore = highScore;
+                int temp1 = jackRScore;
+                int temp2 = shayanSore;
+                int temp3 = jackAScore;
                 for(int i = 0; i < 4; i++){
-                    if(highScore > jackRScore){
-                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
-                    } else if(highScore > shayanSore){
-                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
-                    } else if(highScore > jackAScore){
-                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
-                    } else {
+                    if(tempScore < temp1){
                         mCanvas.drawText(sharedpreferences.getString("HS"+(i+1), "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
-
+                        temp1 = 0;
+                    } else if(tempScore < temp2){
+                        mCanvas.drawText(sharedpreferences.getString("HS"+(i+1), "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                        temp2 = 0;
+                    } else if(tempScore < temp3){
+                        mCanvas.drawText(sharedpreferences.getString("HS"+(i+1), "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                        temp3 = 0;
+                    } else{
+                        mCanvas.drawText(sharedpreferences.getString("Guest", "null"), mScreenX/10-100, mScreenY/8+((i+1)*115), mPaint);
+                        tempScore = 0;
                     }
                 }
 
@@ -488,12 +495,10 @@ class MissileCommand extends SurfaceView implements Runnable{
         mGameThread.start();
     }
 
-
     public void saveScore(){
         SharedPreferences.Editor editor = sharedpreferences.edit();
         String guest = "Guest: " + highScore;
         editor.putString("Guest",guest);
         editor.commit();
     }
-
 }
