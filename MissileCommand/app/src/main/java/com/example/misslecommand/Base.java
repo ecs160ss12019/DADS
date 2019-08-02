@@ -51,7 +51,7 @@ public class Base{
 
     public void update() {
         for (int i = 0; i < missiles.size(); i++) {
-            if (missiles.get(i).done) {
+            if (missiles.get(i).doneExploding) {
                 missiles.remove(i);
             }
         }
